@@ -23,13 +23,27 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	Route::get('index/add','IndexController@add');
 
 
+	
+
 });
 
 
 //后台栏目管理
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 
+
 	//后台栏目管理
 	Route::resource('menu','MenuController');
+
+
+	/**
+	 * 	后台个人中心-订单管理
+	 */
+	//订单列表页
+	Route::get('users/orders','OrdersController@orderList');
+	//添加订单页
+	Route::get('users/order/addOrder','OrdersController@addOrder');
+	//添加订单
+	Route::post('users/order/add','OrdersController@add');
 
 });

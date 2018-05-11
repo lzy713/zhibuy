@@ -7,13 +7,13 @@ use Illuminate\Support\ServiceProvider;
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap any application services.
+     * 自定义分页模板
      *
      * @return void
      */
     public function boot()
     {
-        //
+        \Illuminate\Pagination\LengthAwarePaginator::defaultView('pages.page');
     }
 
     /**
