@@ -11,14 +11,18 @@
 .ss_css_but{  font-size:20px; height:36px;}
 
 /*表单*/
-.layui_inp_widht100{ width:100px;}
-.layui_inp_widht150{ width:150px;}
-.layui_inp_widht190{ width:190px;}
-.layui_inp_widht260{ width:260px;}
-.layui_inp_widht300{ width:300px;}
+.layui-form-item .layui_inp_widht100{ width:100px;}
+.layui-form-item .layui_inp_widht150{ width:150px;}
+.layui-form-item .layui_inp_widht190{ width:190px;}
+.layui-form-item .layui_inp_widht260{ width:260px;}
+.layui-form-item .layui_inp_widht300{ width:300px;}
+.layui-form-item .layui_inp_widht400{ width:400px;}
+.layui-form-item .layui_inp_widht500{ width:500px;}
 
 /*下拉菜单*/
 .layui-form-select dl dd.layui-this{background-color:#1E9FFF;}
+
+
 
 /*单选按钮*/
 .layui-form-radioed>i, .layui-form-radio>i:hover{color:#1E9FFF;}
