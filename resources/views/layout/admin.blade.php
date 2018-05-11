@@ -43,8 +43,14 @@
           <a href="javascript:;">个人中心</a>
           <dl class="layui-nav-child">
             <dd><a href="/users/index">会员管理</a></dd>
+            <dd><a href="/admin/users/orders">订单管理</a></dd>
+            <dd><a href="/admin/users/index">收藏管理</a></dd>
+            <dd><a href="/admin/users/index">足迹管理</a></dd>
+            <dd><a href="/admin/users/index">评论管理</a></dd>
+            <dd><a href="/admin/users/index">回复管理</a></dd>
           </dl>
         </li>
+        
         <!-- <li class="layui-nav-item"><a href="/admin/user">用户管理</a></li>
         <li class="layui-nav-item"><a href="">发布商品</a></li> -->
       </ul>
