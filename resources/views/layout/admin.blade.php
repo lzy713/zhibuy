@@ -45,6 +45,13 @@
             <dd><a href="/users/index">会员管理</a></dd>
           </dl>
         </li>
+
+        <li class="layui-nav-item">
+          <a href="javascript:;">后台管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="/admin/menu">菜单管理</a></dd>
+          </dl>
+        </li>
         <!-- <li class="layui-nav-item"><a href="/admin/user">用户管理</a></li>
         <li class="layui-nav-item"><a href="">发布商品</a></li> -->
       </ul>
@@ -69,7 +76,10 @@
     © layui.com - 底部固定区域
   </div>
 </div>
+<script src="/admin/js/jquery.js"></script>
 <script src="/layui/layui.js"></script>
+<script src="/admin/js/dialog.js"></script>
+<script src="/admin/js/common.js"></script>
 @section('js')
 <script>
 //JavaScript代码区域

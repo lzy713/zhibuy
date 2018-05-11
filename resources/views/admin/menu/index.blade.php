@@ -8,6 +8,7 @@
                     <!--面包屑-->
                      <span class="layui-breadcrumb m-right">
                       <a href="/admin/index">控制台</a>
+                      <a href="/admin/menu">菜单管理</a>
                     </span>
                     <!--面包屑-->
                 </blockquote>
@@ -42,7 +43,7 @@
                 <hr class="layui-bg-gray">
                 <a href="javascript:;" title="返回" onclick="javascript:window.history.go(-1)" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">&#xe65c;</a>
                 <a href="javascript:;" onclick="javascript:window.location.reload(true);" title="刷新" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">&#x1002;</a>
-                <a href="/menu/create" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">添加</a>
+                <a href="/admin/menu/create" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">添加</a>
                 <!--返回 刷新 添加-->
 
               <!--内容--> 
@@ -71,7 +72,7 @@
                             <td>汉族</td>
                             <td>1989-10-14</td>
                             <td>
-                                <a href="javascript:;" class="layui-btn layui-btn-xs">添加子栏目</a>
+                                <a href="javascript:;" class="layui-btn layui-btn-xs">添加子菜单</a>
                             <a href="javascript:;" class="layui-btn layui-btn-xs">编辑</a>
                             <a href="javascript:;" class="layui-btn layui-btn-xs layui-bg-red">删除</a>
                             </td>
@@ -96,7 +97,7 @@
 @section('js')
 <script>
 //JavaScript代码区域
-layui.use(['element', 'form', 'layer'], function(){
+layui.use(['element', 'form'], function(){
   var element = layui.element;
   
 });

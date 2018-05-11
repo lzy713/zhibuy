@@ -20,15 +20,16 @@ Route::get('/', function () {
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	//后台首页
 	Route::get('index','IndexController@index');
-
 	Route::get('index/add','IndexController@add');
 
-	Route::resource('user','UserController');
 
 });
 
 
 //后台栏目管理
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
+
+	//后台栏目管理
+	Route::resource('menu','MenuController');
 
 });
