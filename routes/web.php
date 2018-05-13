@@ -20,10 +20,8 @@ Route::get('/', function () {
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	//后台首页
 	Route::get('index','IndexController@index');
-
 	Route::get('index/add','IndexController@add');
 
-	Route::resource('user','UserController');
 
 	
 
@@ -97,6 +95,11 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 
 
 
+	//后台栏目管理
+	Route::resource('menu','MenuController');
+
+
+
 	/**
 	 * 	后台个人中心-订单管理
 	 */
@@ -106,6 +109,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	Route::get('users/order/addOrder','OrdersController@addOrder');
 	//添加订单
 	Route::post('users/order/add','OrdersController@add');
+
 	//订单详情页
 	Route::get('users/order/orderDetail/{id}','OrdersController@orderDetail');
 });
