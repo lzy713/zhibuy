@@ -20,7 +20,7 @@ class Users extends Model
      */
     public function orders()
     {
-        return $this->hasMany('App\Model\Admin\Orders','uid');
+        return $this->hasMany('App\Model\Admin\Orders','id','uid');
     }
 }
 
