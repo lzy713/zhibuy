@@ -15,4 +15,7 @@ class IndexController extends Controller
 	  public function add(){
     	return 123;
 	 }
+
+
+	 
 }

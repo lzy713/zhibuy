@@ -23,12 +23,65 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 
 	Route::get('index/add','IndexController@add');
 
-	Route::resource('user','UserController');
+
+	
 
 });
+
+
 
 
 //后台栏目管理
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 
+	//用户管理
+	Route::resource('user','UserController');
+	
+	
+	//公告管理
+	Route::resource('notice','NoticeController');
+
+	//推荐管理
+	Route::resource('recommend','RecommendController');
+
+	//测评管理
+	Route::resource('recommend','EvaluationController');
+
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//前台
+Route::group(['namespace'=>'Home'],function(){
+
+	Route::get('login','LoginController@login');
+	Route::get('register','RegisterController@register');
+
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+

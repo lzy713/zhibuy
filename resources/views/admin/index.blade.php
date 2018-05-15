@@ -57,22 +57,32 @@
                         </colgroup>
                         <thead>
                           <tr>
-                            <th>#</th>
-                            <th>人物</th>
-                            <th>民族</th>
-                            <th>出场时间</th>
-                            <th>操作</th>
+                            
+                            <th>用户名</th>
+                            <th>真实姓名</th>
+                            <th>密码</th>
+                            <th>头像</th>
+                            <th>性别</th>
+                            <th>手机号</th>
+                            <th>邮箱</th>
+                            <th>状态</th>
+                            <th>注册时间</th>
+                            <th>备注</th>
                           </tr> 
                         </thead>
                         <tbody>
                           <tr>
-                            <td><input type="checkbox" name="" lay-skin="primary"></td>
-                            <td>贤心</td>
-                            <td>汉族</td>
-                            <td>1989-10-14</td>
+                            <td>afsd</td>
+                            <td>张三</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td> 
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td>
-                                <a href="javascript:;" class="layui-btn layui-btn-xs">添加子栏目</a>
-                            <a href="javascript:;" class="layui-btn layui-btn-xs">编辑</a>
+                            <a href="javascript:;" class="layui-btn layui-btn-xs">修改</a>
                             <a href="javascript:;" class="layui-btn layui-btn-xs layui-bg-red">删除</a>
                             </td>
                           </tr>

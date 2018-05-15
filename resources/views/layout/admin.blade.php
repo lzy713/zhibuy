@@ -40,11 +40,43 @@
           </dl>
         </li>
         <li class="layui-nav-item">
-          <a href="javascript:;">个人中心</a>
+          <a href="javascript:;">用户管理</a>
           <dl class="layui-nav-child">
-            <dd><a href="/users/index">会员管理</a></dd>
+            <dd><a href="/admin/user/create">添加用户</a></dd>
+          </dl>
+          <dl class="layui-nav-child">
+            <dd><a href="/admin/user">用户列表</a></dd>
           </dl>
         </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">公告管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="/admin/notice/create">添加公告</a></dd>
+          </dl>
+          <dl class="layui-nav-child">
+            <dd><a href="/admin/notice">公告列表</a></dd>
+          </dl>
+        </li>
+
+        <li class="layui-nav-item">
+          <a href="javascript:;">推荐管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="/admin/recommend/create">添加推荐</a></dd>
+          </dl>
+          <dl class="layui-nav-child">
+            <dd><a href="/admin/recommend">推荐列表</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">测评管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="/admin/recommend/create">添加测评</a></dd>
+          </dl>
+          <dl class="layui-nav-child">
+            <dd><a href="/admin/recommend">测评列表</a></dd>
+          </dl>
+        </li>
+
         <!-- <li class="layui-nav-item"><a href="/admin/user">用户管理</a></li>
         <li class="layui-nav-item"><a href="">发布商品</a></li> -->
       </ul>
