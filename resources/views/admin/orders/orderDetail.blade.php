@@ -71,7 +71,6 @@
 
 
 @section('js')
-<script src="/js/jquery.min.js"></script>
 <script>
 	
 //JavaScript代码区域
