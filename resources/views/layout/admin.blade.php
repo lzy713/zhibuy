@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="/layui/css/layui.css">
 <link rel="stylesheet" href="/admin/css/global.css">
 </head>
+
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
   <div class="layui-header">
