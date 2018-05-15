@@ -33,16 +33,23 @@
       <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
       <ul class="layui-nav layui-nav-tree"  lay-filter="test">
         <li class="layui-nav-item layui-nav-itemed">
-          <a class="" href="javascript:;">商品管理</a>
+          <a class="" href="javascript:;">分类管理</a>
           <dl class="layui-nav-child">
-            <dd><a href="/cates/index">商品分类</a></dd>
-            <dd><a href="/goods/index">商品管理</a></dd>
+            <dd><a href="/admin/cates/index">添加分类</a></dd>
+            <dd><a href="/admin/cates/show">查看分类</a></dd>
           </dl>
         </li>
         <li class="layui-nav-item">
           <a href="javascript:;">个人中心</a>
           <dl class="layui-nav-child">
             <dd><a href="/users/index">会员管理</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">商品管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="/admin/goods/add">添加商品</a></dd>
+            <dd><a href="/admin/goods/show">查看商品</a></dd>
           </dl>
         </li>
         <!-- <li class="layui-nav-item"><a href="/admin/user">用户管理</a></li>
@@ -54,6 +61,11 @@
   <div class="layui-body">
     <!-- 内容主体区域 -->
     <div style="padding: 15px;">
+
+
+
+
+
     	      
             @section('content')   
 	            
@@ -69,7 +81,19 @@
     © layui.com - 底部固定区域
   </div>
 </div>
+<script src="/admin/js/jquery.js"></script>
 <script src="/layui/layui.js"></script>
+<script src="/admin/js/dialog.js"></script>
+<script src="/admin/js/common.js"></script>
+
+
+ <script type="text/javascript" charset="utf-8" src="/admin/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/admin/ueditor/ueditor.all.min.js"> </script>
+    <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+    <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+    <script type="text/javascript" charset="utf-8" src="/admin/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+
 @section('js')
 <script>
 //JavaScript代码区域
