@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminOrderRequest;
 use App\Model\Admin\Order;
 use App\Model\Admin\Detail;
 
@@ -42,17 +43,17 @@ class OrdersController extends Controller
      * 添加订单
      * @param [object] $req [请求对象]
      */
-    public function add(Request $req)
+    public function add(AdminOrderRequest $req)
     {
     	$data = $req->except('_token');
 
     	$res = (new Order)->add($data);
 
     	if (!$res) {
-    		return back()->with('添加失败');
+    		return show(0,'添加失败');
     	}
 
-    	return redirect('/admin/users/orders');
+    	return show(1,'添加成功');
     }
 
     /**
@@ -62,12 +63,35 @@ class OrdersController extends Controller
     public function orderDetail($id)
     {
     	$res = (new Detail)->orderDetail($id);
-    	return view('admin.orders.orderDetail',['res'=>$res,'title'=>'订单详情']);
+    	$order = (new Order)->orderInfo($id);
+
+    	return view('admin.orders.orderDetail',['res'=>$res,'order'=>$order,'title'=>'订单详情']);
     }
 
-
-    public function editOrder()
+    /**
+     * 订单修改页
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function editOrder($id)
     {
-    	return view('admin.orders.editOrder',['title'=>'修改订单页']);
+    	$res = (new Order)->orderEdit($id);
+    	return view('admin.orders.editOrder',['res'=>$res,'title'=>'修改订单页']);
+    }
+
+    /**
+     * 修改订单
+     * @param  AdminOrderRequest $req [验证参数]
+     * @param  [type]            $id  [description]
+     * @return [type]                 [description]
+     */
+    public function updateOrder(AdminOrderRequest $req, $id)
+    {
+    	$data = $req->except('_token');
+    	$res  = (new Order)->updateOrder($id,$data);
+    	if ($res) {
+    		return show(1,'修改成功');
+    	}
+		return show(0,'修改失败');
     }
 }

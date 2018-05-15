@@ -17,7 +17,17 @@
                 </span>
                 <!--面包屑-->
             </blockquote>
-            <hr class="layui-bg-gray">
+          <div>
+            <i class="layui-icon layui-icon-form">&#xe63c;</i>
+            <span>订单号：</span>
+            <span style="color: #FF5722;">{{$order->number}}</span>
+          </div>
+          <div>
+            <i class="layui-icon layui-icon-rmb"></i>
+            <span>总金额：</span>
+            <span style="color: #FF5722;">{{$order->tprice}}</span>
+          </div>
+          <hr class="layui-bg-gray">
           <!--内容--> 
           <form class="layui-form" action="">  
           <table class="layui-table">
@@ -50,7 +60,13 @@
             </tbody>
           </table>
       </form>
+      @if(empty($res[0]))
+        <div>
+          <button class="layui-btn layui-btn-fluid layui-btn-disabled">没有更多内容</button>  
+        </div>
+        @endif
       <!--内容-->
+      <button class="layui-btn layui-btn-normal" onclick="javascript:window.history.go(-1)" lay-submit lay-filter="*">返回</button>
 @endsection
 
 

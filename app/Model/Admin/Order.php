@@ -26,6 +26,13 @@ class Order extends Model
     	return $this->belongsTo('App\Model\Home\Users','uid','id');
     }
 
+
+    public function detail()
+    {
+        return $this->hasMany('App\Model\Admin\Detail','oid','id');
+    }
+
+
     /**
      * 订单列表显示
      * @param  string $status [按状态查询]
@@ -63,9 +70,51 @@ class Order extends Model
     public function add($data)
     {
         $data['createtime'] = time();
+        $data['number']     = date('YmdHis',time()).rand(1000,9999);
+        // dd($data['number']);
         $res = $this->create($data);
 
         return $res; 
     }
 
+    /**
+     * 返回订单号 订单总金额
+     * @param  [int] $id [订单ID]
+     * @return [type]     [description]
+     */
+    public function orderInfo($id)
+    {
+        return $this->select('id','number','tprice')->
+            where('id',$id)->
+            first();
+    }
+
+    /**
+     * 订单修改页，返回收货人，地址，手机号
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function orderEdit($id)
+    {
+        return $this->select('id','consignee','address','phone')->
+            where('id',$id)->
+            first();
+    }
+
+    /**
+     * 修改订单
+     * @param  [int]   $id   [订单ID]
+     * @param  [array] $data [修改的信息]
+     * @return [type]       [description]
+     */
+    public function updateOrder($id, $data)
+    {
+        return $this->where('id',$id)->update($data);
+    }
+
+
+    public function deleteAjax($id)
+    {
+        return $this->Detail()->delete('id',$id);
+    }
 }

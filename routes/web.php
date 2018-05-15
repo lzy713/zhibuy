@@ -31,70 +31,6 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 //后台栏目管理
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	//后台栏目管理
 	Route::resource('menu','MenuController');
 
@@ -112,4 +48,18 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 
 	//订单详情页
 	Route::get('users/order/orderDetail/{id}','OrdersController@orderDetail');
+	//修改订单页
+	Route::get('users/order/editOrder/{id}','OrdersController@editOrder');
+	//修改订单
+	Route::post('users/order/updateOrder/{id}','OrdersController@updateOrder');
+
+	/**
+	 * 订单Ajax
+	 */
+	//点击发货
+	Route::get('users/order/statusAjax','OrderAjaxController@statusAjax');
+	//点击删除
+	Route::get('users/order/deleteAjax','OrderAjaxController@deleteAjax');
+	//判断订单是否可编辑
+	Route::get('users/order/editAjax','OrderAjaxController@editAjax');
 });
