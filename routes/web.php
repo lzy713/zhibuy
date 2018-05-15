@@ -12,38 +12,45 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
-
-
-//后台首页
-Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
-	//后台首页
-	Route::get('index','IndexController@index');
-	Route::get('index/add','IndexController@add');
-
-
-	
-
+    return view('layout.home');
 });
 
 
 //后台栏目管理
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
+	//后台首页
+	Route::get('index','IndexController@index');	
 
+	//上传接口
+	Route::post('upload/upimg','UploadController@upimg');
 
 	//后台栏目管理
+	Route::get('menu/createup','MenuController@createup');//多图上传测试
 	Route::resource('menu','MenuController');
 
-
-	/**
-	 * 	后台个人中心-订单管理
-	 */
-	//订单列表页
-	Route::get('users/orders','OrdersController@orderList');
-	//添加订单页
-	Route::get('users/order/addOrder','OrdersController@addOrder');
-	//添加订单
-	Route::post('users/order/add','OrdersController@add');
-
+	//角色管理
+	Route::resource('role','RoleController');
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

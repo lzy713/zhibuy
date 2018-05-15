@@ -30,6 +30,7 @@
 /*复选框*/
 .layui-form-checkbox[lay-skin="primary"]:hover i{border-color:#1E9FFF;}
 .layui-form-checked[lay-skin="primary"] i{border-color:#1E9FFF; background-color:#1E9FFF;}
+.layui-form-checkbox span{height:auto;}
 
 /*重置按钮*/
 .layui-btn-primary:hover{border-color: #1E9FFF; color: #333}
@@ -50,3 +51,16 @@
 .layui-elem-quote{border-left: 5px solid #1E9FFF; padding:10px; line-height:16px;}
 .refreshr{font-size:18px;}
 
+
+/*分页*/
+.layui-laypage .layui-laypage-curr .layui-laypage-em {background-color:#1E9FFF;}
+.layui-laypage a:hover{color: #1E9FFF;}
+
+
+
+/*图片上传*/
+.upload-icon-img{position: relative;}
+.upload-pre-item .img{margin-top: 5px; width: 116px;height: 76px;}
+.upload-pre-item i {position: absolute;cursor: pointer;top: 9px; right: 0px; background: #2F4056;padding: 2px; line-height: 15px; text-align: center; color: #fff;margin-left: 1px;/* float: left; */ filter: alpha(opacity=80); -moz-opacity: .8; -khtml-opacity: .8; opacity: .8; transition: 1s;}
+.upload-pre-item i:hover{transform:rotate(360deg);}
+.upload-icon-img{ float: left; margin:5px 10px;}

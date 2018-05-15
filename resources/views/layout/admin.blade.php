@@ -32,37 +32,27 @@
     <div class="layui-side-scroll">
       <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
       <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-        <li class="layui-nav-item layui-nav-itemed">
-          <a class="" href="javascript:;">商品管理</a>
-          <dl class="layui-nav-child">
-            <dd><a href="/cates/index">商品分类</a></dd>
-            <dd><a href="/goods/index">商品管理</a></dd>
-          </dl>
-        </li>
-        <li class="layui-nav-item">
-          <a href="javascript:;">个人中心</a>
-          <dl class="layui-nav-child">
-            <dd><a href="/users/index">会员管理</a></dd>
-            <dd><a href="/admin/users/orders">订单管理</a></dd>
-            <dd><a href="/admin/users/index">收藏管理</a></dd>
-            <dd><a href="/admin/users/index">足迹管理</a></dd>
-            <dd><a href="/admin/users/index">评论管理</a></dd>
-            <dd><a href="/admin/users/index">回复管理</a></dd>
-          </dl>
-        </li>
-<<<<<<< HEAD
+        <?php $menu = App\Model\Admin\Menu::getTypeMessage();?>
+        @foreach ($menu as $k=>$v)
+          @if ($v->url == "" && $v->pid == 0)
+          <li class="layui-nav-item">
+            <a class="" href="javascript:;">{{$v->title}}</a>
+            <dl class="layui-nav-child">
+              @foreach ($v->type as $kk=>$vv)
+                  @if ($vv->pid == $v->id)
+                    <dd><a href="{{$vv->url}}" >{{$vv->title}}</a></dd>
+                  @endif
+              @endforeach
+            </dl>
+          </li>
+          @endif
+          @if ($v->url != "" && $v->pid == 0)
+              <li class="layui-nav-item"><a href="{{$v->url}}" target="main">{{$v->title}}</a></li>
+          @endif
+        @endforeach
 
-        <li class="layui-nav-item">
-          <a href="javascript:;">后台管理</a>
-          <dl class="layui-nav-child">
-            <dd><a href="/admin/menu">菜单管理</a></dd>
-          </dl>
-        </li>
-=======
+
         
->>>>>>> 8594c9aba50f0d972b56ba0d15a4639ef6d2a688
-        <!-- <li class="layui-nav-item"><a href="/admin/user">用户管理</a></li>
-        <li class="layui-nav-item"><a href="">发布商品</a></li> -->
       </ul>
     </div>
   </div>
@@ -82,7 +72,10 @@
   
   <div class="layui-footer">
     <!-- 底部固定区域 -->
-    © layui.com - 底部固定区域
+    技术支持：长永&nbsp;&nbsp;&nbsp;&nbsp;
+              孝磊&nbsp;&nbsp;&nbsp;&nbsp;
+              晓博&nbsp;&nbsp;&nbsp;&nbsp;
+              泽赛&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;特别鸣谢：laravel.com&nbsp;&nbsp;&nbsp;&nbsp;layui.com
   </div>
 </div>
 <script src="/admin/js/jquery.js"></script>

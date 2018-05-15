@@ -8,7 +8,7 @@
                     <!--面包屑-->
                      <span class="layui-breadcrumb m-right">
                       <a href="/admin/index">控制台</a>
-                      <a href="/admin/menu">菜单管理</a>
+                      <a href="/admin/role">角色管理</a>
                     </span>
                     <!--面包屑-->
                 </blockquote>
@@ -16,10 +16,10 @@
                 
 
                 <!--搜索-->
-                <form class="layui-form" action="/admin/menu" >
+                <form class="layui-form" action="/admin/role" >
                         <div class="layui-row layui-col-space10">
                             <div class="layui-col-md2">
-                              <input type="text" name="key" autocomplete="off" value="{{$key}}" class="layui-input" placeholder="请输入关键词" >
+                              <input type="text" name="key" autocomplete="off" value="" class="layui-input" placeholder="请输入关键词" >
                             </div>
                             <div class="layui-col-md1">
                               <button class="layui-btn layui-btn-normal ss_css_but layui-icon" lay-submit lay-filter="*">&#xe615;</button>
@@ -32,7 +32,7 @@
                 <hr class="layui-bg-gray">
                 <a href="javascript:;" title="返回" onclick="javascript:window.history.go(-1)" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">&#xe65c;</a>
                 <a href="javascript:;" onclick="javascript:window.location.reload(true);" title="刷新" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">&#x1002;</a>
-                <a href="/admin/menu/create" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">添加</a>
+                <a href="/admin/role/create" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">添加</a>
                 <!--返回 刷新 添加-->
 
               <!--内容--> 
@@ -54,22 +54,19 @@
                         </thead>
                         <tbody>
                           
-                          @foreach ($res as $k => $v)
+                          
                           <tr>
-                            <td>{{$v->title}}</td>
-                            <td>{{$v->url}}</td>
-                            <td>{{$v->listorder}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td>
                            
-                            <a href="/admin/menu/{{$v->id}}/edit" class="layui-btn layui-btn-xs">编辑</a>
-                            <a href="javascript:;" del='delete' del_id='{{$v->id}}' del_method='DELETE' class="layui-btn layui-btn-xs layui-bg-red">删除</a>
-
-                            @if ($v->pid == 0)
-                            <a href="/admin/menu/create?id={{$v->id}}" class="layui-btn layui-btn-xs">添加子菜单</a>
-                            @endif
+                            <a href="/admin/role/10/edit" class="layui-btn layui-btn-xs">编辑</a>
+                            <a href="javascript:;" del='delete' del_id='10' del_method='DELETE' class="layui-btn layui-btn-xs layui-bg-red">删除</a>
+                          
                             </td>
                           </tr>
-                          @endforeach  
+                          
 
                         </tbody>
                       </table>
@@ -95,8 +92,8 @@
 
 //路由地址
 var SCOPE = {
-  'delete_url' : '/admin/menu',
-  'jump_url' : '/admin/menu',
+  'delete_url' : '/admin/role',
+  'jump_url' : '/admin/role',
   }
 
 
