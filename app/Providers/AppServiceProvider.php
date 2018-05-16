@@ -13,7 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        \Illuminate\Pagination\LengthAwarePaginator::defaultView('pages.page');
+
+        //layouts.page是你分页模版的路径
+        \Illuminate\Pagination\LengthAwarePaginator::defaultView('layout.page'); 
+      
     }
 
     /**

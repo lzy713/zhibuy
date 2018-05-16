@@ -12,5 +12,5 @@ class IndexController extends Controller
     public function index(){
     	return view('admin.index',['title'=>'智buy商城管理中心']);
 	}
-
+	
 }

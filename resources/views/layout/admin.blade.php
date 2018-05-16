@@ -33,6 +33,10 @@
       <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
       <ul class="layui-nav layui-nav-tree"  lay-filter="test">
 
+        <?php
+        $routeurl =  \Request::getRequestUri();
+        //var_dump(strpos($routeurl,$vv->url));
+        ?>
         <?php $menu = App\Model\Admin\Menu::getTypeMessage();?>
         @foreach ($menu as $k=>$v)
           @if ($v->url == "" && $v->pid == 0)
@@ -48,12 +52,10 @@
           </li>
           @endif
           @if ($v->url != "" && $v->pid == 0)
-              <li class="layui-nav-item"><a href="{{$v->url}}" target="main">{{$v->title}}</a></li>
+              <li class="layui-nav-item"><a href="{{$v->url}}" >{{$v->title}}</a></li>
           @endif
         @endforeach
 
-
-        
 
       </ul>
     </div>
@@ -63,12 +65,7 @@
     <!-- 内容主体区域 -->
     <div style="padding: 15px;">
 
-
-
-
-
-    	      
-            @section('content')   
+          @section('content')   
 	            
       		@show  
         

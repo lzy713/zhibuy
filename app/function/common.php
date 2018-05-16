@@ -14,12 +14,39 @@ function show($status, $message, $data=array())
 
 //产品分类
 function getName($pid)
-	{
-		if($pid == '0'){
-			return '根分类';
-		} else {
-			$res = DB::table('fd_cates')->where('cid',$pid)->first();
+{
+	if($pid == '0'){
+		return '根分类';
+	} else {
+		$res = DB::table('fd_cates')->where('cid',$pid)->first();
 
-			return $res->cname;
-		}
+		return $res->cname;
 	}
+}
+
+
+//公告
+function getNoticeName($npid)
+	{
+			if($npid == '0'){
+			
+				return '顶级分类';
+			}else{
+				$res = DB::table('fd_notice')->where('nid',$npid)->first();
+				return $res->nname;
+			}
+	}
+
+//状态启用禁用
+function  foo($str)
+{
+	if($str == 1){
+		return '启用';
+	}else{
+		return '禁止';
+	}
+	
+} 
+
+
+
