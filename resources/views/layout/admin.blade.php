@@ -32,28 +32,31 @@
     <div class="layui-side-scroll">
       <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
       <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-        <li class="layui-nav-item layui-nav-itemed">
-          <a class="" href="javascript:;">分类管理</a>
-          <dl class="layui-nav-child">
-            <dd><a href="/admin/cates/index">添加分类</a></dd>
-            <dd><a href="/admin/cates/show">查看分类</a></dd>
-          </dl>
-        </li>
-        <li class="layui-nav-item">
-          <a href="javascript:;">个人中心</a>
-          <dl class="layui-nav-child">
-            <dd><a href="/users/index">会员管理</a></dd>
-          </dl>
-        </li>
-        <li class="layui-nav-item">
-          <a href="javascript:;">商品管理</a>
-          <dl class="layui-nav-child">
-            <dd><a href="/admin/goods/add">添加商品</a></dd>
-            <dd><a href="/admin/goods/show">查看商品</a></dd>
-          </dl>
-        </li>
-        <!-- <li class="layui-nav-item"><a href="/admin/user">用户管理</a></li>
-        <li class="layui-nav-item"><a href="">发布商品</a></li> -->
+
+        <?php
+        $routeurl =  \Request::getRequestUri();
+        //var_dump(strpos($routeurl,$vv->url));
+        ?>
+        <?php $menu = App\Model\Admin\Menu::getTypeMessage();?>
+        @foreach ($menu as $k=>$v)
+          @if ($v->url == "" && $v->pid == 0)
+          <li class="layui-nav-item">
+            <a class="" href="javascript:;">{{$v->title}}</a>
+            <dl class="layui-nav-child">
+              @foreach ($v->type as $kk=>$vv)
+                  @if ($vv->pid == $v->id)
+                    <dd><a href="{{$vv->url}}" >{{$vv->title}}</a></dd>
+                  @endif
+              @endforeach
+            </dl>
+          </li>
+          @endif
+          @if ($v->url != "" && $v->pid == 0)
+              <li class="layui-nav-item"><a href="{{$v->url}}" >{{$v->title}}</a></li>
+          @endif
+        @endforeach
+
+
       </ul>
     </div>
   </div>
@@ -62,12 +65,7 @@
     <!-- 内容主体区域 -->
     <div style="padding: 15px;">
 
-
-
-
-
-    	      
-            @section('content')   
+          @section('content')   
 	            
       		@show  
         
@@ -78,7 +76,10 @@
   
   <div class="layui-footer">
     <!-- 底部固定区域 -->
-    © layui.com - 底部固定区域
+    技术支持：长永&nbsp;&nbsp;&nbsp;&nbsp;
+              孝磊&nbsp;&nbsp;&nbsp;&nbsp;
+              晓博&nbsp;&nbsp;&nbsp;&nbsp;
+              泽赛&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;特别鸣谢：laravel.com&nbsp;&nbsp;&nbsp;&nbsp;layui.com
   </div>
 </div>
 <script src="/admin/js/jquery.js"></script>

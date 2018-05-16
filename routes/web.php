@@ -12,27 +12,47 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
-
-
-//后台首页
-Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
-	//后台首页
-	Route::get('index','IndexController@index');
-
-	Route::get('index/add','IndexController@add');
-
-	Route::resource('user','UserController');
-
-
-	
-
+    return view('layout.home');
 });
 
 
 //后台栏目管理
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
+	//后台首页
+	Route::get('index','IndexController@index');	
+
+	//上传接口
+	Route::post('upload/upimg','UploadController@upimg');
+
+
+	//后台栏目管理
+	Route::get('menu/createup','MenuController@createup');//多图上传测试
+	Route::resource('menu','MenuController');
+
+
+	//角色管理
+	Route::resource('role','RoleController');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -52,5 +72,144 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 
 	Route::get('goods/show','GoodsController@show');
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/**
+	 * 	后台个人中心-订单管理
+	 */
+	//订单列表页
+	Route::get('users/orders','OrdersController@orderList');
+	//添加订单页
+	Route::get('users/order/addOrder','OrdersController@addOrder');
+	//添加订单
+	Route::post('users/order/add','OrdersController@add');
+
+	//订单详情页
+	Route::get('users/order/orderDetail/{id}','OrdersController@orderDetail');
+	//修改订单页
+	Route::get('users/order/editOrder/{id}','OrdersController@editOrder');
+	//修改订单
+	Route::post('users/order/updateOrder/{id}','OrdersController@updateOrder');
+
+	/**
+	 * 订单Ajax
+	 */
+	//点击发货
+	Route::get('users/order/statusAjax','OrderAjaxController@statusAjax');
+	//点击删除
+	Route::get('users/order/deleteAjax','OrderAjaxController@deleteAjax');
+	//判断订单是否可编辑
+	Route::get('users/order/editAjax','OrderAjaxController@editAjax');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//用户管理
+	Route::resource('user','UserController');
+	
+	
+	//公告管理
+	Route::resource('notice','NoticeController');
+
+	//推荐管理
+	Route::resource('recommend','RecommendController');
+
+	//测评管理
+	Route::resource('evaluation','EvaluationController');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });
 
+
+
+
+
+
+
+
+
+//前台
+Route::group(['namespace'=>'Home'],function(){
+
+	Route::get('login','LoginController@login');
+	Route::get('register','RegisterController@register');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+});
