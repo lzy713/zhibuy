@@ -41,7 +41,9 @@
                                 <div class="layui-input-inline layui_inp_widht300">
                                   <select name="pid" lay-verify="required">
                                       <option value="0">根菜单</option>
-                                      <option value="12">写作</option>
+                                      @foreach ($res as $k=>$v)
+                                      <option value="{{$v->id}}" @if ($v->id==$id) selected @endif>{{$v->title}}</option>
+                                      @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -63,7 +65,7 @@
                           	<div class="layui-form-item">
                                 <label class="layui-form-label">排序</label>
                                 <div class="layui-input-block">
-                                  <input type="text" name="listorder" value="1" autocomplete="off" class="layui-input layui_inp_widht300">
+                                  <input type="text" name="listorder" autocomplete="off" value="{{$order}}" class="layui-input layui_inp_widht300">
                                 </div>
                             </div>
 
@@ -101,11 +103,11 @@ var SCOPE = {
 
 //ajax提交token
  var _token = '{{csrf_token()}}';
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': _token
-        }
-    });
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': _token
+    }
+});
 
 
 //JavaScript代码区域

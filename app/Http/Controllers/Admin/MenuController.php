@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MenuRequests;
-use App\Menu;
+use App\Model\Admin\Menu;
+use DB;
 
 
 class MenuController extends Controller
@@ -17,9 +18,17 @@ class MenuController extends Controller
      */
     public function index(Request $request)
     {
-        $res = Menu::select()->orderBy('id')->paginate(); 
+        $res = Menu::select(DB::raw('*,concat(path,id) as paths'))->orderBy('paths')->orderBy('listorder')->where('title','like','%'.$request->input('key').'%')->get(); 
+        
+        foreach ($res as $k => $v) {
+            //获取path路径
+            $foo = explode(',',$v->path);
+            $leval = count($foo)-2;
+            $v->title = str_repeat('&nbsp;&nbsp;&nbsp;',$leval).'|--'.$v->title;
+        }   
 
-        return view('admin.menu.index',['title'=>'菜单管理']);
+        //dd($res);
+        return view('admin.menu.index',['title'=>'菜单管理','res'=>$res,'key'=>$request->input('key')]);
     }
 
     /**
@@ -27,11 +36,19 @@ class MenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
 
-        return view('admin.menu.create',['title'=>'添加菜单']);
+        $res = Menu::select(DB::raw('id,path,title,concat(path,id) as paths'))->orderBy('paths')->orderBy('listorder','desc')->where('pid','0')->get();
+        foreach ($res as $k=>$v)
+        {
+            $foo = explode(',',$v->path);
+            $leval = count($foo)-2;
+            $v->title = str_repeat('&nbsp;&nbsp;&nbsp;',$leval).'|--'.$v->title;
+        }
+
+        $order = Menu::getListOrder();
+        return view('admin.menu.create',['title'=>'添加菜单','res'=>$res,'order'=>$order,'id'=>$request->input('id')]);
     }
 
     /**
@@ -44,21 +61,11 @@ class MenuController extends Controller
     {
       
         $res = $request->all();
-        if($res['pid']== '0'){
-            $res['path'] = '0,';
-        }else{
-            $paths = Menu::where('id',$res['pid'])->first();
-            $res['path'] = $paths['path'].$paths['id'].',';
-        }
-
-        //return dd($res);
-
-         //return dd(Menu::create($res));
-
+        $res['path'] = Menu::getPath($res['pid']);
         try{
             Menu::create($res);
         }catch(\Exception $e){
-            return show(0,'添加失败');
+            return show(0,'添加失败',$res);
         }
             return show(1,'添加成功');
 
@@ -84,6 +91,17 @@ class MenuController extends Controller
     public function edit($id)
     {
         //
+        $res = Menu::select(DB::raw('id,path,title,concat(path,id) as paths'))->orderBy('paths')->orderBy('listorder','desc')->where('pid','0')->get();
+        foreach ($res as $k=>$v)
+        {
+            $foo = explode(',',$v->path);
+            $leval = count($foo)-2;
+            $v->title = str_repeat('&nbsp;&nbsp;&nbsp;',$leval).'|--'.$v->title;
+        }
+
+        $menu = Menu::where('id',$id)->first();
+
+        return view('admin.menu.edit',['title'=>'修改菜单','id'=>$id,'res'=>$res,'menu'=>$menu]);
     }
 
     /**
@@ -93,9 +111,17 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MenuRequests $request, $id)
     {
         //
+        $res = $request->except('_token','_method');
+        $res['path'] = Menu::getPath($res['pid']);
+        try{
+            Menu::where('id',$id)->update($res);
+        }catch(\Exception $e){
+            return show(0,'修改失败');
+        }
+            return show(1,'修改成功');
     }
 
     /**
@@ -106,6 +132,30 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            //删除子菜单
+            Menu::where('path','like','%,'.$id.'%,')->delete();
+
+            //删除自身
+            Menu::where('id',$id)->delete();
+        }catch(\Exception $e){
+            return show(0,'删除失败');
+        }
+            return show(1,'删除成功');
     }
+
+
+
+
+
+    //多图上传测试
+    public function createup(Request $request)
+    {
+         return view('admin.menu.createup',['title'=>'添加菜单']);
+    }
+
+
+
+
+
 }
