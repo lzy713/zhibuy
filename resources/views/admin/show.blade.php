@@ -45,7 +45,7 @@
                 <td><input type="checkbox" name="" lay-skin="primary"></td>
                 <td>{{$v->cid}}</td>
                 <td>{{$v->cname}}</td>
-                <td>{{getname($v->pid)}}</td>
+                <td>{{getName($v->pid)}}</td>
                 <td>{{date('Y-m-d H:i:s', $v->ctime)}}</td>
                 
                 <td>

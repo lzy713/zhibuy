@@ -35,27 +35,47 @@
                 <th>商品编号</th>
                 <th>商品名称</th>
                 <th>商品父类</th>
-                <th>创建时间</th>
+                <th>商品价格</th>
+                <th>商品库存</th>
+                <th>商品图片</th>
+                <th>详情图片</th>
+                <th>商品描述</th>
+                <th>商品状态</th>
+                <th>是否推荐</th>
+                <th>商品销量</th>
                 <th>操作</th>
               </tr> 
             </thead>
             <tbody>
 			
 			
-              <tr>
-                <td><input type="checkbox" name="" lay-skin="primary"></td>
-                <td>213</td>
-                <td>123</td>
-                <td>123</td>
-                <td>213</td>
-                
-                <td>
-                	<a href="javascript:;" class="layui-btn layui-btn-xs">添加子栏目</a>
-                	<a href="" title="编辑" class="layui-btn layui-btn-xs layui-icon">&#xe642;</a>
-                	<a href="" title="删除" class="layui-btn layui-btn-xs layui-bg-red layui-icon">&#xe640;</a>
-                </td>
-              </tr>
-			
+              	<tr>
+	           	@foreach($res as $k=>$v)
+	                <td><input type="checkbox" name="" lay-skin="primary"></td>
+	                <td>{{$v->gid}}</td>
+	                <td>{{$v->gname}}</td>
+	                <td>{{$v->gid}}</td>
+	                <td>{{$v->gprice}}</td>
+	                <td>{{$v->gstock}}</td>
+	                <td>
+	                	@foreach($img as $k1=>$v1)
+						@if($v1->gid == $v->gid)
+	                	<img src="{{$v1->img}}" alt="">
+						@endif
+	                	@endforeach
+	                </td>
+	                <td>图片</td>
+	                <td>{{$v->gdesc}}</td>
+	                <td>{{$v->gstatus}}</td>
+	                <td>{{$v->isrecom}}</td>
+	                <td>{{$v->salenum}}</td>
+	                <td>
+	                	<!-- <a href="javascript:;" class="layui-btn layui-btn-xs">添加子栏目</a> -->
+	                	<a href="" title="编辑" class="layui-btn layui-btn-xs layui-icon">&#xe642;</a>
+	                	<a href="" title="删除" class="layui-btn layui-btn-xs layui-bg-red layui-icon">&#xe640;</a>
+	                </td>
+              	</tr>
+			   	@endforeach
 
             </tbody>
           </table>

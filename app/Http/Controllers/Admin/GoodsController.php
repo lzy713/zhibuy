@@ -105,17 +105,19 @@ class GoodsController extends Controller
     public function show()
     {	
 
-    	//原  select *, concat(path,id) as paths from categroy order By paths
-    	//$res = DB::table('fd_cates')->select(DB::raw('*,concat(path,cid) as paths'))->orderBy('paths')->get();
-
-		//select * from fd_goods LEFT JOIN fd_goodsimg on fd_goods.gid = fd_goodsimg.gid
+    	
     	$res = DB::table('fd_goods')->get();
 
-    	dd($res);
+    	//dd($res);
+
+    	$img = DB::table('fd_goodsimg')->get();
+
+
 
     	return view('admin.goodshow',[
             'title'=>'查看商品',
-            'res'=>$res
+            'res'=>$res,
+            'img'=>$img
         ]);
     }
 
