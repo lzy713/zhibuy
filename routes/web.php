@@ -104,28 +104,28 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	 * 	后台个人中心-订单管理
 	 */
 	//订单列表页
-	Route::get('users/orders','OrdersController@orderList');
+	Route::get('orders','OrdersController@orderList');
 	//添加订单页
-	Route::get('users/order/addOrder','OrdersController@addOrder');
+	Route::get('order/addOrder','OrdersController@addOrder');
 	//添加订单
-	Route::post('users/order/add','OrdersController@add');
+	Route::post('order/add','OrdersController@add');
 
 	//订单详情页
-	Route::get('users/order/orderDetail/{id}','OrdersController@orderDetail');
+	Route::get('order/orderDetail/{id}','OrdersController@orderDetail');
 	//修改订单页
-	Route::get('users/order/editOrder/{id}','OrdersController@editOrder');
+	Route::get('order/editOrder/{id}','OrdersController@editOrder');
 	//修改订单
-	Route::post('users/order/updateOrder/{id}','OrdersController@updateOrder');
+	Route::post('order/updateOrder/{id}','OrdersController@updateOrder');
 
 	/**
 	 * 订单Ajax
 	 */
 	//点击发货
-	Route::get('users/order/statusAjax','OrderAjaxController@statusAjax');
+	Route::get('order/statusAjax','OrderAjaxController@statusAjax');
 	//点击删除
-	Route::get('users/order/deleteAjax','OrderAjaxController@deleteAjax');
+	Route::get('order/deleteAjax','OrderAjaxController@deleteAjax');
 	//判断订单是否可编辑
-	Route::get('users/order/editAjax','OrderAjaxController@editAjax');
+	Route::get('order/editAjax','OrderAjaxController@editAjax');
 
 
 

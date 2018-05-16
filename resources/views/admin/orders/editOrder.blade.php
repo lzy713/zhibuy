@@ -3,7 +3,6 @@
 @section('content')
 
     <!-- 内容主体区域 -->
-    <div style="padding: 15px;">
 	    <blockquote class="layui-elem-quote">
 	        <!--面包屑-->
 	        <span class="layui-breadcrumb m-right">
@@ -14,7 +13,7 @@
 	        <!--面包屑-->
 	    </blockquote>
 	    <!--内容-->
-	    <form class="layui-form" action="/admin/users/order/updateOrder/{{$res->id}}" method="post" id="sub_form">
+	    <form class="layui-form" action="/admin/order/updateOrder/{{$res->id}}" method="post" id="sub_form">
 	        <div class="layui-inline" style="width:100%;">
 	            <div class="layui-tab layui-tab-card">
 	                <ul class="layui-tab-title">
@@ -63,8 +62,6 @@
 	            </div>
 	        </div>
 	    </form>
-	</div>
-</div>
   <!-- 内容主体区域 -->
 @endsection
 
@@ -74,8 +71,8 @@
 
 //路由地址
 var SCOPE = {
-	'save_url' : '/admin/users/order/updateOrder/{{$res->id}}',
-	'jump_url' : '/admin/users/orders',
+	'save_url' : '/admin/order/updateOrder/{{$res->id}}',
+	'jump_url' : '/admin/orders',
 	}
 
 

@@ -17,7 +17,7 @@
                 <!--面包屑-->
             </blockquote>
             
-            <form class="layui-form" action="/admin/users/orders" method="get">
+            <form class="layui-form" action="/admin/orders" method="get">
                     <div class="layui-row layui-col-space10">
                         <div class="layui-col-md2">
                           <select name="status" lay-filter="interest-search" lay-search lay-write>
@@ -36,7 +36,7 @@
                     </div>     
             </form>
             <hr class="layui-bg-gray">
-            <a href="/admin/users/order/addOrder"  title="添加" class="layui-btn normal layui-btn-sm layui-btn-normal layui-icon">&#xe654;</a>
+            <a href="/admin/order/addOrder"  title="添加" class="layui-btn normal layui-btn-sm layui-btn-normal layui-icon">&#xe654;</a>
             <button class="layui-btn layui-btn-sm  layui-bg-red layui-icon">&#xe640;</button>
           <!--内容--> 
           <form class="layui-form" >  
@@ -61,7 +61,7 @@
 	                <th>收货人</th>
 	                <th>收货人电话</th>
 	                <th>收货地址</th>
-	                <th>订单金额</th>
+	                <th>总金额</th>
 	                <th>生成时间</th>
 	                <th>状态</th>
 	                <th>操作</th>
@@ -88,8 +88,8 @@
 						@endif
 	                </td>
 	                <td>
-	                <a href="/admin/users/order/orderDetail/{{$v->id}}" class="layui-btn layui-btn-xs">订单详情</a>
-	                <a href="/admin/users/order/editOrder/{{$v->id}}" title="编辑" class="layui-btn layui-btn-xs layui-icon edit" num="{{$v->id}}">&#xe642;</a>
+	                <a href="/admin/order/orderDetail/{{$v->id}}" class="layui-btn layui-btn-xs">订单详情</a>
+	                <a href="/admin/order/editOrder/{{$v->id}}" title="编辑" class="layui-btn layui-btn-xs layui-icon edit" num="{{$v->id}}">&#xe642;</a>
 	                <button title="删除" class="layui-btn layui-btn-xs layui-bg-red layui-icon deleteAjax" num="{{$v->id}}" lay-submit lay-filter="*">&#xe640;</button>
 	                </td>
 	              </tr>
@@ -116,7 +116,7 @@
 	$('.statusAjax').click(function(){
 		var id = $(this).attr('num');
 		var btn = $(this);
-		$.get('/admin/users/order/statusAjax',{id:id},function($data){
+		$.get('/admin/order/statusAjax',{id:id},function($data){
 			if ($data == '1') {
 				btn.attr('class','layui-btn layui-btn-radius layui-btn-disabled layui-btn-sm');
 				btn.text('已发货');
@@ -129,7 +129,7 @@
 	/* 点击删除订单 */
 	$('.deleteAjax').click(function(){
 		var id = $(this).attr('num');
-		$.get('/admin/users/order/deleteAjax',{id:id},function($data){
+		$.get('/admin/order/deleteAjax',{id:id},function($data){
 
 			if($data.status == 1){
 				return dialog.success($data.message,'');
@@ -143,7 +143,7 @@
 	$('.edit').click(function(){
 		var id  = $(this).attr('num');
 		var urls = $(this).attr('href');
-		$.get('/admin/users/order/editAjax',{id:id},function($data){
+		$.get('/admin/order/editAjax',{id:id},function($data){
 			if ($data['status'] != 0) {
 				return dialog.error('该订单无法被修改');
 			} else {
