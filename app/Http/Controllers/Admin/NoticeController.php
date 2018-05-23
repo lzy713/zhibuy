@@ -109,6 +109,8 @@ class NoticeController extends Controller
             // dd($data);
 
             $res['npath'] = $data->npath.$data->nid.',';
+
+            
         }
         
 
@@ -205,7 +207,7 @@ class NoticeController extends Controller
 
         $ret = DB::table('fd_notice')->where('nid',$id)->delete();
           if($ret){
-            return redirect('/admin/edit')->with('msg','删除成功');
+            return redirect('/admin/notice')->with('msg','删除成功');
           }else{
             return back();
           }

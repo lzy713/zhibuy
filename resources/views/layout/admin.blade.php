@@ -45,7 +45,7 @@
             <dl class="layui-nav-child">
               @foreach ($v->type as $kk=>$vv)
                   @if ($vv->pid == $v->id)
-                    <dd><a href="{{$vv->url}}" >{{$vv->title}}</a></dd>
+                    <dd  @if (strpos($routeurl,$vv->url)===0) class="layui-this" @endif><a href="{{$vv->url}}" >{{$vv->title}}</a></dd>
                   @endif
               @endforeach
             </dl>
@@ -104,5 +104,10 @@ layui.use(['element', 'form'], function(){
 });
 </script>
 @show
+<script type="text/javascript">
+  $('.layui-this').ready(function(){
+      $('.layui-this').parents('li').addClass('layui-nav-itemed');
+    })
+</script>
 </body>
 </html>

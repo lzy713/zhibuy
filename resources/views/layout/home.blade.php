@@ -37,11 +37,19 @@
 					<div class="gouwuche fr"><a href="">购物车</a></div>
 					<div class="fr">
 						<ul>
-							<li><a href="./login.html" target="_blank">登录</a></li>
-							<li>|</li>
-							<li><a href="./register.html" target="_blank" >注册</a></li>
-							<li>|</li>
-							<li><a href="">消息通知</a></li>
+								@if(session('homeFlag')==false)	
+								<li><a href="/login" target="_blank">登录</a><li>
+								<li>|</li>
+								<li><a href="/register.html" target="_blank" >注册</a></li>
+								@else
+								<li><a href="/login" target="_blank">{{session('homeMsg')->username}}</a></li>
+								<li>|</li>
+								<li><a href="/login/self_auth">个人中心</a></li>
+								<li>|</li>
+								<li><a href="/login/loginout">退出</a></li>
+								@endif
+							
+							
 						</ul>
 					</div>
 					<div class="clear"></div>

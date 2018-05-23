@@ -14,7 +14,7 @@ class EvaluationController extends Controller
      */
     public function index()
     {
-        //
+         return  view('admin.evaluat.index',['title'=>'评测列表页面']);
     }
 
     /**
@@ -25,6 +25,9 @@ class EvaluationController extends Controller
     public function create()
     {
         //
+
+
+        
     }
 
     /**

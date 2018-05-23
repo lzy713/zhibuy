@@ -202,7 +202,7 @@ layui.use(['element', 'form', 'upload', 'layer'], function(){
 
   upload.render({ //上传图片
             elem: '#upload_img_icon',
-            url: '/admin/goods/upimg',
+            url: '/admin/upload/upimg',
             multiple: true, //是否允许多文件上传。设置 true即可开启。不支持ie8/9
             before: function(obj) {
                 layer.msg('图片上传中...', {
