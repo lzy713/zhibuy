@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('layout.home');
-});
+
 
 
 //后台登录
@@ -91,15 +89,32 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>'admin'],func
 
 	//商品
 	Route::get('goods/add','GoodsController@add');
-
 	Route::post('goods/create','GoodsController@create');
 	Route::post('goods/upimg','GoodsController@upimg');
-
 	Route::get('goods/show','GoodsController@show');
+	Route::get('goods/goodsedit/{id}','GoodsController@edit');
+	Route::post('goods/goodsupdate/{id}','GoodsController@update');
+	Route::get('goods/goodsdel/{id}','GoodsController@delete');
 
+	Route::get('goods/delimg','GoodsController@delimg');//删除图片
 
+	// 友情链接
+	Route::get('links/addlinks','LinksController@add');
+	Route::post('links/insert','LinksController@ins');
+	Route::get('links/show','LinksController@show');
+	Route::get('links/edit/{id}','LinksController@edit');
+	Route::post('links/update/{id}','LinksController@update');
+	Route::get('links/del/{id}','LinksController@delete');
+	//Route::post('links/lookup','LinksController@look');
 
-
+	//首页栏目
+	Route::get('navs/index','NavsController@index');
+	Route::post('navs/add','NavsController@add');
+	Route::get('navs/show','NavsController@show');
+	Route::get('navs/edit/{id}','NavsController@edit');
+	Route::post('navs/update/{id}','NavsController@update');
+	Route::get('navs/del/{id}','NavsController@delete');
+	
 
 
 
@@ -235,6 +250,75 @@ Route::group(['namespace'=>'Home'],function(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get('/','IndexController@cateslist');
+Route::get('/goodslist/{id}','GoodsController@show');
+Route::get('/goodsdetails/{id}','GoodsController@goodsdetails');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });
 
 
@@ -250,9 +334,7 @@ Route::group(['namespace'=>'Home'],function(){
 
 
 
-/**
- * 购物车
- */
+
 Route::group(['prefix'=>'home'],function(){
 	Route::resource('shopCart','shopCartController');
 	Route::get('order','shopCartController@order');
@@ -260,3 +342,16 @@ Route::group(['prefix'=>'home'],function(){
 	//地址
 	Route::resource('address','AddressController');	
 });
+
+
+
+
+
+
+
+
+
+
+
+
+

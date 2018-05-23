@@ -142,6 +142,7 @@ layui.use(['element', 'form'], function(){
 });
 </script>
 @show
+
 <script type="text/javascript">
   $('.layui-this').ready(function(){
     $(document).ready(function(){
