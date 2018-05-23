@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RoleRequest;
-use App\Model\Admin\Menu;
+use App\Model\Admin\Admin;
 use App\Model\Admin\Role;
+use App\Http\Requests\AdminRequest;
+use Hash;
 
-class RoleController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +18,9 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $res = Role::get();
-        return view('admin.role.index',['title'=>'角色管理','res'=>$res]);
+        //一对一关联角色表
+        $admins = Admin::with('role')->get();
+        return view('admin.admin.index',['title'=>'管理员管理','admins'=>$admins]);
 
     }
 
@@ -29,9 +31,10 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
-        $menu = Menu::getOrderMenusNav();
-        return view('admin.role.create',['title'=>'添加角色','menu'=>$menu]);
+        //读取角色信息
+        $roles = Role::orderBy('id')->get();
+        return view('admin.admin.create',['title'=>'管理员添加','roles'=>$roles]);
+
     }
 
     /**
@@ -40,15 +43,16 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RoleRequest $request)
+    public function store(AdminRequest $request)
     {
-        //
-        $res = $request->all();
-        $res['mid'] = implode(',',$res['mid']);
+        //剔除确认密码，并对密码进行哈希加密
+        $res = $request->except(['repwd']);
+        $res['pwd'] = Hash::make($res['pwd']);
+        
         try{
-            Role::create($res);
+            Admin::create($res);
         }catch(\Exception $e){
-            return show(0,'添加失败',$res);
+            return show(0,'添加失败');
         }
             return show(1,'添加成功');
 
@@ -73,16 +77,15 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //栏目
-        $menu = Menu::getOrderMenusNav();
 
-        //根据id获取
-        $role = Role::where('id',$id)->first();
+        //获取管理员信息
+        $admins = Admin::where('id',$id)->first();
+        
+        //读取角色信息
+        $roles = Role::orderBy('id')->get();    
 
-        //mid数组
-        $menuarr = explode(',',$role->mid);
+        return view('admin.admin.edit',['title'=>'修改管理员','admins'=>$admins,'roles'=>$roles]);
 
-        return view('admin.role.edit',['title'=>'修改角色','menu'=>$menu,'role'=>$role,'menuarr'=>$menuarr]);
     }
 
     /**
@@ -92,13 +95,12 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(RoleRequest $request, $id)
+    public function update(AdminRequest $request, $id)
     {
-        //
-        $res = $request->except('_token','_method');
-        $res['mid'] = implode(',',$res['mid']);
+
+        $res = $request->except(['_method']);
         try{
-            Role::where('id',$id)->update($res);    
+            Admin::where('id',$id)->update($res);
         }catch(\Exception $e){
             return show(0,'修改失败');
         }
@@ -114,12 +116,20 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+
         try{
-            Role::where('id',$id)->delete();
+            Admin::where('id',$id)->delete();
         }catch(\Exception $e){
             return show(0,'删除失败');
         }
             return show(1,'删除成功');
+
     }
+
+
+    public function adminPass()
+    {
+        return view('admin.admin.passup',['title'=>'修改密码']);
+    }
+
 }

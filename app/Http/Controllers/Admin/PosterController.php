@@ -4,22 +4,34 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RoleRequest;
-use App\Model\Admin\Menu;
-use App\Model\Admin\Role;
+use App\Model\Admin\Poster;
+use App\Model\Admin\ClassPoster;
+use App\Http\Requests\PosterRequest;
 
-class RoleController extends Controller
+
+class PosterController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $res = Role::get();
-        return view('admin.role.index',['title'=>'角色管理','res'=>$res]);
+        $cid = $request->input('cid');
+       
 
+        $classPoster = ClassPoster::orderBy('listorder')->get();
+
+        if(empty($cid)){
+            $res = Poster::with('ClassPoster')->orderBy('listorder','desc')->paginate(20);
+        }else
+        {
+          $res = Poster::with('ClassPoster')->where('cid',$cid)->orderBy('listorder','desc')->paginate(20);  
+        }
+        
+        
+        return view('admin.poster.index',['title'=>'广告内容管理','res'=>$res,'classPoster'=>$classPoster,'cid'=>$cid]);
     }
 
     /**
@@ -28,10 +40,12 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
-        $menu = Menu::getOrderMenusNav();
-        return view('admin.role.create',['title'=>'添加角色','menu'=>$menu]);
+    {   
+        //分类
+        $classPoster = ClassPoster::orderBy('listorder')->get();
+        //排序
+        $order = Poster::getListOrder();
+        return view('admin.poster.create',['title'=>'添加广告内容','order'=>$order,'classPoster'=>$classPoster]);
     }
 
     /**
@@ -40,18 +54,15 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RoleRequest $request)
+    public function store(PosterRequest $request)
     {
-        //
         $res = $request->all();
-        $res['mid'] = implode(',',$res['mid']);
         try{
-            Role::create($res);
+            Poster::create($res);
         }catch(\Exception $e){
-            return show(0,'添加失败',$res);
+            return show(0,'添加失败');
         }
             return show(1,'添加成功');
-
     }
 
     /**
@@ -73,16 +84,11 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //栏目
-        $menu = Menu::getOrderMenusNav();
+        //分类
+        $classPoster = ClassPoster::orderBy('listorder')->get();
 
-        //根据id获取
-        $role = Role::where('id',$id)->first();
-
-        //mid数组
-        $menuarr = explode(',',$role->mid);
-
-        return view('admin.role.edit',['title'=>'修改角色','menu'=>$menu,'role'=>$role,'menuarr'=>$menuarr]);
+        $posters = Poster::where('id',$id)->first();
+        return view('admin.poster.edit',['title'=>'修改内容','posters'=>$posters,'classPoster'=>$classPoster]);
     }
 
     /**
@@ -92,13 +98,12 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(RoleRequest $request, $id)
+    public function update(PosterRequest $request, $id)
     {
-        //
-        $res = $request->except('_token','_method');
-        $res['mid'] = implode(',',$res['mid']);
+        $res = $request->except('_method');
+        //dd($res);
         try{
-            Role::where('id',$id)->update($res);    
+            Poster::where('id',$id)->update($res);
         }catch(\Exception $e){
             return show(0,'修改失败');
         }
@@ -116,7 +121,7 @@ class RoleController extends Controller
     {
         //
         try{
-            Role::where('id',$id)->delete();
+            Poster::where('id',$id)->delete();
         }catch(\Exception $e){
             return show(0,'删除失败');
         }

@@ -8,16 +8,17 @@
                     <!--面包屑-->
                      <span class="layui-breadcrumb m-right">
                       <a href="/admin/index">控制台</a>
-                      <a href="/admin/role">角色管理</a>
+                      <a href="/admin/classposter">广告分类管理</a>
                     </span>
                     <!--面包屑-->
                 </blockquote>
-              
+                
+                
                 <!--返回 刷新 添加-->
                 <hr class="layui-bg-gray">
                 <a href="javascript:;" title="返回" onclick="javascript:window.history.go(-1)" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">&#xe65c;</a>
                 <a href="javascript:;" onclick="javascript:window.location.reload(true);" title="刷新" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">&#x1002;</a>
-                <a href="/admin/role/create" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">添加</a>
+                <a href="/admin/classposter/create" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">添加</a>
                 <!--返回 刷新 添加-->
 
               <!--内容--> 
@@ -25,33 +26,30 @@
                       <table class="layui-table">
                         <colgroup>
                           <col width="300">
-                          <col width="300">
-                          <col width="150">
-                          <col width="150">
+                          <col width="50">
+                          <col  width="150">
                         </colgroup>
                         <thead>
                           <tr>
-                            <th>角色名称</th>
-                            <th>角色描述</th>
-                            <th>状态</th>
+                            <th>菜单</th>
+                            <th>排序</th>
                             <th>操作</th>
                           </tr> 
                         </thead>
                         <tbody>
                           
-                          @foreach ($res as $k=>$v)
+                          @foreach ($res as $k => $v)
                           <tr>
-                            <td>{{$v->name}}</td>
-                            <td>{{$v->content}}</td>
-                            <td>{{$v->status}}</td>
+                            <td>{{$v->title}}</td>
+                            <td>{{$v->listorder}}</td>
                             <td>
-                            <a href="/admin/role/{{$v->id}}/edit" class="layui-btn layui-btn-xs">编辑</a>
+                           
+                            <a href="/admin/classposter/{{$v->id}}/edit" class="layui-btn layui-btn-xs">编辑</a>
                             <a href="javascript:;" del='delete' del_id='{{$v->id}}' del_method='DELETE' class="layui-btn layui-btn-xs layui-bg-red">删除</a>
                             </td>
                           </tr>
-                          @endforeach
+                          @endforeach  
                           
-
                         </tbody>
                       </table>
                       <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
@@ -64,7 +62,7 @@
 
                   </form>   
 
-                  
+                  {{ $res->links() }}
               <!--内容-->
               
 
@@ -76,8 +74,8 @@
 
 //路由地址
 var SCOPE = {
-  'delete_url' : '/admin/role',
-  'jump_url' : '/admin/role',
+  'delete_url' : '/admin/classposter',
+  'jump_url' : '/admin/classposter',
   }
 
 

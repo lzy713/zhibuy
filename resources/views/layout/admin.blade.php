@@ -13,18 +13,17 @@
     <div class="layui-logo layui-icon" style="font-size: 26px;">&#xe609;</div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-left">
-      <li class="layui-nav-item"><a href="/admin/index" title="控制台" class="refreshr layui-icon">&#xe638;</a></li>
+      <li class="layui-nav-item"><a href="/admin/index" title="控制台" class="refreshr layui-icon">&#xe665;</a></li>
       <li class="layui-nav-item"><a href="/" target="_blank" title="主页" class="refreshr layui-icon">&#xe68e;</a></li>
     </ul>
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
-        <a href="javascript:;">admin</a>
+        <a href="javascript:;">{{session('adminMsg')->name}}</a>
         <dl class="layui-nav-child">
-          <dd><a href="">基本资料</a></dd>
-          <dd><a href="">修改密码</a></dd>
+          <dd><a href="/admin/admin/pass">修改密码</a></dd>
         </dl>
       </li>
-      <li class="layui-nav-item"><a href="">退出</a></li>
+      <li class="layui-nav-item"><a href="/admin/outLogin">退出</a></li>
     </ul>
   </div>
   
@@ -34,28 +33,67 @@
       <ul class="layui-nav layui-nav-tree"  lay-filter="test">
 
         <?php
-        $routeurl =  \Request::getRequestUri();
-        //var_dump(strpos($routeurl,$vv->url));
+        
+        //获取路由地址
+        //$routeurl =  explode('/', \Request::getRequestUri());
+        //$routeurl = $routeurl[1].'/'.$routeurl[2];
+        $urls = \Route::current();
+        $urls = explode('/', $urls->uri);
+        $routeurl = $urls[0].'/'.$urls[1];
+        
+        //获取栏目信息
+        $adminMenus = App\Model\Admin\Menu::getOrderMenusNav();
+
+        //获取权限栏目列
+        $mids = explode(',',session('adminMid'));
+
+        
+        //dd($urls);
         ?>
-        <?php $menu = App\Model\Admin\Menu::getTypeMessage();?>
-        @foreach ($menu as $k=>$v)
+        @foreach ($adminMenus as $k=>$v)
+          @if (in_array($v->id,$mids)==true && empty($v->url) && $v->pid == 0)
+          
+          <li class="layui-nav-item">
+            <a class="" href="javascript:;">{{$v->title}}</a>
+            <dl class="layui-nav-child">
+
+              @foreach ($v->type as $kk=>$vv)
+                  @if (in_array($vv->id,$mids)!=false && $vv->pid == $v->id)
+                    <dd  @if (strpos($vv->url,$routeurl)) class="layui-this" @endif><a href="{{$vv->url}}<?php echo strpos($routeurl,$vv->url);?>" >{{$vv->title}}</a></dd>
+                  @endif
+              @endforeach
+              
+            </dl>
+          </li>
+          @endif
+          @if (in_array($v->id,$mids)==true && !empty($v->url) && $v->pid == 0)
+              <li class="layui-nav-item"><a href="{{$v->url}}">{{$v->title}}</a></li>
+          @endif
+        @endforeach
+
+
+
+        {{--
+        @foreach ($adminMenus as $k=>$v)
           @if ($v->url == "" && $v->pid == 0)
           <li class="layui-nav-item">
             <a class="" href="javascript:;">{{$v->title}}</a>
             <dl class="layui-nav-child">
+
               @foreach ($v->type as $kk=>$vv)
                   @if ($vv->pid == $v->id)
-                    <dd><a href="{{$vv->url}}" >{{$vv->title}}</a></dd>
+                    <dd  @if (strpos($routeurl,$vv->url)===0) class="layui-this" @endif><a href="{{$vv->url}}" >{{$vv->title}}</a></dd>
                   @endif
               @endforeach
+              
             </dl>
           </li>
           @endif
           @if ($v->url != "" && $v->pid == 0)
-              <li class="layui-nav-item"><a href="{{$v->url}}" >{{$v->title}}</a></li>
+              <li class="layui-nav-item"><a href="{{$v->url}}">{{$v->title}}</a></li>
           @endif
         @endforeach
-
+        --}}
 
       </ul>
     </div>
@@ -66,7 +104,7 @@
     <div style="padding: 15px;">
 
           @section('content')   
-	            
+
       		@show  
         
         
@@ -104,5 +142,10 @@ layui.use(['element', 'form'], function(){
 });
 </script>
 @show
+<script type="text/javascript">
+  $('.layui-this').ready(function(){
+      $('.layui-this').parents('li').addClass('layui-nav-itemed');
+    })
+</script>
 </body>
 </html>

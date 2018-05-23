@@ -16,22 +16,47 @@ Route::get('/', function () {
 });
 
 
+//后台登录
+Route::get('/admin/login','Admin\LoginController@login');
+Route::post('/admin/dologin','Admin\LoginController@doLogin');
+//退出
+Route::get('/admin/outLogin','Admin\LoginController@outLogin');	
+
+//验证码
+Route::get('/admin/captcha','Admin\LoginController@captcha');
+
+//上传接口
+Route::post('/admin/upload/upimg','Admin\UploadController@upimg');
+
+
 //后台栏目管理
-Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
+Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>'admin'],function(){
+
 	//后台首页
 	Route::get('index','IndexController@index');	
 
-	//上传接口
-	Route::post('upload/upimg','UploadController@upimg');
-
+	
 
 	//后台栏目管理
 	Route::get('menu/createup','MenuController@createup');//多图上传测试
 	Route::resource('menu','MenuController');
 
-
 	//角色管理
 	Route::resource('role','RoleController');
+
+	
+	//修改密码
+	Route::get('admin/pass','AdminController@adminPass');
+	Route::post('admin/passup','AdminController@passup');
+	//管理员管理
+	Route::resource('admin','AdminController');
+
+	//广告分类管理
+	Route::resource('classposter','ClassPosterController');
+	//广告内容管理
+	Route::resource('poster','PosterController');
+
+
 
 
 

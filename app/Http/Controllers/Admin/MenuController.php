@@ -18,16 +18,18 @@ class MenuController extends Controller
      */
     public function index(Request $request)
     {
-        $res = Menu::select(DB::raw('*,concat(path,id) as paths'))->orderBy('paths')->orderBy('listorder')->where('title','like','%'.$request->input('key').'%')->get(); 
+        /*$res = Menu::select(DB::raw('*,concat(path,id) as paths'))->orderBy('paths')->orderBy('listorder')->where('title','like','%'.$request->input('key').'%')->get(); 
         
         foreach ($res as $k => $v) {
             //获取path路径
             $foo = explode(',',$v->path);
             $leval = count($foo)-2;
             $v->title = str_repeat('&nbsp;&nbsp;&nbsp;',$leval).'|--'.$v->title;
-        }   
+        }*/   
 
-        //dd($res);
+        // /获取栏目信息
+        $res = Menu::getOrderMenus($request->input('key'));
+
         return view('admin.menu.index',['title'=>'菜单管理','res'=>$res,'key'=>$request->input('key')]);
     }
 
@@ -39,14 +41,18 @@ class MenuController extends Controller
     public function create(Request $request)
     {
 
-        $res = Menu::select(DB::raw('id,path,title,concat(path,id) as paths'))->orderBy('paths')->orderBy('listorder','desc')->where('pid','0')->get();
+       /* $res = Menu::select(DB::raw('id,path,title,concat(path,id) as paths'))->orderBy('paths')->orderBy('listorder','desc')->where('pid','0')->get();
         foreach ($res as $k=>$v)
         {
             $foo = explode(',',$v->path);
             $leval = count($foo)-2;
             $v->title = str_repeat('&nbsp;&nbsp;&nbsp;',$leval).'|--'.$v->title;
-        }
+        }*/
 
+        // /获取栏目信息
+        $res = Menu::getOrderMenus();
+
+        //排序序号
         $order = Menu::getListOrder();
         return view('admin.menu.create',['title'=>'添加菜单','res'=>$res,'order'=>$order,'id'=>$request->input('id')]);
     }
@@ -65,7 +71,7 @@ class MenuController extends Controller
         try{
             Menu::create($res);
         }catch(\Exception $e){
-            return show(0,'添加失败',$res);
+            return show(0,'添加失败');
         }
             return show(1,'添加成功');
 
@@ -90,17 +96,19 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-        //
+        /*//
         $res = Menu::select(DB::raw('id,path,title,concat(path,id) as paths'))->orderBy('paths')->orderBy('listorder','desc')->where('pid','0')->get();
         foreach ($res as $k=>$v)
         {
             $foo = explode(',',$v->path);
             $leval = count($foo)-2;
             $v->title = str_repeat('&nbsp;&nbsp;&nbsp;',$leval).'|--'.$v->title;
-        }
+        }*/
+
+        // /获取栏目信息
+        $res = Menu::getOrderMenus();
 
         $menu = Menu::where('id',$id)->first();
-
         return view('admin.menu.edit',['title'=>'修改菜单','id'=>$id,'res'=>$res,'menu'=>$menu]);
     }
 
@@ -143,7 +151,6 @@ class MenuController extends Controller
         }
             return show(1,'删除成功');
     }
-
 
 
 

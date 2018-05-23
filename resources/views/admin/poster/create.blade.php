@@ -8,7 +8,7 @@
                     <!--面包屑-->
                      <span class="layui-breadcrumb m-right">
                       <a href="/admin/index">控制台</a>
-                      <a href="/admin/menu">菜单管理</a>
+                      <a href="/admin/poster">广告内容管理</a>
                       <a><cite>添加</cite></a>
                     </span>
                     <!--面包屑-->
@@ -22,7 +22,7 @@
                 <!--返回 刷新 添加-->
 
               <!--内容--> 
-                 <form class="layui-form" action="/admin/menu" method="post" id="sub_form">  
+                 <form class="layui-form" action="/admin/poster" method="post" id="sub_form">  
                  <div class="layui-inline" style="width:100%;">
                       <div class="layui-tab layui-tab-card">
                         
@@ -34,36 +34,42 @@
                           <!--tab1-->
                           <div class="layui-tab-item layui-show">
                             
-                            
-                            
                             <div class="layui-form-item">
-                                <label class="layui-form-label">所属菜单</label>
-                                <div class="layui-input-inline layui_inp_widht300">
-                                  <select name="pid" lay-verify="required">
-                                      <option value="0">根菜单</option>
-                                      @foreach ($res as $k=>$v)
-                                      @if($v->pid == 0)
-                                      <option value="{{$v->id}}" @if ($v->id==$id) selected @endif>|--{{$v->title}}</option>
-                                      @endif
+                                <label class="layui-form-label">分类</label>
+                                <div class="layui-input-block layui_inp_widht300">
+                                  <select name="cid" lay-verify="required">
+                                      @foreach ($classPoster as $k=>$v)
+                                      <option value="{{$v->id}}">{{$v->title}}</option>
                                       @endforeach
                                     </select>
                                 </div>
                             </div>
                             
+                            
                             <div class="layui-form-item">
-                                <label class="layui-form-label">菜单名</label>
+                                <label class="layui-form-label">标题</label>
                                 <div class="layui-input-block">
-                                  <input type="text" name="title" placeholder="请输入栏目名称" autocomplete="off" class="layui-input layui_inp_widht300">
+                                  <input type="text" name="title" placeholder="请输入标题" autocomplete="off" class="layui-input layui_inp_widht300">
                                 </div>
                             </div>
 
                             <div class="layui-form-item">
-                                <label class="layui-form-label">路由地址</label>
+                                <label class="layui-form-label">URL</label>
                                 <div class="layui-input-block">
-                                  <input type="text" name="url" placeholder="请输入URL" autocomplete="off" class="layui-input layui_inp_widht300">
+                                  <input type="text" name="url" placeholder="请输入URL" value="javascript:;" autocomplete="off" class="layui-input layui_inp_widht300">
                                 </div>
                             </div>
-                            
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">图片</label>
+                                <div class="layui-input-block">
+                                  
+                                     <button type="button" class="layui-btn layui-btn-primary" id="upload_img_icon">上传图片</button>
+                                    <div class="upload-img-box"></div>
+
+                                </div>
+                            </div>
+
                           	<div class="layui-form-item">
                                 <label class="layui-form-label">排序</label>
                                 <div class="layui-input-block">
@@ -88,7 +94,7 @@
                     
                 </form> 
               <!--内容-->
-
+              
 
 @endsection
 
@@ -98,8 +104,8 @@
 
 //路由地址
 var SCOPE = {
-	'save_url' : '/admin/menu',
-	'jump_url' : '/admin/menu',
+	'save_url' : '/admin/poster',
+	'jump_url' : '/admin/poster',
 	}
 
 
@@ -113,9 +119,31 @@ $.ajaxSetup({
 
 
 //JavaScript代码区域
-layui.use(['element', 'form'], function(){
+layui.use(['element', 'form', 'upload', 'layer'], function(){
   var element = layui.element;
   var form = layui.form;
+  var upload = layui.upload;
+  var layer = layui.layer;
+
+  upload.render({ //上传图片
+      elem: '#upload_img_icon',
+      url: '/admin/upload/upimg',
+      multiple: false, //是否允许多文件上传。设置 true即可开启。不支持ie8/9
+      before: function(obj) {
+          layer.msg('图片上传中...', {
+              icon: 16,
+              shade: 0.01,
+              time: 0
+          })
+      },
+      done: function(res) {
+          layer.close(layer.msg());
+          $('.upload-img-box').append('<div class="upload-icon-img"><div class="upload-pre-item"><i onclick="deleteImg($(this))" class="layui-icon"></i><img src="' + res.data + '" class="img" width="100" height="100" ><input type="hidden" name="pic" value="' + res.data + '" /></div></div>');
+      }
+      ,error: function(){
+          layer.msg('上传错误！');
+      }
+  });
   
 
   form.on('submit(*)', function(data){
@@ -125,5 +153,11 @@ layui.use(['element', 'form'], function(){
 
 
 });
+
+
+
+function deleteImg(obj){
+        obj.parent().parent('.upload-icon-img').remove();
+    }
 </script>
 @show

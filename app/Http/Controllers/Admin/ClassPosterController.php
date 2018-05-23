@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RoleRequest;
-use App\Model\Admin\Menu;
-use App\Model\Admin\Role;
+use App\Http\Requests\ClassPosterRequest;
+use App\Model\Admin\ClassPoster;
 
-class RoleController extends Controller
+class ClassPosterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +16,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $res = Role::get();
-        return view('admin.role.index',['title'=>'角色管理','res'=>$res]);
-
+        $res = ClassPoster::orderBy('listorder')->paginate(10);
+        return view('admin.classposter.index',['title'=>'广告分类管理','res'=>$res]);
     }
 
     /**
@@ -29,9 +27,9 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
-        $menu = Menu::getOrderMenusNav();
-        return view('admin.role.create',['title'=>'添加角色','menu'=>$menu]);
+        //排序序号
+        $order = ClassPoster::getListOrder();
+        return view('admin.classposter.create',['title'=>'广告分类添加','order'=>$order]);
     }
 
     /**
@@ -40,18 +38,15 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RoleRequest $request)
+    public function store(ClassPosterRequest $request)
     {
-        //
         $res = $request->all();
-        $res['mid'] = implode(',',$res['mid']);
         try{
-            Role::create($res);
+            ClassPoster::create($res);
         }catch(\Exception $e){
-            return show(0,'添加失败',$res);
+            return show(0,'添加失败');
         }
             return show(1,'添加成功');
-
     }
 
     /**
@@ -73,16 +68,8 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //栏目
-        $menu = Menu::getOrderMenusNav();
-
-        //根据id获取
-        $role = Role::where('id',$id)->first();
-
-        //mid数组
-        $menuarr = explode(',',$role->mid);
-
-        return view('admin.role.edit',['title'=>'修改角色','menu'=>$menu,'role'=>$role,'menuarr'=>$menuarr]);
+        $class = ClassPoster::where('id',$id)->first();
+        return view('admin.classposter.edit',['title'=>'广告分类修改','class'=>$class]);
     }
 
     /**
@@ -92,18 +79,16 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(RoleRequest $request, $id)
+    public function update(ClassPosterRequest $request, $id)
     {
-        //
         $res = $request->except('_token','_method');
-        $res['mid'] = implode(',',$res['mid']);
+        //dd($res);
         try{
-            Role::where('id',$id)->update($res);    
+            ClassPoster::where('id',$id)->update($res);
         }catch(\Exception $e){
             return show(0,'修改失败');
         }
             return show(1,'修改成功');
-
     }
 
     /**
@@ -114,9 +99,9 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
         try{
-            Role::where('id',$id)->delete();
+            //删除自身
+            ClassPoster::where('id',$id)->delete();
         }catch(\Exception $e){
             return show(0,'删除失败');
         }

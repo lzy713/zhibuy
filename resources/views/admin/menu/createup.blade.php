@@ -94,24 +94,24 @@ layui.use(['element', 'form', 'upload', 'layer'], function(){
 
 
   upload.render({ //上传图片
-            elem: '#upload_img_icon',
-            url: '/admin/upload/upimg',
-            multiple: true, //是否允许多文件上传。设置 true即可开启。不支持ie8/9
-            before: function(obj) {
-                layer.msg('图片上传中...', {
-                    icon: 16,
-                    shade: 0.01,
-                    time: 0
-                })
-            },
-            done: function(res) {
-                layer.close(layer.msg());
-                $('.upload-img-box').append('<div class="upload-icon-img"><div class="upload-pre-item"><i onclick="deleteImg($(this))" class="layui-icon"></i><img src="' + res.data + '" class="img" width="100" height="100" ><input type="hidden" name="icon[]" value="' + res.data + '" /></div></div>');
-            }
-            ,error: function(){
-                layer.msg('上传错误！');
-            }
-        });
+      elem: '#upload_img_icon',
+      url: '/admin/upload/upimg',
+      multiple: true, //是否允许多文件上传。设置 true即可开启。不支持ie8/9
+      before: function(obj) {
+          layer.msg('图片上传中...', {
+              icon: 16,
+              shade: 0.01,
+              time: 0
+          })
+      },
+      done: function(res) {
+          layer.close(layer.msg());
+          $('.upload-img-box').append('<div class="upload-icon-img"><div class="upload-pre-item"><i onclick="deleteImg($(this))" class="layui-icon"></i><img src="' + res.data + '" class="img" width="100" height="100" ><input type="hidden" name="icon[]" value="' + res.data + '" /></div></div>');
+      }
+      ,error: function(){
+          layer.msg('上传错误！');
+      }
+  });
   
 
 

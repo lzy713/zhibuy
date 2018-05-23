@@ -3,7 +3,6 @@
 @section('content')
 
     <!-- 内容主体区域 -->
-    <div style="padding: 15px;">
 	    <blockquote class="layui-elem-quote">
 	        <!--面包屑-->
 	        <span class="layui-breadcrumb m-right">
@@ -63,8 +62,7 @@
 	            </div>
 	        </div>
 	    </form>
-	</div>
-</div>
+
   <!-- 内容主体区域 -->
 @endsection
 
