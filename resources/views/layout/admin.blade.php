@@ -144,8 +144,10 @@ layui.use(['element', 'form'], function(){
 @show
 <script type="text/javascript">
   $('.layui-this').ready(function(){
+    $(document).ready(function(){
       $('.layui-this').parents('li').addClass('layui-nav-itemed');
     })
+   }) 
 </script>
 </body>
 </html>

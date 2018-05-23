@@ -11,7 +11,7 @@ class Users extends Model
     public $timestamps = false;
 
     //设置那些字段可以被添加到数据库
-    protected $fillable = ['usersname','name','password','sex','phone','status'];
+    protected $fillable = ['username','name','password','sex','phone','status'];
 
 
     /**

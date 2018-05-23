@@ -62,6 +62,7 @@ class Menu extends Model
     }
 
 
+
     //分类按等级分类排序
     static private function getMenuMessage($menus, &$arr=[], $pid=0, $grade=0)
     {
@@ -76,7 +77,6 @@ class Menu extends Model
             
         }
     }
-
 
 
 
