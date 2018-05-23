@@ -42,7 +42,9 @@
                                   <select name="pid" lay-verify="required">
                                       <option value="0">根菜单</option>
                                       @foreach ($res as $k=>$v)
-                                      <option value="{{$v->id}}" @if ($v->id==$id) selected @endif>{{$v->title}}</option>
+                                      @if($v->pid == 0)
+                                      <option value="{{$v->id}}" @if ($v->id==$id) selected @endif>|--{{$v->title}}</option>
+                                      @endif
                                       @endforeach
                                     </select>
                                 </div>

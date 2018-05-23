@@ -23,7 +23,7 @@ class UserController extends Controller
 
         $res = DB::table('fd_users')->
         where('username','like','%'.$arr.'%')->
-
+        orderBy('id','asc')->
         paginate(10);
        
         

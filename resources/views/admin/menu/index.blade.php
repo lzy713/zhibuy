@@ -12,8 +12,6 @@
                     </span>
                     <!--面包屑-->
                 </blockquote>
-                
-                
 
                 <!--搜索-->
                 <form class="layui-form" action="/admin/menu" >
@@ -41,8 +39,8 @@
                         <colgroup>
                           <col width="300">
                           <col width="300">
-                          <col width="150">
-                          <col>
+                          <col width="50">
+                          <col  width="150">
                         </colgroup>
                         <thead>
                           <tr>
@@ -56,7 +54,7 @@
                           
                           @foreach ($res as $k => $v)
                           <tr>
-                            <td>{{$v->title}}</td>
+                            <td>{{str_repeat('&nbsp;',$v->grade*3)}}|--{{$v->title}}</td>
                             <td>{{$v->url}}</td>
                             <td>{{$v->listorder}}</td>
                             <td>

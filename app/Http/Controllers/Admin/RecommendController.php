@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
 
 class RecommendController extends Controller
 {
@@ -12,9 +13,29 @@ class RecommendController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
         //
+
+        // $req = DB::table('fd_tuijian')->orderBy('id')->paginate(10);
+
+        $req= DB::table('fd_tuijian')
+            ->join('fd_tuitable','fd_tuijian.path','=','fd_tuitable.tid')
+            ->orderBy('id')
+            ->paginate(10);
+
+            // dd($req);
+
+
+        return  view('admin.recommend.index',
+
+            ['title'=>'推荐商品列表','req' => $req]
+
+           
+
+        );
+
     }
 
     /**
@@ -24,7 +45,16 @@ class RecommendController extends Controller
      */
     public function create()
     {
-        //
+
+         $ref = DB::table('fd_tuitable')->get();
+
+        return  view('admin.recommend.add',[
+
+            'title'=>'添加推荐商品',
+            'ref'=>$ref
+           
+
+        ]);
     }
 
     /**
@@ -36,6 +66,34 @@ class RecommendController extends Controller
     public function store(Request $request)
     {
         //
+
+        /*$res = $request->except('_token');
+
+        $arr = $request->get('icon');
+
+
+        $res['icon'] = $arr['0'];*/
+    /*
+        $data = DB::table('fd_tuijian')->insert($res);
+        if($data){
+            return  redirect('admin/recommend');
+        }else{
+            return  back();
+        }*/
+
+        
+
+         // dd($data);
+        $res = $request->all();
+
+
+        try{
+            DB::table('fd_tuijian')->insert($res);
+        }catch(\Exception $e){
+            return show(0,'添加失败');
+        }
+            return show(1,'添加成功');
+       
     }
 
     /**
@@ -58,6 +116,15 @@ class RecommendController extends Controller
     public function edit($id)
     {
         //
+
+        $req = DB::table('fd_tuijian')->where('id',$id)->first();
+
+        $rec = DB::table('fd_tuitable')->get();
+
+        // dd($rec);
+
+
+        return view('admin.recommend.edit',['title'=>'商品推荐的修改页面','req'=>$req,'rec'=>$rec]);
     }
 
     /**
@@ -70,6 +137,23 @@ class RecommendController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $res = $request->except('_token','_method');
+        // dd($res);
+
+
+        $data = DB::table('fd_tuijian')->where('id',$id)->update($res);
+
+
+        if($data){
+
+            return redirect('/admin/recommend')->with('msg','修改成功');
+        }else{
+
+            return back();
+        }
+
+       
+
     }
 
     /**
@@ -81,5 +165,17 @@ class RecommendController extends Controller
     public function destroy($id)
     {
         //
+        $red = DB::table('fd_tuijian')->where('id',$id)->delete();
+
+
+        if($red){
+            return redirect('/admin/recommend')->with('mgs','删除成功');
+        }else{
+            return back();
+        }
+
+
     }
+
+
 }

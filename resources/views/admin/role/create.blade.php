@@ -41,6 +41,13 @@
                                 </div>
                             </div>
 
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">说明</label>
+                                <div class="layui-input-block">
+                                  <textarea placeholder="请输入内容" name="content" class="layui-textarea layui_inp_widht300"></textarea>
+                                </div>
+                            </div>
+
                             <div class="layui-form-item" pane>
                                 <label class="layui-form-label">状态</label>
                                 <div class="layui-input-block">
@@ -53,9 +60,22 @@
                             <div class="layui-form-item" pane="">
                             <label class="layui-form-label">栏目</label>
                             <div class="layui-input-block">
-                              <input type="checkbox" name="like1[write]" lay-skin="primary" title="写作" checked="">
-                              <input type="checkbox" name="like1[read]" lay-skin="primary" title="阅读">
-                              <input type="checkbox" name="like1[game]" lay-skin="primary" title="游戏" disabled="">
+                              
+                              @foreach ($menu as $k=>$v)
+                                
+                                <input type="checkbox" name="mid[{{$v->id}}]" value="{{$v->id}}" lay-skin="primary" title="{{$v->title}}"><br/>
+                                    @if(count($v->type))
+                                      <div style="width:100%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|__
+                                        @foreach ($v->type as $kk=>$vv)
+                                              &nbsp;&nbsp;<input type="checkbox" name="mid[{{$vv->id}}]" value="{{$vv->id}}" lay-skin="primary" title="{{$vv->title}}">
+                                        @endforeach
+                                      <div>
+                                    @endif
+
+                              @endforeach  
+
+                               
+
                             </div>
                           </div>
                             
@@ -109,5 +129,10 @@ layui.use(['element', 'form'], function(){
   });
 
 });
+
+
+
+
+
 </script>
 @show

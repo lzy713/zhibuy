@@ -26,10 +26,7 @@
       <th lay-data="{field:'name', width:80, sort: true}">父级id号</th>
       <th lay-data="{field:'sex', width:80}">分类路径</th>
       <th lay-data="{field:'status', width:160}">状态</th>
-      
-      
       <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}">操作</th>
-      
       
     </tr>
   </thead>
@@ -45,8 +42,10 @@
   	  <td>{{foo($v->status)}}</td>
   	  <td>
   	  	<div class="layui-table-cell laytable-cell-1-9"> 
+          <a href = "/admin/notice/create"  class="layui-btn layui-btn-xs" lay-event="edit">添加子分类</a>
 					
 				   <a href = "/admin/notice/{{$v->nid}}/edit"  class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+
 
 					<form action="/admin/notice/{{$v->nid}}" method="post" style="display: inline">
             {{csrf_field()}}
@@ -75,13 +74,6 @@
 
 
  {{$req->links()}}
-
-
-  		
-
-
-
-
 
 
 

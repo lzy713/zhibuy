@@ -104,7 +104,7 @@ class CatesController extends Controller
 
     	$data = DB::table('fd_cates')->where('cid',$cid)->update($res);
 
-    	if($res){
+    	if($data){
     		return redirect('admin/cates/show');
     	} else {
     		return back();

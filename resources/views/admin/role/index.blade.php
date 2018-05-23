@@ -12,22 +12,7 @@
                     </span>
                     <!--面包屑-->
                 </blockquote>
-                
-                
-
-                <!--搜索-->
-                <form class="layui-form" action="/admin/role" >
-                        <div class="layui-row layui-col-space10">
-                            <div class="layui-col-md2">
-                              <input type="text" name="key" autocomplete="off" value="" class="layui-input" placeholder="请输入关键词" >
-                            </div>
-                            <div class="layui-col-md1">
-                              <button class="layui-btn layui-btn-normal ss_css_but layui-icon" lay-submit lay-filter="*">&#xe615;</button>
-                            </div>
-                        </div>     
-                </form>
-                <!--搜索-->
-
+              
                 <!--返回 刷新 添加-->
                 <hr class="layui-bg-gray">
                 <a href="javascript:;" title="返回" onclick="javascript:window.history.go(-1)" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">&#xe65c;</a>
@@ -42,30 +27,29 @@
                           <col width="300">
                           <col width="300">
                           <col width="150">
-                          <col>
+                          <col width="150">
                         </colgroup>
                         <thead>
                           <tr>
-                            <th>菜单</th>
-                            <th>URL</th>
-                            <th>排序</th>
+                            <th>角色名称</th>
+                            <th>角色描述</th>
+                            <th>状态</th>
                             <th>操作</th>
                           </tr> 
                         </thead>
                         <tbody>
                           
-                          
+                          @foreach ($res as $k=>$v)
                           <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{$v->name}}</td>
+                            <td>{{$v->content}}</td>
+                            <td>{{$v->status}}</td>
                             <td>
-                           
-                            <a href="/admin/role/10/edit" class="layui-btn layui-btn-xs">编辑</a>
-                            <a href="javascript:;" del='delete' del_id='10' del_method='DELETE' class="layui-btn layui-btn-xs layui-bg-red">删除</a>
-                          
+                            <a href="/admin/role/{{$v->id}}/edit" class="layui-btn layui-btn-xs">编辑</a>
+                            <a href="javascript:;" del='delete' del_id='{{$v->id}}' del_method='DELETE' class="layui-btn layui-btn-xs layui-bg-red">删除</a>
                             </td>
                           </tr>
+                          @endforeach
                           
 
                         </tbody>

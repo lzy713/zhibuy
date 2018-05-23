@@ -9,7 +9,7 @@ $('#sub_button').click(function(){
 	$(data).each(function(){
 		postData[this.name] = this.value;
 	});
-
+	
 	url = SCOPE.save_url;
 	jump_url = SCOPE.jump_url;
 

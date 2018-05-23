@@ -92,9 +92,22 @@
                                   <input type="text" name="gstock" lay-verify="required|title" required placeholder="请输入标题" autocomplete="off" class="layui-input layui_inp_widht300">
                                 </div>
                             </div>
+                            
+                            <div class="box1">
+                              <label class="layui-form-label">商品图片</label>
+                                <div class="controls need-img">
+                                    <button type="button" class="layui-btn layui-btn-primary" id="upload_img">上传图片</button>
+                                   <!-- <div class="layui-input-block"> -->
+                                      <div class="upload-img">
+                                      </div>
+                                   <!--  </div>  -->
+                                </div>
+                            </div> 
 
-							<div class="box1">
-								<label class="layui-form-label">商品图片</label>
+                            <br><hr>
+
+							               <div class="box1">
+							               	<label class="layui-form-label">商品组图</label>
                                 <div class="controls need-img">
                                     <button type="button" class="layui-btn layui-btn-primary" id="upload_img_icon">上传图片</button>
                                     <div class="upload-img-box">
@@ -112,10 +125,10 @@
                                                          		</div>   -->
 
                             	<div class="layui-form-item">
-                                <label class="layui-form-label">详情图片</label>
+                                <label class="layui-form-label">商品图片</label>
                                 <div class="layui-input-block">
                                   
-								   <script id="content"  type="text/plain" name='content'  style="width:700px;height:500px;"></script> 
+						          		   <script id="content"  type="text/plain" name='content'  style="width:700px;height:500px;"></script> 
 
                                 </div>
                             </div>
@@ -200,10 +213,11 @@ layui.use(['element', 'form', 'upload', 'layer'], function(){
   var upload = layui.upload;
   var layer = layui.layer;
 
-  upload.render({ //上传图片
+        upload.render({ //上传图片
             elem: '#upload_img_icon',
-            url: '/admin/goods/upimg',
+            url: '/admin/upload/upimg',
             multiple: true, //是否允许多文件上传。设置 true即可开启。不支持ie8/9
+            number:10,
             before: function(obj) {
                 layer.msg('图片上传中...', {
                     icon: 16,
@@ -220,6 +234,27 @@ layui.use(['element', 'form', 'upload', 'layer'], function(){
             }
         });
 
+      //单图
+        upload.render({ //上传图片
+            elem: '#upload_img',
+            url: '/admin/upload/upimg',
+            multiple: false, //是否允许多文件上传。设置 true即可开启。不支持ie8/9
+            before: function(obj) {
+                layer.msg('图片上传中...', {
+                    icon: 16,
+                    shade: 0.01,
+                    time: 0
+                })
+            },  
+            done: function(res) {
+                layer.close(layer.msg());
+                $('.upload-img').append('<div class="upload-icon-img"><div class="upload-pre-item"><i onclick="deleteImg($(this))" class="layui-icon"></i><img src="' + res.data + '" class="img" width="100" height="100" ><input type="hidden" name="img" value="' + res.data + '" /></div></div>');
+            }
+            ,error: function(){
+                layer.msg('上传错误！');
+            }
+        });
+
 
 });
 
@@ -228,6 +263,9 @@ layui.use(['element', 'form', 'upload', 'layer'], function(){
 
     function deleteImg(obj){
         obj.parent().parent('.upload-icon-img').remove();
+
+
+       
     }
 </script>
 @show

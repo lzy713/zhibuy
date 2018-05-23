@@ -39,18 +39,14 @@
 
   <div class="layui-form-item">
     <label class="layui-form-label">父级分类</label>
-    <div class="layui-input-block">
-      <select name="npid" lay-filter="aihao">
-        <option value="0">请选择</option>
-        @foreach($res as $k=>$v)
-        <option value="{{$v->nid}}">{{$v->nname}}</option>
-        
-       
-       @endforeach
-      </select>
-
-
-     
+     <div class="layui-input-block">
+          <select name="npid" lay-filter="aihao">
+            <option value="0">请选择</option>
+            @foreach($res as $k=>$v)
+            <option value="{{$v->nid}}">{{$v->nname}}</option>
+           @endforeach
+          </select>
+      </div>
   </div>
   
   <div class="layui-form-item">

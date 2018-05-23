@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RoleRequest;
 use App\Model\Admin\Menu;
 use App\Model\Admin\Role;
 
@@ -16,8 +17,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
-        return view('admin.role.index',['title'=>'角色管理']);
+        $res = Role::get();
+        return view('admin.role.index',['title'=>'角色管理','res'=>$res]);
 
     }
 
@@ -29,7 +30,8 @@ class RoleController extends Controller
     public function create()
     {
         //
-        return view('admin.role.create',['title'=>'添加角色']);
+        $menu = Menu::getOrderMenusNav();
+        return view('admin.role.create',['title'=>'添加角色','menu'=>$menu]);
     }
 
     /**
@@ -38,15 +40,15 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
         //
         $res = $request->all();
-        //return $res;
+        $res['mid'] = implode(',',$res['mid']);
         try{
             Role::create($res);
         }catch(\Exception $e){
-            return show(0,'添加失败');
+            return show(0,'添加失败',$res);
         }
             return show(1,'添加成功');
 
@@ -71,7 +73,16 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        //栏目
+        $menu = Menu::getOrderMenusNav();
+
+        //根据id获取
+        $role = Role::where('id',$id)->first();
+
+        //mid数组
+        $menuarr = explode(',',$role->mid);
+
+        return view('admin.role.edit',['title'=>'修改角色','menu'=>$menu,'role'=>$role,'menuarr'=>$menuarr]);
     }
 
     /**
@@ -81,9 +92,18 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RoleRequest $request, $id)
     {
         //
+        $res = $request->except('_token','_method');
+        $res['mid'] = implode(',',$res['mid']);
+        try{
+            Role::where('id',$id)->update($res);    
+        }catch(\Exception $e){
+            return show(0,'修改失败');
+        }
+            return show(1,'修改成功');
+
     }
 
     /**
@@ -95,5 +115,11 @@ class RoleController extends Controller
     public function destroy($id)
     {
         //
+        try{
+            Role::where('id',$id)->delete();
+        }catch(\Exception $e){
+            return show(0,'删除失败');
+        }
+            return show(1,'删除成功');
     }
 }

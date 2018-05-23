@@ -36,20 +36,76 @@ class Menu extends Model
 	}
 
 
-	//递归获取分类信息
-    public static function getTypeMessage($pid=0)
+    //分类排序返回数据 用于栏目管理 插入等级信息
+    static public function getOrderMenus($title='')
     {
-        $res = Menu::where('pid',$pid)->orderBy('listorder')->get();
-        $sub_type = [];
-        foreach($res as $k => $v){
 
-            $v->type = self::getTypeMessage($v->id);
-
-            $sub_type[] = $v;
+        $pid = self::where('title','=',$title)->first();
+        //如果pid不为空，将pid数据插入到数组，grade等于1，否则数组为空，grade等于0
+        if(!empty($pid) || !is_null($pid))
+        {
+           $pid->grade = 0;
+           $meunArr[] = $pid;
+           $grade=1;
+           $pid = $pid->id;
         }
-        return $sub_type;
+        else{
+            $meunArr = [];
+            $pid=0;
+            $grade=0;
+        }
+        
+        $menus = self::orderBy('listorder')->get(); 
+        self::getMenuMessage($menus, $meunArr,$pid,$grade);
 
+        return $meunArr;
     }
 
 
+
+    //分类按等级分类排序
+    static private function getMenuMessage($menus, &$arr=[], $pid=0, $grade=0)
+    {
+        foreach($menus as $k=>$v)
+        {
+            if($v->pid == $pid)
+            {
+                $arr[ $v->id ] = $v;
+                $v->grade = $grade;
+                self::getMenuMessage($menus,$arr,$v->id,$grade+1);
+            }
+            
+        }
+    }
+
+
+
+    //分类排序返回数据 网站侧导航 角色管理使用
+    static public function getOrderMenusNav()
+    {
+        $menus = self::orderBy('listorder')->get(); 
+        $meunArr = self::getMenuNav($menus);
+        return $meunArr;
+    }
+
+    //分类按等级分类排序
+    static private function getMenuNav($menus, $pid=0)
+    {
+        $sub_type = [];
+        foreach($menus as $k=>$v)
+        {
+            if($v->pid == $pid)
+            {
+                $arr[ $v->id ] = $v;
+                $v->type = self::getMenuNav($menus,$v->id);
+                $sub_type[] = $v;
+            }
+        }
+         return $sub_type;
+    }
+
+
+
 }
+
+
