@@ -38,7 +38,7 @@
                 <th>商品价格</th>
                 <th>商品库存</th>
                 <th>商品图片</th>
-                <th>详情图片</th>
+                
                 <th>商品描述</th>
                 <th>商品状态</th>
                 <th>是否推荐</th>
@@ -54,25 +54,26 @@
 	                <td><input type="checkbox" name="" lay-skin="primary"></td>
 	                <td>{{$v->gid}}</td>
 	                <td>{{$v->gname}}</td>
-	                <td>{{$v->gid}}</td>
+	                <td>{{$v->cid}}</td>
 	                <td>{{$v->gprice}}</td>
-	                <td>{{$v->gstock}}</td>
-	                <td>
-	                	@foreach($img as $k1=>$v1)
-						@if($v1->gid == $v->gid)
-	                	<img src="{{$v1->img}}" alt="">
-						@endif
-	                	@endforeach
-	                </td>
-	                <td>图片</td>
+                  <td>{{$v->gstock}}</td>
+	                <td><img src="{{$v->img}}" alt=""></td>
+	               <!--  <td>
+                   @foreach($img as $k1=>$v1)
+                             @if($v1->gid == $v->gid)
+                   <img src="{{$v1->img}}" alt="">
+                             @endif
+                   @endforeach
+                 </td>
+                 <td>图片</td> -->
 	                <td>{{$v->gdesc}}</td>
 	                <td>{{$v->gstatus}}</td>
 	                <td>{{$v->isrecom}}</td>
 	                <td>{{$v->salenum}}</td>
 	                <td>
 	                	<!-- <a href="javascript:;" class="layui-btn layui-btn-xs">添加子栏目</a> -->
-	                	<a href="" title="编辑" class="layui-btn layui-btn-xs layui-icon">&#xe642;</a>
-	                	<a href="" title="删除" class="layui-btn layui-btn-xs layui-bg-red layui-icon">&#xe640;</a>
+	                	<a href="/admin/goods/goodsedit/{{$v->gid}}" title="编辑" class="layui-btn layui-btn-xs layui-icon">&#xe642;</a>
+	                	<a href="/admin/goods/goodsdel/{{$v->gid}}" title="删除" class="layui-btn layui-btn-xs layui-bg-red layui-icon">&#xe640;</a>
 	                </td>
               	</tr>
 			   	@endforeach
