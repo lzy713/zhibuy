@@ -7,6 +7,7 @@
 	</head>
 	<body>
 	<!-- start header -->
+	@section('header')
 		<header>
 			<div class="top center">
 				<div class="left fl">
@@ -51,7 +52,7 @@
 		</header>
 	<!--end header -->
 
-<!-- start banner_x -->
+	<!-- start banner_x -->
 		<div class="banner_x center">
 			<a href="./index.html" target="_blank"><div class="logo fl"></div></a>
 			<a href=""><div class="ad_top fl"></div></a>
@@ -81,6 +82,8 @@
 				<div class="clear"></div>
 			</div>
 		</div>
+	@show
+	
 <!-- end banner_x -->
 	 @section('content')   
 	<!-- start banner_y -->
@@ -1524,7 +1527,7 @@
 				</div>				
 			</div>
 		</div>
-		@show  
+	@show  
 
 			
 		<footer class="mt20 center">			

@@ -150,6 +150,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 
 
 
+
+
 	//用户管理
 	Route::resource('user','UserController');
 	
@@ -201,8 +203,16 @@ Route::group(['namespace'=>'Home'],function(){
 
 
 
+	/**
+	 * 购物车
+	 */
+	Route::group(['prefix'=>'home'],function(){
+		Route::resource('shopCart','shopCartController');
+		Route::get('order','shopCartController@order');
 
-
+		//地址
+		Route::resource('address','AddressController');	
+	});
 
 
 

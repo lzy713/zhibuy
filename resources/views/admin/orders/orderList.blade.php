@@ -36,8 +36,7 @@
                     </div>     
             </form>
             <hr class="layui-bg-gray">
-            <a href="/admin/order/addOrder"  title="添加" class="layui-btn normal layui-btn-sm layui-btn-normal layui-icon">&#xe654;</a>
-            <button class="layui-btn layui-btn-sm  layui-bg-red layui-icon">&#xe640;</button>
+            
           <!--内容--> 
           <form class="layui-form" >  
 	          <table class="layui-table">
@@ -68,10 +67,10 @@
 	              </tr> 
 	            </thead>
 	            <tbody>
-				@foreach($res as $k=>$v)            
+				@foreach($res as $k=>$v)
 	              <tr>
 	                <td><input type="checkbox" name="" lay-skin="primary"></td>
-	                <td>{{$v->user->username}}</td>
+	                <td>{{$v->uname}}</td>
 	                <td>{{$v->number}}</td>
 	                <td>{{$v->consignee}}</td>
 	                <td>{{$v->phone}}</td>
@@ -110,7 +109,6 @@
 
 @section('js')
 <script>
-	
 
 	/* 点击发货修改状态 */
 	$('.statusAjax').click(function(){
@@ -129,9 +127,9 @@
 	/* 点击删除订单 */
 	$('.deleteAjax').click(function(){
 		var id = $(this).attr('num');
+		
 		$.get('/admin/order/deleteAjax',{id:id},function($data){
-
-			if($data.status == 1){
+			if($data.status == '1'){
 				return dialog.success($data.message,'');
 			}else{
 				return dialog.error($data.message);
@@ -166,4 +164,4 @@ layui.use(['element', 'form', 'layer'], function(){
 
 });
 </script>
-@show
+@endsection

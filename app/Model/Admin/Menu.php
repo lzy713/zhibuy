@@ -40,7 +40,6 @@ class Menu extends Model
     public static function getTypeMessage($pid=0)
     {
         $res = Menu::where('pid',$pid)->orderBy('listorder')->get();
-
         $sub_type = [];
         foreach($res as $k => $v){
 
@@ -48,7 +47,6 @@ class Menu extends Model
 
             $sub_type[] = $v;
         }
-
         return $sub_type;
 
     }

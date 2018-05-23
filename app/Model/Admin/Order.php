@@ -3,6 +3,8 @@
 namespace App\Model\Admin;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Model\Home\Address;
+use App\Model\Home\Cart;
 
 class Order extends Model
 {
@@ -26,10 +28,13 @@ class Order extends Model
     	return $this->belongsTo('App\Model\Home\Users','uid','id');
     }
 
-
+    /**
+     * 订单表与订单详情表一对多                        
+     * @return [type] [description]
+     */
     public function detail()
     {
-        return $this->hasMany('App\Model\Admin\Detail','oid','id');
+        return $this->hasMany('App\Model\Admin\Detail','onumber','number');
     }
 
 
@@ -67,14 +72,43 @@ class Order extends Model
      * 添加订单
      * @param [array] $data [要添加的信息]
      */
-    public function add($data)
-    {
+    public function add()
+    {   
+        //主表
+        $data = [];
+        //收货人信息
+        $address = Address::where('uid',1)->where('status','1')->first();
+        $data['consignee'] = $address->name;
+        $data['address']   = $address->province.' '.$address->city.' '.$address->area.' '.$address->street;
+        $data['phone']     = $address->phone;
+
         $data['createtime'] = time();
         $data['number']     = date('YmdHis',time()).rand(1000,9999);
+        $data['uid']        = 1;
+
+        //详情表
+        $info = [];
+        //商品信息
+        $data['tprice'] = 0;
+        $Cart = Cart::where('uid',1)->where('status','1')->get();
+        foreach ($Cart as $k => $v) {
+            $data['tprice'] += $v->prices; 
+            $info['num'] = $v->num;
+            $info['gid'] = $v->gid;
+            $info['onumber'] = $data['number'];
+            $info['price'] = ($v->prices)/($v->num);
+            (new Detail)->addDetail($info,$data['number']);
+            $info = [];
+        }
+
+        
         // dd($data['number']);
         $res = $this->create($data);
 
-        return $res; 
+        //删除购物车的数据
+        Cart::where('uid',$data['uid'])->delete();
+
+        return $data['number']; 
     }
 
     /**
@@ -112,9 +146,4 @@ class Order extends Model
         return $this->where('id',$id)->update($data);
     }
 
-
-    public function deleteAjax($id)
-    {
-        return $this->Detail()->delete('id',$id);
-    }
 }

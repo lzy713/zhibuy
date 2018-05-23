@@ -15,13 +15,16 @@ class OrdersController extends Controller
 	 * 显示订单列表页
 	 * @return [type] 视图
 	 */
-    public function orderList(Request $req)
+    public static function orderList(Request $req)
     {	
     	//接收查询条件
     	$status = $req->input('status');
     	$number = $req->input('number');
     	
     	$res = (new Order)->orderList($status, $number);
+        foreach ($res as $k => $v) {
+            $v->uname = $v->user->username;
+        }
 
     	return view('admin.orders.orderList',[
     		'title'=>'订单列表',
@@ -62,9 +65,8 @@ class OrdersController extends Controller
      */
     public function orderDetail($id)
     {
-    	$res = (new Detail)->orderDetail($id);
-    	$order = (new Order)->orderInfo($id);
-
+        $order = (new Order)->orderInfo($id);
+    	$res = (new Detail)->orderDetail($order->number);
     	return view('admin.orders.orderDetail',['res'=>$res,'order'=>$order,'title'=>'订单详情']);
     }
 

@@ -11,7 +11,7 @@ class Detail extends Model
     public $timestamps = false;
 
     //那些字段可以被存入数据
-    protected $fillable = ['oid','gid','num'];
+    protected $fillable = ['onumber','gid','num','price'];
 
 
     /**
@@ -32,17 +32,23 @@ class Detail extends Model
     	return $this->belongsTo('App\Model\Admin\order','oid','id');
     }
 
+
+    public function addDetail($data)
+    {
+        self::create($data);
+    }
+
+
     /**
-     * 订单详情
+     * 显示订单详情
      * @param  [int] $id [订单主表ID]
      * @return [type]     [description]
      */
-    public function orderDetail($id)
+    public function orderDetail($number)
     {
     	$res = self::with(['goods'=>function($query){
-    		$query->select('gid','gname','gimg');
-    	}])->where('oid',$id)->get();
-
+    		$query->select('gid','gname','img');
+    	}])->where('onumber',$number)->get();
     	return $res;
 
     }

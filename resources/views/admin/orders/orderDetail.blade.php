@@ -55,7 +55,7 @@
                     {{$v->price}}
                 </td>
                 <td>
-                    <img src="{{$v->goods->gimg}}" alt="" width="100" height="100">
+                    <img src="{{$v->goods->gimg}}" alt="" width="100" height="100" style="margin-bottom:13px">
                 </td>
                 <td>
                     {{$v->num}}
