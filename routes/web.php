@@ -124,22 +124,6 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>'admin'],func
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
 	 * 	后台个人中心-订单管理
 	 */
@@ -186,12 +170,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>'admin'],func
 
 
 
-
-
-
-
-
-
+	//后台--贾晓博
 	//用户管理
 	Route::resource('user','UserController');
 	
@@ -208,20 +187,6 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>'admin'],func
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 });
 
 
@@ -234,36 +199,16 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>'admin'],func
 
 //前台
 Route::group(['namespace'=>'Home'],function(){
-
+	//登录页面
 	Route::get('login','LoginController@login');
-	Route::get('register','RegisterController@register');
 
+	//登录页面验证码
+	Route::get('login/code','LoginController@captcha');
 
+	//发送ajax
+	Route::post('login/loguser','LoginController@loguser');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	// Route::post('login/skip','LoginController@skip');
 
 
 
@@ -298,6 +243,101 @@ Route::group(['namespace'=>'Home'],function(){
 Route::get('/','IndexController@cateslist');
 Route::get('/goodslist/{id}','GoodsController@show');
 Route::get('/goodsdetails/{id}','GoodsController@goodsdetails');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+});
+
+
+
+Route::group(['namespace'=>'Home','middleware'=>'login'],function(){
+
+
+	
+	
+
+	//个人中心
+	Route::get('login/self_auth','LoginController@self');
+	
+	//退出登录
+	Route::get('login/loginout','LoginController@loginout');
+
+
+
+
+	//登录页的忘记密码
+	Route::get('login/reset','LoginController@reset');
+
+	//忘记密码安全验证
+	Route::post('forget','LoginController@forget');
+	Route::get('pass/forgetPassword','LoginController@forgetPassword');
+
+	//忘记密码输入手机短信
+	Route::post('note','LoginController@note');
+
+	//修改成功
+	// Route::post('note','LoginController@note');
+
+
+
+
+
+
+	//注册页面
+	Route::get('register','RegisterController@register');
+	Route::post('regist','RegisterController@regist');
+
+	
+	//注册页表单验证
+	Route::get('register/checkuser','RegisterController@checkuser');
+	Route::get('register/checkMobile','RegisterController@checkphone');
+	Route::get('register/code','RegisterController@code');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
