@@ -19,8 +19,8 @@ class Order extends Model
 
     /**
      * 定义订单表与用户表的多对一关系
-     * uid  当前模型的外键
-     * id 被关联的模型的建(一般是主键)
+     * uid  当前模型Order的外键
+     * id   被关联的模型Users的内键
      * @return [type] [description]
      */
     public function user()
@@ -29,7 +29,9 @@ class Order extends Model
     }
 
     /**
-     * 订单表与订单详情表一对多                        
+     * 订单表与订单详情表一对多
+     * onumber 是Detail的外键
+     * number  是Order 的内键                        
      * @return [type] [description]
      */
     public function detail()
@@ -93,18 +95,17 @@ class Order extends Model
         $Cart = Cart::where('uid',1)->where('status','1')->get();
         foreach ($Cart as $k => $v) {
             $data['tprice'] += $v->prices; 
-            $info['num'] = $v->num;
-            $info['gid'] = $v->gid;
-            $info['onumber'] = $data['number'];
-            $info['price'] = ($v->prices)/($v->num);
-            (new Detail)->addDetail($info,$data['number']);
+            $info[$k]['num'] = $v->num;
+            $info[$k]['gid'] = $v->gid;
+            $info[$k]['price'] = ($v->prices)/($v->num);
             $info = [];
         }
 
         
         // dd($data['number']);
         $res = $this->create($data);
-
+        $id = $res->id;
+        $res->find($id)->detail()->createMany();
         //删除购物车的数据
         Cart::where('uid',$data['uid'])->delete();
 

@@ -17,6 +17,7 @@ class ShopCartController extends Controller
      */
     public function index()
     {
+        
         $res = Cart::with('goods')->where('uid',1)->where('status',1)->get();
         $count = 0;
         $prices = 0;
