@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 use App\Model\Admin\Goods;
+use App\Model\Home\Collection;
+
 class GoodsController extends Controller
 {
     public function show($id)
@@ -23,10 +24,15 @@ class GoodsController extends Controller
     public function goodsdetails($id)
     {
     	$res = Goods::where('gid',$id)->first();
+        $gid = $res->gid;
+        $collection = Collection::where('uid',session('homeMsg')->id)->
+        where('gid',$gid)->
+        first();
 
     	return view('home.goods.goodsdetail',[
     		'title'=>'详情',
-    		'res'=>$res
+    		'res'=>$res,
+            'collection'=>$collection
     	]);
     }
 }

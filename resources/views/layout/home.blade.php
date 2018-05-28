@@ -104,7 +104,9 @@
 	<!-- start banner_y -->
 		<div class="banner_y center">
 			<div class="nav">
-				
+				<?php
+					$res = App\Model\Admin\Cates::with('goods')->get();
+				?>
 				<ul>
 					@foreach($res as $k=>$v)
 					<li>

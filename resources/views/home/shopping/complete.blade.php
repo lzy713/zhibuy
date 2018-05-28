@@ -22,31 +22,16 @@
             </div>
             <div class="topbar-info" id="J_userInfo">
                 <span class="user">
-                    <a rel="nofollow" class="user-name" href="">
+                    <a rel="nofollow" class="user-name" href="/login/self_auth">
                         <span class="name">
-                            1466311740
+                            {{session('homeMsg')->username}}
                         </span>
-                        <i class="iconfont">
-                            
-                        </i>
                     </a>
-                    <ul class="user-menu">
-                        <li>
-                            <a rel="nofollow" href="" target="_blank">
-                                个人中心
-                            </a>
-                        </li>
-                        <li>
-                            <a rel="nofollow" href="">
-                                退出登录
-                            </a>
-                        </li>
-                    </ul>
                 </span>
                 <span class="sep">
                     |
                 </span>
-                <a rel="nofollow" class="link link-order" href=""
+                <a rel="nofollow" class="link link-order" href="/myorder"
                 target="_blank">
                     我的订单
                 </a>
@@ -98,7 +83,7 @@
                                 </i>
                             </a>
                             <div style="margin-top:5px">
-								<button class="btn btn-primary" id="btn">返回首页</button>
+								<a href="/" type="button" class="btn btn-primary">返回首页</a>
 							</div>
 
                         </div>
@@ -162,9 +147,7 @@
 
 @section('js')
 <script>
-	$('#btn').click(function(){
-		location.href = '/home';
-	});
+
 </script>
 @endsection
 

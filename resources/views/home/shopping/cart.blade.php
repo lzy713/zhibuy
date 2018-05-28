@@ -35,12 +35,20 @@ ol, ul {list-style: outside none none;}
 		<div class="wdgwc fl ml40">我的购物车</div>
 		<div class="wxts fl ml20">温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算</div>
 		<div class="dlzc fr">
-			<ul>
-				<li><a href="./login.html" target="_blank">登录</a></li>
-				<li>|</li>
-				<li><a href="./register.html" target="_blank">注册</a></li>	
-			</ul>
-			
+			<span class="user">
+                <a rel="nofollow" class="user-name" href="/login/self_auth">
+                    <span class="name">
+                        {{session('homeMsg')->username}}
+                    </span>
+                </a>
+            </span>
+            <span class="sep">
+                |
+            </span>
+            <a rel="nofollow" class="link link-order" href="/myorder"
+            target="_blank">
+                我的订单
+            </a>
 		</div>
 		<div class="clear"></div>
 	</div>
@@ -70,8 +78,8 @@ ol, ul {list-style: outside none none;}
 				<div class="sub_content fl ">
 					<input type="checkbox" value="quanxuan" class="quan" cid="{{$v->id}}" checked="checked"  style="margin-top:50px"/>
 				</div>
-				<div class="sub_content fl"><img src="./image/gwc_xiaomi6.jpg" style="width: 80px;height: 80px;margin-top:20px"></div>
-				<div class="sub_content fl ft20">{{$v->goods->gname}}</div>
+				<div class="sub_content fl"><img src="{{$v->goods->img}}" style="width: 80px;height: 80px;margin-top:20px"></div>
+				<div class="sub_content fl ft20" style="text-align: center;">{{$v->goods->gname}}</div>
 				<div class="sub_content fl " id="danjia">{{$v->goods->gprice}}</div>
 				<div id="buts" class="layui-btn-group fl">
 					<button class="layui-btn layui-btn-primary layui-btn-sm jian" cid="{{$v->id}}">
@@ -103,7 +111,7 @@ ol, ul {list-style: outside none none;}
 			</div>
 			<div class="jiesuan fr">
 				<div class="jiesuanjiage fl">合计（不含运费）：<span id="zong">0.00</span></div>
-				<div class="jsanniu fr"><input class="jsan" type="submit" name="jiesuan" onclick="location.href='/home/order'"  value="去结算"/></div>
+				<div class="jsanniu fr"><input class="jsan" type="submit" name="jiesuan" onclick="location.href='/order'"  value="去结算"/></div>
 				<div class="clear"></div>
 			</div>
 			<div class="clear"></div>
@@ -117,7 +125,7 @@ ol, ul {list-style: outside none none;}
 	                购物车空空的哦~，去看看心仪的商品吧~
 	            </li>
 	            <li class="mt10">
-	                <a href="/home/index" class="ftx-05">
+	                <a href="/" class="ftx-05">
 	                    去购物&gt;
 	                </a>
 	            </li>
@@ -158,7 +166,7 @@ ol, ul {list-style: outside none none;}
 		}
 		//获取cid
 		var cid = $(this).attr('cid');
-		$.post('/home/shopCart/'+cid,{'num':num,'prices':xiaoji,'_token':'{{csrf_token()}}','_method':'PUT'},function(data){
+		$.post('/shopCart/'+cid,{'num':num,'prices':xiaoji,'_token':'{{csrf_token()}}','_method':'PUT'},function(data){
 		});
 	});
 
@@ -190,7 +198,7 @@ ol, ul {list-style: outside none none;}
 
 		//获取cid
 		var cid = $(this).attr('cid');
-		$.post('/home/shopCart/'+cid,{'num':num,'prices':xiaoji,'_token':'{{csrf_token()}}','_method':'PUT'},function(data){
+		$.post('/shopCart/'+cid,{'num':num,'prices':xiaoji,'_token':'{{csrf_token()}}','_method':'PUT'},function(data){
 		});
 	});
 
@@ -204,7 +212,7 @@ ol, ul {list-style: outside none none;}
 
 			//修改状态
 			var cid = $(this).attr('cid');
-			$.post('/home/shopCart/'+cid,{'status':'1','_token':'{{csrf_token()}}','_method':'PUT'},function(data){
+			$.post('/shopCart/'+cid,{'status':'1','_token':'{{csrf_token()}}','_method':'PUT'},function(data){
 			});
 		}
 	});
@@ -218,7 +226,7 @@ ol, ul {list-style: outside none none;}
 
 			//修改状态
 			var cid = $(this).attr('cid');
-			$.post('/home/shopCart/'+cid,{'status':'1','_token':'{{csrf_token()}}','_method':'PUT'},function(data){
+			$.post('/shopCart/'+cid,{'status':'1','_token':'{{csrf_token()}}','_method':'PUT'},function(data){
 			});
 		} else {
 			yixuan = parseInt(yixuan) - parseInt($(this).parent().siblings().eq(3).children().eq(1).val());
@@ -227,7 +235,7 @@ ol, ul {list-style: outside none none;}
 
 			//修改状态
 			var cid = $(this).attr('cid');
-			$.post('/home/shopCart/'+cid,{'status':'0','_token':'{{csrf_token()}}','_method':'PUT'},function(data){
+			$.post('/shopCart/'+cid,{'status':'0','_token':'{{csrf_token()}}','_method':'PUT'},function(data){
 			});
 		}
 
@@ -243,7 +251,7 @@ ol, ul {list-style: outside none none;}
 
 				//修改状态
 				var cid = $(this).attr('cid');
-				$.post('/home/shopCart/'+cid,{'status':'1','_token':'{{csrf_token()}}','_method':'PUT'},function(data){
+				$.post('/shopCart/'+cid,{'status':'1','_token':'{{csrf_token()}}','_method':'PUT'},function(data){
 				});
 			}
 		})
@@ -265,7 +273,7 @@ ol, ul {list-style: outside none none;}
 		var uid = $(this).attr('uid');
 
 		//发送Ajax删除
-		$.post('/home/shopCart/'+cid,{'_method':'delete','_token':"{{csrf_token()}}",'uid':uid},function(data){
+		$.post('/shopCart/'+cid,{'_method':'delete','_token':"{{csrf_token()}}",'uid':uid},function(data){
 			if (data != '0') {
 				//删除当前条
 				div.remove();				
@@ -292,7 +300,7 @@ ol, ul {list-style: outside none none;}
 					                购物车空空的哦~，去看看心仪的商品吧~
 					            </li>
 					            <li class="mt10">
-					                <a href="/home/index" class="ftx-05">
+					                <a href="/" class="ftx-05">
 					                    去购物&gt;
 					                </a>
 					            </li>
@@ -310,7 +318,7 @@ ol, ul {list-style: outside none none;}
 	//加或减改变数据库
 	function ajaxCart(cid, num, xiaoji)
 	{
-		$.post('/home/shopCart/'+cid,{'num':num,'prices':xiaoji,'_token':'{{csrf_token()}}','_method':'PUT'},function(data){
+		$.post('/shopCart/'+cid,{'num':num,'prices':xiaoji,'_token':'{{csrf_token()}}','_method':'PUT'},function(data){
 		});
 	}
 

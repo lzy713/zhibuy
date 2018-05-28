@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Home\Cart;
 use App\Model\Home\Address;
 use App\Model\Admin\Order;
+use App\Model\Admin\Goods;
 
 class ShopCartController extends Controller
 {
@@ -17,8 +18,7 @@ class ShopCartController extends Controller
      */
     public function index()
     {
-        
-        $res = Cart::with('goods')->where('uid',1)->where('status',1)->get();
+        $res = Cart::with('goods')->where('uid',session('homeMsg')->id)->where('status',1)->get();
         $count = 0;
         $prices = 0;
         foreach ($res as $key => $value) {
@@ -44,7 +44,7 @@ class ShopCartController extends Controller
         $number = (new Order)->add();
 
         //收货信息
-        $address = Address::where('uid',1)->where('status',1)->first();
+        $address = Address::where('uid', session('homeMsg')->id)->where('status',1)->first();
 
         $tprice = Order::select('tprice')->where('number',$number)->first();
         
@@ -54,39 +54,6 @@ class ShopCartController extends Controller
             'address' => $address,
             'tprice'  => $tprice->tprice
         ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -111,9 +78,8 @@ class ShopCartController extends Controller
      */
     public function destroy(Request $req,$id)
     {
-        $uid = $req->input('uid');
         $res = Cart::destroy($id);
-        $arr = Cart::where('uid',$uid)->get()->count();
+        $arr = Cart::where('uid', session('homeMsg')->id)->get()->count();
         return $arr;
     }
 
@@ -124,7 +90,7 @@ class ShopCartController extends Controller
     public function order()
     {
         //商品信息
-        $res = Cart::with('goods')->where('uid',1)->where('status','1')->get();
+        $res = Cart::with('goods')->where('uid', session('homeMsg')->id)->where('status','1')->get();
         $count = 0;
         $prices = 0;
         foreach ($res as $key => $value) {
@@ -133,7 +99,7 @@ class ShopCartController extends Controller
         }
 
         //地址
-        $address = Address::where('uid',1)->where('status',1)->first();
+        $address = Address::where('uid', session('homeMsg')->id)->where('status',1)->first();
         return view('home.shopping.order',[
             'title'=>'填写订单信息',
             'address'=>$address,
@@ -143,4 +109,25 @@ class ShopCartController extends Controller
         ]);
     }
 
+    
+    /**
+     * 加入购物车
+     * @param [type] $id [description]
+     */
+    public function addCart($id)
+    {
+        $res = Cart::addCart($id);
+        return response()->json($res);
+    }
+
+    /**
+     * 加入购物车成功页
+     * @return [type] [description]
+     */
+    public function successCart()
+    {
+        $goods = Goods::limit(5)->get();
+
+        return view('home.user.successCart',['title'=>'成功加入购物车','goods'=>$goods]);
+    }
 }

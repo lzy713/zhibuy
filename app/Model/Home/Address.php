@@ -15,15 +15,21 @@ class Address extends Model
 
 
     /**
-     * 添加收货地址
+     * 购物车添加收货地址
      * @param  [type] $data [description]
      * @return [type]       [description]
      */
     public static function addAddress($data)
     {
-        self::where('uid',1)->update(['status'=>'0']);
         $data['status'] = 1;
-    	$res = self::where('uid',1)->create($data);
+        $info = self::where('uid', session('homeMsg')->id)->first();
+        if ( !empty($info->id) ) {
+            self::where('uid', session('homeMsg')->id)->update(['status'=>'0']);
+            $res = self::where('uid', session('homeMsg')->id)->create($data);
+        } else {
+            $res = self::create($data);
+        }
+        
     	return $res;
     }
 

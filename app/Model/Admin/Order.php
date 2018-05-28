@@ -5,6 +5,7 @@ namespace App\Model\Admin;
 use Illuminate\Database\Eloquent\Model;
 use App\Model\Home\Address;
 use App\Model\Home\Cart;
+use Illuminate\Http\Request;
 
 class Order extends Model
 {
@@ -79,35 +80,33 @@ class Order extends Model
         //主表
         $data = [];
         //收货人信息
-        $address = Address::where('uid',1)->where('status','1')->first();
+        $address = Address::where('uid', session('homeMsg')->id)->where('status','1')->first();
         $data['consignee'] = $address->name;
         $data['address']   = $address->province.' '.$address->city.' '.$address->area.' '.$address->street;
         $data['phone']     = $address->phone;
 
         $data['createtime'] = time();
         $data['number']     = date('YmdHis',time()).rand(1000,9999);
-        $data['uid']        = 1;
+        $data['uid']        = session('homeMsg')->id;
 
         //详情表
         $info = [];
         //商品信息
         $data['tprice'] = 0;
-        $Cart = Cart::where('uid',1)->where('status','1')->get();
+        $Cart = Cart::where('uid',session('homeMsg')->id)->where('status','1')->get();
         foreach ($Cart as $k => $v) {
             $data['tprice'] += $v->prices; 
             $info[$k]['num'] = $v->num;
             $info[$k]['gid'] = $v->gid;
             $info[$k]['price'] = ($v->prices)/($v->num);
-            $info = [];
         }
 
-        
         // dd($data['number']);
         $res = $this->create($data);
         $id = $res->id;
-        $res->find($id)->detail()->createMany();
+        $res->find($id)->detail()->createMany($info);
         //删除购物车的数据
-        Cart::where('uid',$data['uid'])->delete();
+        Cart::where('uid', session('homeMsg')->id)->delete();
 
         return $data['number']; 
     }
@@ -145,6 +144,23 @@ class Order extends Model
     public function updateOrder($id, $data)
     {
         return $this->where('id',$id)->update($data);
+    }
+
+
+    /**
+     * 前台我的订单
+     * @return [type] [description]
+     */
+    public static function homeOrder($number)
+    {
+        
+        if (!empty($number)) {
+            $res = self::with('detail.goods')->where('number',$number)->paginate(1);
+        } else {
+            $res = self::with('detail.goods')->paginate(1);
+        }
+
+        return $res;
     }
 
 }

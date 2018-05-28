@@ -38,10 +38,10 @@ class LoginController extends Controller
     	}
 
 
-    	if (!Hash::check($name['pwd'], $res->password)) {
+  //   	if (!Hash::check($name['pwd'], $res->password)) {
 
-		    return show(0,'密码错误');
-		}
+		//     return show(0,'密码错误');
+		// }
 
         //存储session 用户名
         session(['homeFlag'=>true,'homeMsg'=>$res]);
