@@ -41,20 +41,19 @@ class RegisterController extends Controller
     //获取手机号  检测验证码
     public function checkphone(Request $req)
     {
-
-    	// echo $_GET['mobile'];
+        // echo $_GET['number'];
 
     	// $res = $req->get('number');
 
-    	// echo $res;
+    	 // dd($res);
 
     	
         //载入ucpass类
         require_once('./home/register/lib/Ucpaas.class.php');
 
         //初始化必填
-        $options['accountsid']='863b17f6a3846c92edd0a837088db3b5';
-        $options['token']='2eb1f6c22332de9eb5ccaf64f157baa8';
+        $options['accountsid']='2ca066293b2b64e88a25bc41576a2b0e';
+        $options['token']='b53218feb96a4294b6a85b5b2c23db06';
 
 
         //初始化 $options必填
@@ -71,7 +70,8 @@ class RegisterController extends Controller
 
         $code = rand(111111,999999);
 
-        $toNumber = $req->get('number');
+        $toNumber = $_GET['yzm'];
+        // var_dump($toNumber);
 
         // $_SESSION['code'] = $code;
       
@@ -81,9 +81,9 @@ class RegisterController extends Controller
         //laravel框架是这样存数据
         session(['code'=>$code]);
 
-        $appId = "985fddd141454a978d48cf9dd4cccfd5";
+        $appId = "8fbb4e36c5f141d39f4140e38fa640f8";
         // $to = "13911373063";
-        $templateId = "30047";
+        $templateId = "327177";
         $param=$code;
 
         $ucpass->templateSMS($appId,$toNumber,$templateId,$param);

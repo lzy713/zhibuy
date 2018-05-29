@@ -35,6 +35,13 @@
 		  	</div>
 
 		  	<div class="layui-form-item">
+			    <label class="layui-form-label" >商品URL</label>
+				    <div class="layui-input-block">
+				      <input type="text" name="gurl"  placeholder="请输入商品url" class="layui-input">
+				    </div>
+		  	</div>
+
+		  	<div class="layui-form-item">
 			    <label class="layui-form-label" >商品价格</label>
 				    <div class="layui-input-block">
 				      <input type="text" name="price"  placeholder="请输入商品价格" class="layui-input">
@@ -59,7 +66,7 @@
 			  </div>
 
   	
-			<div class="box1">
+			<div class="layui-form-item">
 				<label class="layui-form-label">商品图片</label>
                 <div class="controls need-img">
                     <button type="button"  class="layui-btn layui-btn-primary" id="upload_img_icon">上传图片</button>
@@ -132,7 +139,7 @@
             },
             done: function(res) {
                 layer.close(layer.msg());
-                $('.upload-img-box').append('<div class="upload-icon-img"><div class="upload-pre-item"><i onclick="deleteImg($(this))" class="layui-icon"></i><img src="' + res.data + '" class="img" width="100" height="100" ><input type="hidden" name="icon" value="' + res.data + '" /></div></div>');
+                $('.upload-img-box').html('<div class="upload-icon-img"><div class="upload-pre-item"><i onclick="deleteImg($(this))" class="layui-icon"></i><img src="' + res.data + '" class="img" width="100" height="100" ><input type="hidden" name="icon" value="' + res.data + '" /></div></div>');
             }
             ,error: function(){
                 layer.msg('上传错误！');

@@ -181,7 +181,7 @@
               </span>
               <input id="mobile"  maxlength="11" name="phone" tabindex="3" class="i-text"  type="text" isClick="true"/>
                <div class="check" style="position:relative;left:0">
-                      <button class="check-phone" href="javascript:void(0);" id="getVerifyCode" style="padding:11px 10px 14px 10px;*line-height:60px;">获取短信验证码</button>
+                      <button class="check-phone" href="javascript:void(0);" id="getVerifyCode" style="padding:11px 10px 14px 10px;*line-height:50px;width: 120px;">获取短信验证码</button>
                   
                  
                 </div>
@@ -367,7 +367,7 @@
 
 
           //正则/^((1[3,5,8][0-9])|(14[5,7])|(17[0,6,7,8])|(19[7]))\d{8}$/
-          var reg = /((1[3,5,8][0-9])|(14[5,7])|(17[0,6,7,8])|(19[7]))\d{8}$/;
+          var reg = /((1[3,5,8,6][0-9])|(14[5,7])|(17[0,6,7,8])|(19[7]))\d{8}$/;
 
           if(!pm){
             $('#checkMobile').text(' *手机号码不能为空').css('color','red');
@@ -392,9 +392,40 @@
         //发送验证码一个单击事件
         $('#getVerifyCode').click(function(){
 
-          var phone = $('input[name=mobile]').val();
+          var one = $('input[name=phone]').val();
 
-          $.get('/register/checkMobile',{number:phone},function(data){
+          if(!one){
+            // console.log(one);
+             $('#checkMobile').text(' *手机号码不能为空').css('color','red');
+             return false;
+            
+          }else{
+             var dd = 61;
+
+       
+             var Info = setInterval(function(){
+
+               
+               if(!dd<=0){
+
+                $('#getVerifyCode').text(--dd);
+
+               }else{
+
+                $('#getVerifyCode').text('获取短信验证码');
+                clearInterval(Info);
+
+               }
+
+             },1000);
+
+
+
+
+            
+          }
+
+          $.get('/register/checkphone',{yzm:one},function(data){
 
               console.log(data);
           })
@@ -402,6 +433,12 @@
           return false;
 
         })
+
+
+       
+       
+
+       // console.log(time);
 
          //验证码
          $('input[name=verifyCode]').focus(function(){
@@ -453,6 +490,7 @@
                   return true;
 
                  }
+                 
                   return false;
                  
 

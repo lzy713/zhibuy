@@ -178,8 +178,10 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>'admin'],func
 	//公告管理
 	Route::resource('notice','NoticeController');
 
+
 	//推荐管理
 	Route::resource('recommend','RecommendController');
+
 
 	//测评管理
 	Route::resource('evaluation','EvaluationController');
@@ -208,7 +210,27 @@ Route::group(['namespace'=>'Home'],function(){
 	//发送ajax
 	Route::post('login/loguser','LoginController@loguser');
 
-	// Route::post('login/skip','LoginController@skip');
+	//登录页的忘记密码
+	Route::get('login/reset','LoginController@reset');
+
+	//忘记密码安全验证
+	Route::post('forget','LoginController@forget');
+	Route::get('pass/forgetPassword','LoginController@forgetPassword');
+
+
+	//忘记密码输入手机短信
+	Route::post('note','LoginController@note');
+
+
+
+
+	//修改新密码页面
+	Route::post('newnote','LoginController@newnote');
+
+
+	//密码重新设置
+	
+	Route::any('resetword','LoginController@resetword');
 
 
 
@@ -216,6 +238,29 @@ Route::group(['namespace'=>'Home'],function(){
 
 
 
+
+
+	//注册页面
+	Route::get('register','RegisterController@register');
+	Route::post('regist','RegisterController@regist');
+
+	
+	//注册页表单验证
+	Route::get('register/checkuser','RegisterController@checkuser');
+
+
+	//手机获取短信验证码
+	Route::get('register/checkphone','RegisterController@checkphone');
+	//短信验证码验证
+	Route::get('register/code','RegisterController@code');
+
+
+	//测评
+
+	Route::get('ceping','CepingController@evalua');
+
+	Route::get('details/{nid}','CepingController@details');
+	
 
 
 
@@ -283,77 +328,22 @@ Route::get('/goodsdetails/{id}','GoodsController@goodsdetails');
 
 Route::group(['namespace'=>'Home','middleware'=>'login'],function(){
 
-
-	
-	
-
 	//个人中心
 	Route::get('login/self_auth','LoginController@self');
+
+	//修改保存个人信息
+	Route::post('login/Save_auth/{id}','LoginController@save');
+
+	//修改账号密码页面
+	Route::get('login/safe','LoginController@safe');
+
+	//修改密码
+	Route::get('login/safe_auth','LoginController@changePass');
+
+
 	
 	//退出登录
 	Route::get('login/loginout','LoginController@loginout');
-
-
-
-
-	//登录页的忘记密码
-	Route::get('login/reset','LoginController@reset');
-
-	//忘记密码安全验证
-	Route::post('forget','LoginController@forget');
-	Route::get('pass/forgetPassword','LoginController@forgetPassword');
-
-	//忘记密码输入手机短信
-	Route::post('note','LoginController@note');
-
-	//修改成功
-	// Route::post('note','LoginController@note');
-
-
-
-
-
-
-	//注册页面
-	Route::get('register','RegisterController@register');
-	Route::post('regist','RegisterController@regist');
-
-	
-	//注册页表单验证
-	Route::get('register/checkuser','RegisterController@checkuser');
-	Route::get('register/checkMobile','RegisterController@checkphone');
-	Route::get('register/code','RegisterController@code');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

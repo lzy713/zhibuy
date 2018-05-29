@@ -4,6 +4,42 @@
 		<meta charset="UTF-8">
 		<title>@yield('title')</title>
 		<link rel="stylesheet" type="text/css" href="/home/css/style.css">
+		<style>
+		/*重置属性*/
+*{ font-family:"微软雅黑"; font-size:14px; padding:0; margin:0;}
+img{ display:block;}
+a{ text-decoration:none;}
+ul{ list-style:none;}
+p,dl,dd{ margin:0; padding:0;}
+/*公共属性*/
+.clearfix{ clear:both;}
+.shadow{box-shadow: 0px 3px 20px 0px rgba(0, 0, 0, 0.2);}
+			/*页脚*/
+.footer-box{ width:100%; background-color:#fff;}
+.footer{ width:1226px; margin-left:auto; margin-right:auto;}
+.footer ul{ margin-top:27px; margin-bottom:27px;}
+.footer li{ float:left; width:244px; height:26px; border-right:1px solid #e0e0e0; text-align:center;line-height:26px;}
+.footer li a{  color:#616161;}
+.footer li a:hover{ color:#ff6700;}
+.line{ width:1226px; height:1px; background-color:#e0e0e0; margin-bottom:40px;}
+.footer dl{ margin-right:104px; float:left; margin-bottom:25px;}
+.footer dd{  margin-bottom:15px; }
+.footer dd a{font-size:12px; font-family:"宋体";color:#757575;}
+.footer dd a:hover{ color:#ff6700;}
+.online{ width:246px; text-align:center; float:right;margin-top: -170px;}
+.service{margin-left:auto; margin-right:auto; width:120px; height:30px; border:1px solid #ff6700; line-height:30px; text-align:center; color:#ff6700; font-weight:Arial,"微软雅黑"; font-size:12px;}
+
+/*合作*/
+.team-box{ width:100%; background-color:#f5f5f5; padding-top:33px;}
+.team{ width:1226px; margin-left:auto; margin-right:auto;}
+.team .logo{ float:left; margin-right:3px;}
+.team a{ border-right:1px solid #b0b0b0; line-height:12px; padding-left:5px; padding-right:5px; font-family:Arial,"宋体"; font-size:12px; color:#757575;}
+.team p{font-family:Arial,"宋体"; font-size:12px; margin-bottom:2px; float:left; color:#b0b0b0;}
+.team p a:hover{ color:#ff6700;}
+.team .safe{ float:left; width:285px;}
+.safe span{ float:left; width:60px; margin-right:4px;}
+.word{ width:1226px; margin-left:auto; margin-right:auto; text-align:center;font-family:"华文行楷",sunself; font-size:20px; color:#bababa; font-weight:normal; padding-bottom:30px;}
+		</style>
 	</head>
 	<body>
 @section('header')
@@ -44,7 +80,7 @@
 								@if(session('homeFlag')==false)	
 								<li><a href="/login" target="_blank">登录</a><li>
 								<li>|</li>
-								<li><a href="/register.html" target="_blank" >注册</a></li>
+								<li><a href="/register" target="_blank" >注册</a></li>
 								@else
 								<li><a href="/login" target="_blank">{{session('homeMsg')->username}}</a></li>
 								<li>|</li>
@@ -78,7 +114,7 @@
 					<li><a href="">路由器</a></li>
 					<li><a href="">智能硬件</a></li>
 					<li><a href="">服务</a></li>
-					<li><a href="">社区</a></li>
+					<li><a href="/ceping">测评</a></li>
 				</ul>
 			</div>
 			<div class="search fr">
@@ -104,6 +140,10 @@
 	<!-- start banner_y -->
 		<div class="banner_y center">
 			<div class="nav">
+
+				<?php
+				$res = App\Model\Admin\Cates::with('goods')->get();
+				?>
 				
 				<ul>
 					@foreach($res as $k=>$v)
@@ -172,7 +212,7 @@
 	<!-- start danpin -->
 		<div class="danpin center">
 			
-			<div class="biaoti center">小米明星单品</div>
+			<div class="biaoti center">小米闪购</div>
 			<div class="main center">
 				<div class="mingxing fl">
 					<div class="sub_mingxing"><a href=""><img src="/home/image/pinpai1.png" alt=""></a></div>
@@ -206,18 +246,30 @@
 				</div>
 				<div class="clear"></div>
 			</div>
+			
 		</div>
+
 		<div class="peijian w">
-			<div class="biaoti center">配件</div>
+		<?php
+		$tuitables = DB::table('fd_tuitable')->get();
+		?>	
+		@foreach($tuitables as $k3=>$v3)
+			<div class="biaoti center">{{$v3->tname}}</div>
+
 			<div class="main center">
 				<div class="content">
-					<div class="remen fl"><a href=""><img src="/home/image/peijian1.jpg"></a>
-					</div>
+					<!-- <div class="remen fl"><a href=""><img src="/home/image/peijian1.jpg"></a>
+					</div> -->
+				<?php
+				$tj = DB::table('fd_tuijian')->where('path',$v3->tid)->limit(10)->get();
+				$t=1;
+				?>
+				@foreach($tj as $k4 => $v4)
 					<div class="remen fl">
 						<div class="xinpin"><span>新品</span></div>
-						<div class="tu"><a href=""><img src="/home/image/peijian2.jpg"></a></div>
-						<div class="miaoshu"><a href="">小米6 硅胶保护套</a></div>
-						<div class="jiage">49元</div>
+						<div class="tu"><a href="{{$v4->gurl}}"><img src="{{$v4->icon}}" width="150" height="150"></a></div>
+						<div class="miaoshu"><a href="">{{$v4->gname}}</a></div>
+						<div class="jiage">{{$v4->price}}元</div>
 						<div class="pingjia">372人评价</div>
 						<div class="piao">
 							<a href="">
@@ -226,100 +278,119 @@
 							</a>
 						</div>
 					</div>
-					<div class="remen fl">
-						<div class="xinpin"><span style="background:#fff"></span></div>
-						<div class="tu"><a href=""><img src="/home/image/peijian3.jpg"></a></div>
-						<div class="miaoshu"><a href="">小米手机4c 小米4c 智能</a></div>
-						<div class="jiage">29元</div>
-						<div class="pingjia">372人评价</div>
-					</div>
-					<div class="remen fl">
-						<div class="xinpin"><span style="background:red">享6折</span></div>
-						<div class="tu"><a href=""><img src="/home/image/peijian4.jpg"></a></div>
-						<div class="miaoshu"><a href="">红米NOTE 4X 红米note4X</a></div>
-						<div class="jiage">19元</div>
-						<div class="pingjia">372人评价</div>
-						<div class="piao">
-							<a href="">
-								<span>发货速度很快！很配小米6！</span>
-								<span>来至于mi狼牙的评价</span>
-							</a>
-						</div>
-					</div>
-					<div class="remen fl">
-						<div class="xinpin"><span style="background:#fff"></span></div>
-						<div class="tu"><a href=""><img src="/home/image/peijian5.jpg"></a></div>
-						<div class="miaoshu"><a href="">小米支架式自拍杆</a></div>
-						<div class="jiage">89元</div>
-						<div class="pingjia">372人评价</div>
-						<div class="piao">
-							<a href="">
-								<span>发货速度很快！很配小米6！</span>
-								<span>来至于mi狼牙的评价</span>
-							</a>
-						</div>
-					</div>
-					<div class="clear"></div>
+				<?php $t++; ?>
+
+				@if($t == 6)
+				<div class="clear"></div>
 				</div>
 				<div class="content">
-					<div class="remen fl"><a href=""><img src="/home/image/peijian6.png"></a>
-					</div>
-					<div class="remen fl">
-						<div class="xinpin"><span style="background:#fff"></span></div>
-						<div class="tu"><a href=""><img src="/home/image/peijian7.jpg"></a></div>
-						<div class="miaoshu"><a href="">小米指环支架</a></div>
-						<div class="jiage">19元</div>
-						<div class="pingjia">372人评价</div>
-						<div class="piao">
-							<a href="">
-								<span>发货速度很快！很配小米6！</span>
-								<span>来至于mi狼牙的评价</span>
-							</a>
-						</div>
-					</div>
-					<div class="remen fl">
-						<div class="xinpin"><span style="background:#fff"></span></div>
-						<div class="tu"><a href=""><img src="/home/image/peijian8.jpg"></a></div>
-						<div class="miaoshu"><a href="">米家随身风扇</a></div>
-						<div class="jiage">19.9元</div>
-						<div class="pingjia">372人评价</div>
-					</div>
-					<div class="remen fl">
-						<div class="xinpin"><span style="background:#fff"></span></div>
-						<div class="tu"><a href=""><img src="/home/image/peijian9.jpg"></a></div>
-						<div class="miaoshu"><a href="">红米4X 高透软胶保护套</a></div>
-						<div class="jiage">59元</div>
-						<div class="pingjia">775人评价</div>
-					</div>
-					<div class="remenlast fr">
-						<div class="hongmi"><a href=""><img src="/home/image/hongmin4.png" alt=""></a></div>
-						<div class="liulangengduo"><a href=""><img src="/home/image/liulangengduo.png" alt=""></a></div>					
-					</div>
-					<div class="clear"></div>
-				</div>				
+				@endif
+				@endforeach
+
+				<div class="clear"></div>
 			</div>
 		</div>
+		@endforeach
+		</div>
+
 	@show  
 
+	
+	<!--页脚-->
+
+	
+<style>
+.footer-box{ width:100%; background-color:#fff;}
+.footer{ width:1226px; margin-left:auto; margin-right:auto;}
+.footer ul{ margin-top:27px; margin-bottom:27px;}
+.footer li{ float:left; width:244px; height:26px; border-right:1px solid #e0e0e0; text-align:center;line-height:26px;}
+.footer li a{  color:#616161;}
+.footer li a:hover{ color:#ff6700;}
+.line{ width:1226px; height:1px; background-color:#e0e0e0; margin-bottom:40px;}
+.footer dl{ margin-right:104px; float:left; margin-bottom:25px;}
+.footer dd{  margin-bottom:15px; }
+.footer dd a{font-size:12px; font-family:"宋体";color:#757575;}
+.footer dd a:hover{ color:#ff6700;}
+.online{ width:246px; text-align:center; float:left;}
+.service{margin-left:auto; margin-right:auto; width:120px; height:30px; border:1px solid #ff6700; line-height:30px; text-align:center; color:#ff6700; font-weight:Arial,"微软雅黑"; font-size:12px;}
+</style>
 
 
-		<footer class="mt20 center">			
-			<div class="mt20">小米商城|MIUI|米聊|多看书城|小米路由器|视频电话|小米天猫店|小米淘宝直营店|小米网盟|小米移动|隐私政策|Select Region</div>
-			<div>©mi.com 京ICP证110507号 京ICP备10046444号 京公网安备11010802020134号 京网文[2014]0059-0009号</div> 
-			<div>违法和不良信息举报电话：185-0130-1238，本网站所列数据，除特殊说明，所有数据均出自我司实验室测试</div>
-		</footer>
+<!--页脚-->
 
-		<script src="/home/js/jquery.js"></script>
-		@section('js')
-			<script>
-				$('.list').each(function(){
-					var cid = $(this).attr('cid');
-					$(this).click(function(){
+<div class="footer-box">
+	<div class="footer">
+    	<ul>
+        	<li style="background:url(images/footer_icon01.png) no-repeat 40px center;"><a href="file:///D:/%E5%B0%8F%E7%B1%B3%E9%9C%80%E8%A6%81/%E6%A8%A1%E6%9D%BF/5afadee6659a7/index.html#">1小时快修服务</a></li>
+            <li style="background:url(images/footer_icon02.png) no-repeat 40px center;"><a href="file:///D:/%E5%B0%8F%E7%B1%B3%E9%9C%80%E8%A6%81/%E6%A8%A1%E6%9D%BF/5afadee6659a7/index.html#">7天无理由退货</a></li>
+            <li style="background:url(images/footer_icon03.png) no-repeat 40px center;"><a href="file:///D:/%E5%B0%8F%E7%B1%B3%E9%9C%80%E8%A6%81/%E6%A8%A1%E6%9D%BF/5afadee6659a7/index.html#">15天免费换修</a></li>
+            <li style="background:url(images/footer_icon04.png) no-repeat 40px center;"><a href="file:///D:/%E5%B0%8F%E7%B1%B3%E9%9C%80%E8%A6%81/%E6%A8%A1%E6%9D%BF/5afadee6659a7/index.html#">满150元包邮</a></li>
+            <li style="background:url(images/footer_icon05.png) no-repeat 40px center;"><a href="file:///D:/%E5%B0%8F%E7%B1%B3%E9%9C%80%E8%A6%81/%E6%A8%A1%E6%9D%BF/5afadee6659a7/index.html#">520余家售后网点</a></li>
+            <div class="clearfix"></div>
+        </ul>
+        <div class="line"></div>
+        <?php
+        $rew = DB::table('fd_notice')->where('npid',0)->get(); 
+        // dd($rew);
+       
+        ?>
+        @foreach ($rew as $k7 =>$v7)
+        <dl>
+        	<dd style="font-size:14px; font-family:&#39;微软雅黑&#39;; color:#424242; margin-bottom:28px;">{{$v7->nname}}</dd>
+			
+		<?php
+			 $rez = DB::table('fd_notice')->where('npid',$v7->nid)->get();
 
-						location.href = "/goodslist/"+cid;
-					});
-				});
-			</script>
-		@show
+        	// dd($rez);
+
+		?>
+        	@foreach($rez as $k8=>$v8)
+            <dd><a href="">{{$v8->nname}}</a></dd>
+            @endforeach
+            
+        </dl>
+     	@endforeach
+      
+        <div style="width:1px; height:111px; float:left; background-color:#e0e0e0; margin-top:10px; "></div>
+        <div class="online" style='float:right;'>
+        	<p style="font-size:20px; color:#ff6700; margin-bottom:10px;">400-100-5678</p>
+            <p style="font-size:12px; font-family:Arial,&#39;宋体&#39;; color:#616161; margin-bottom:7px;">周一至周日 8:00-18:00</p>
+            <p style="font-size:12px; font-family:Arial,&#39;宋体&#39;; color:#616161; margin-bottom:18px;">（仅收市话费）</p>	
+            <div class="service">24小时在线客服</div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<!--合作-->
+<div class="team-box">
+	<div class="team">
+    	<div class="logo"><img src="/home/images/team_logo.png"></div>
+        <div style="width:880px; float:left; margin-bottom:30px;">
+        	<p><a href="file:///D:/%E5%B0%8F%E7%B1%B3%E9%9C%80%E8%A6%81/%E6%A8%A1%E6%9D%BF/5afadee6659a7/index.html#">小米网</a><a href="file:///D:/%E5%B0%8F%E7%B1%B3%E9%9C%80%E8%A6%81/%E6%A8%A1%E6%9D%BF/5afadee6659a7/index.html#">MIUI</a><a href="file:///D:/%E5%B0%8F%E7%B1%B3%E9%9C%80%E8%A6%81/%E6%A8%A1%E6%9D%BF/5afadee6659a7/index.html#">米聊</a><a href="file:///D:/%E5%B0%8F%E7%B1%B3%E9%9C%80%E8%A6%81/%E6%A8%A1%E6%9D%BF/5afadee6659a7/index.html#">多看书城</a><a href="file:///D:/%E5%B0%8F%E7%B1%B3%E9%9C%80%E8%A6%81/%E6%A8%A1%E6%9D%BF/5afadee6659a7/index.html#">小米路由器</a><a href="file:///D:/%E5%B0%8F%E7%B1%B3%E9%9C%80%E8%A6%81/%E6%A8%A1%E6%9D%BF/5afadee6659a7/index.html#">视频电话</a>
+        	<a href="file:///D:/%E5%B0%8F%E7%B1%B3%E9%9C%80%E8%A6%81/%E6%A8%A1%E6%9D%BF/5afadee6659a7/index.html#">小米后院</a><a href="file:///D:/%E5%B0%8F%E7%B1%B3%E9%9C%80%E8%A6%81/%E6%A8%A1%E6%9D%BF/5afadee6659a7/index.html#">小米天猫店</a><a href="file:///D:/%E5%B0%8F%E7%B1%B3%E9%9C%80%E8%A6%81/%E6%A8%A1%E6%9D%BF/5afadee6659a7/index.html#">小米淘宝直营店</a><a href="file:///D:/%E5%B0%8F%E7%B1%B3%E9%9C%80%E8%A6%81/%E6%A8%A1%E6%9D%BF/5afadee6659a7/index.html#">小米网盟</a><a href="file:///D:/%E5%B0%8F%E7%B1%B3%E9%9C%80%E8%A6%81/%E6%A8%A1%E6%9D%BF/5afadee6659a7/index.html#">问题反馈</a>
+            <a href="file:///D:/%E5%B0%8F%E7%B1%B3%E9%9C%80%E8%A6%81/%E6%A8%A1%E6%9D%BF/5afadee6659a7/index.html#">Select Region</a>
+        </p>
+        <p style="margin-left:5px;">©mi.com京ICP证110507号 京ICP备10046444号 京公网安备11010802020134号 京网文[2014]0059-0009号 违法和不良信息举报
+        	电话：185-0130-1238</p>
+        <p style="margin-left:5px;">本网站所列数据，除特殊说明，所有数据均出自我司实验室测试</p>
+        <div class="clearfix"></div>
+        </div>
+        <div class="safe">
+        	<img style="float:left; margin-right:5px;" src="/home/images/safe_icon01.png">
+            <span>诚信网站师范企业</span>
+            <img style="float:left; margin-right:5px;" src="/home/images/safe_icon02.png">
+            <span>可信网站信用评价</span>
+            <img style="float:left; margin-right:5px;" src="/home/images/safe_icon03.png">
+            <span style="margin-right:0;">网上交易保障中心</span>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="word">探索黑科技，小米为发烧而生</div>
+</div>
+<div style="height:20px; background-color:#fafafa;"></div>
 	</body>
+
+
 </html>

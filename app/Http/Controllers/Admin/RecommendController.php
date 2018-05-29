@@ -48,11 +48,14 @@ class RecommendController extends Controller
 
          $ref = DB::table('fd_tuitable')->get();
 
+         // dd($ref);
+
         return  view('admin.recommend.add',[
 
             'title'=>'添加推荐商品',
+
+            
             'ref'=>$ref
-           
 
         ]);
     }
@@ -165,12 +168,13 @@ class RecommendController extends Controller
     public function destroy($id)
     {
         //
-        $red = DB::table('fd_tuijian')->where('id',$id)->delete();
+        $red = DB::table('fd_tuijian')->where('nid',$id)->delete();
 
 
         if($red){
             return redirect('/admin/recommend')->with('mgs','删除成功');
         }else{
+            
             return back();
         }
 

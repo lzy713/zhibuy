@@ -4,7 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use DB;
 class EvaluationController extends Controller
 {
     /**
@@ -14,8 +14,14 @@ class EvaluationController extends Controller
      */
     public function index()
     {
-         return  view('admin.evaluat.index',['title'=>'评测列表页面']);
+
+        $rew = DB::table('fd_evaluat')->paginate(10);
+        // dd($rew);
+
+        return  view('admin.evaluat.index',['title'=>'评测列表页面','rew'=>$rew]);
+
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -26,6 +32,7 @@ class EvaluationController extends Controller
     {
         //
 
+        return  view('admin.evaluat.add',['title'=>'评测添加页面']);
 
         
     }
@@ -38,7 +45,19 @@ class EvaluationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //接收数据
+        $res = $request->except('_token');
+        // dd($res);
+        //存入数据库
+       $ret = DB::table('fd_evaluat')->insert($res);
+
+       if($ret){
+        return redirect('/admin/evaluation');
+       }else{
+        return back();
+       }
+      
+      
     }
 
     /**
@@ -61,6 +80,12 @@ class EvaluationController extends Controller
     public function edit($id)
     {
         //
+        $ref = DB::table('fd_evaluat')->where('nid',$id)->first();
+
+        // dd($ref);
+
+        return view('admin.evaluat.edit',['title'=>'测评修改页面','ref'=>$ref]);
+
     }
 
     /**
@@ -70,9 +95,25 @@ class EvaluationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
-        //
+        
+
+        $rec = $request->except('_token','_method');
+
+        // dd($id);
+
+       $data = DB::table('fd_evaluat')->where('nid',$id)->update($rec);
+
+       // dump($data);
+         if($data){
+
+            return redirect('/admin/evaluation')->with('msg','修改成功');
+        }else{
+
+            return back();
+        }
+
     }
 
     /**
@@ -84,5 +125,20 @@ class EvaluationController extends Controller
     public function destroy($id)
     {
         //
+
+
+    
+        $red = DB::table('fd_evaluat')->where('nid',$id)->delete();
+
+        // dd($red);
+
+        if($red){
+
+            return redirect('/admin/evaluation')->with('msg','删除成功');
+        }else{
+
+            return back();
+        }
     }
+
 }
