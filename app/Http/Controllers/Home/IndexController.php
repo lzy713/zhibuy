@@ -14,12 +14,7 @@ class IndexController extends Controller
     public function cateslist()
     {
         
-        // dd($this->a);
-        $res = Cates::with('goods')->get();
-
-        
-
-    	return view('layout.home',['res'=>$res]);
+    	return view('layout.home');
     }
 
 }

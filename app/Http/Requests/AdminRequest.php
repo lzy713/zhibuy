@@ -28,9 +28,11 @@ class AdminRequest extends FormRequest
             //'name' => 'required|unique:fd_admin,name,".$id|regex:/^\w{6,12}$/',
             //'name' => 'required|unique:fd_admin|regex:/^\w{6,12}$/',
             'name' => 'sometimes|required|regex:/^\w{5,12}$/',
+            'jpwd' => 'sometimes|required|regex:/^\S{6,16}$/',
             'pwd' => 'sometimes|required|regex:/^\S{6,16}$/',
             'repwd' => 'sometimes|same:pwd',
             'rid' => 'sometimes|required',
+            
         ];
     }
 
@@ -45,10 +47,15 @@ class AdminRequest extends FormRequest
             'name.required'=>"用户名不能为空",
             //'name.unique'=>"用户名不可用",
             'name.regex'=>"用户名格式为5-12位 数字、字母、下划线",
+
+            'jpwd.required'=>"原始密码不能为空",
+            'jpwd.regex'=>"密码格式为6-16位字符",
+
             'pwd.required'=>"密码不能为空",
             'pwd.regex'=>"密码格式为6-16位字符",
             'repwd.same'=>"两次密码不一致",
             'rid.required'=>"请选择角色",
+
         ];
     }
 

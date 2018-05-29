@@ -74,7 +74,7 @@
                                 <div class="layui-input-block layui_inp_widht300">
                                   <select name="rid">
                                     @foreach($roles as $k=>$v)
-                                    <option value="{{$v->id}}">{{$v->name}}</option>
+                                    <option value="{{$v->id}}" @if($v->getOriginal('status')==0) disabled @endif>{{$v->name}}</option>
                                     @endforeach
                                   </select>
                                 </div>

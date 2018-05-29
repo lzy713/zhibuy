@@ -73,6 +73,9 @@ class LoginController extends Controller
     	//记录session 登录标记       会员信息         栏目id集合             url字符串 
     	session(['adminFlag'=>true,'adminMsg'=>$data,'adminMid'=>$rids->mid,'menuUrl'=>$menuUrl]);
 
+        //登录记录
+        DB::table('fd_admin_log')->insert(['uid'=>$data->id,'ip'=>$_SERVER['REMOTE_ADDR'],'logintime'=>time()]);
+
     	return show(1,'登录成功');
 
     }

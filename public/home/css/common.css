@@ -1,0 +1,12 @@
+.banner_y{background: 0;}
+.banner_y .nav{position:absolute; z-index: 1111; background:rgba(0,0,0,0.6) none repeat scroll !important; 
+background:#000; filter:Alpha(opacity=60); }
+
+
+.layui-carousel-ind{text-align: right; margin-left:-30px; }
+.layui-carousel[lay-arrow="always"] .layui-carousel-arrow{ left: 253px; }
+
+.banner_x .search .text .shuru{ height: 48px; }
+
+.sub_banner .datu{margin-left:14px; width: 296px;}
+.sub_banner .datu a img{width: 296px;}

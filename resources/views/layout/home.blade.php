@@ -4,6 +4,8 @@
 		<meta charset="UTF-8">
 		<title>@yield('title')</title>
 		<link rel="stylesheet" type="text/css" href="/home/css/style.css">
+		<link rel="stylesheet" href="/layui/css/layui.css">
+		<link rel="stylesheet" type="text/css" href="/home/css/common.css">
 	</head>
 	<body>
 @section('header')
@@ -44,7 +46,7 @@
 								@if(session('homeFlag')==false)	
 								<li><a href="/login" target="_blank">登录</a><li>
 								<li>|</li>
-								<li><a href="/register.html" target="_blank" >注册</a></li>
+								<li><a href="/register" target="_blank" >注册</a></li>
 								@else
 								<li><a href="/login" target="_blank">{{session('homeMsg')->username}}</a></li>
 								<li>|</li>
@@ -83,11 +85,14 @@
 			</div>
 			<div class="search fr">
 				<form action="" method="post">
+					<?php
+					$lbt = App\Model\Admin\Poster::where('cid',3)->orderBy('listorder','desc')->first();
+					?>
 					<div class="text fl">
-						<input type="text" class="shuru"  placeholder="小米6&nbsp;小米MIX现货">
+						<input type="text" class="shuru" value="{{$lbt->title}}">
 					</div>
 					<div class="submit fl">
-						<input type="submit" class="sousuo" value="搜索"/>
+						<input type="submit" class="sousuo"/>
 					</div>
 					<div class="clear"></div>
 				</form>
@@ -103,8 +108,11 @@
 @section('content')   
 	<!-- start banner_y -->
 		<div class="banner_y center">
+			
 			<div class="nav">
-				
+				<?php
+					$res = App\Model\Admin\Cates::with('goods')->get();
+				?>
 				<ul>
 					@foreach($res as $k=>$v)
 					<li>
@@ -143,29 +151,37 @@
 					</li>
 					@endforeach
 				</ul>
-
-
-
 			</div>
-		
+			
+			<!--轮播-->	
+			<div class="layui-carousel" id="test1">
+			  <div carousel-item>
+			  	<?php
+			  	$lbt = App\Model\Admin\Poster::where('cid',1)->orderBy('listorder','desc')->limit(6)->get();
+			  	?>
+			  	@foreach($lbt as $k=>$v)
+
+			    <div><a href="{{$v->url}}"><img src="{{$v->pic}}" width="auto" height="460"></a></div>
+			    @endforeach
+			  </div>
+			</div>	
+
+			<!--轮播-->
+
+
 		</div>	
 
 		<div class="sub_banner center">
-			<div class="sidebar fl">
-				<div class="fl"><a href=""><img src="/home/image/hjh_01.gif"></a></div>
-				<div class="fl"><a href=""><img src="/home/image/hjh_02.gif"></a></div>
-				<div class="fl"><a href=""><img src="/home/image/hjh_03.gif"></a></div>
-				<div class="fl"><a href=""><img src="/home/image/hjh_04.gif"></a></div>
-				<div class="fl"><a href=""><img src="/home/image/hjh_05.gif"></a></div>
-				<div class="fl"><a href=""><img src="/home/image/hjh_06.gif"></a></div>
-				<div class="clear"></div>
-			</div>
-			<div class="datu fl"><a href=""><img src="/home/image/hongmi4x.png" alt=""></a></div>
-			<div class="datu fl"><a href=""><img src="/home/image/xiaomi5.jpg" alt=""></a></div>
-			<div class="datu fr"><a href=""><img src="/home/image/pinghengche.jpg" alt=""></a></div>
+			<?php
+			$datu = App\Model\Admin\Poster::where('cid',4)->orderBy('listorder','desc')->limit(4)->get();
+
+			//dd($datu);
+			?>
+			@foreach($datu as $k=>$v)
+			<div class="datu fl" @if($k==0) style="margin-left:0;" @endif><a href="{{$v->url}}"><img src="{{$v->pic}}" alt=""></a></div>
+			@endforeach
+
 			<div class="clear"></div>
-
-
 		</div>
 	<!-- end banner -->
 
@@ -310,6 +326,7 @@
 		</footer>
 
 		<script src="/home/js/jquery.js"></script>
+		<script src="/layui/layui.js"></script>
 		@section('js')
 			<script>
 				$('.list').each(function(){
@@ -319,6 +336,26 @@
 						location.href = "/goodslist/"+cid;
 					});
 				});
+
+
+
+				//JavaScript代码区域
+				layui.use(['element', 'form','carousel'], function(){
+				  var element = layui.element;
+				  var form = layui.form;
+				  var carousel = layui.carousel;
+				   carousel.render({
+				    elem: '#test1'
+				    ,width: '100%' //设置容器宽度
+				    ,height: '460px'
+				    ,arrow: 'always' //始终显示箭头
+				    //,anim: 'updown' //切换动画方式
+				  });
+				  
+				 
+				});
+
+
 			</script>
 		@show
 	</body>

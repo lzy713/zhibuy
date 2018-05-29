@@ -14,89 +14,148 @@
                 
                 
 
-                <!--搜索-->
-                <form class="layui-form" action="">
-                        <div class="layui-row layui-col-space10">
-                            <div class="layui-col-md2">
-                              <select name="interest-search" lay-filter="interest-search" lay-search lay-write>
-                                <option value=""></option>
-                                <option value="0">写作</option>
-                                <option value="1">阅读</option>
-                                <option value="2">游戏</option>
-                                <option value="3">音乐</option>
-                                <option value="4">旅行</option>
-                                <option value="5">读书</option>
-                                </select>
-                            </div>
-                            <div class="layui-col-md2">
-                              <input type="text" name="xxx " autocomplete="off" class="layui-input" placeholder="请输入关键词" >
-                            </div>
-                            <div class="layui-col-md1">
-                              <button class="layui-btn layui-btn-normal ss_css_but layui-icon" lay-submit lay-filter="*">&#xe615;</button>
-                            </div>
-                        </div>     
-                </form>
-                <!--搜索-->
-
-                <!--返回 刷新 添加-->
-                <hr class="layui-bg-gray">
-                <a href="javascript:;" title="返回" onclick="javascript:window.history.go(-1)" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">&#xe65c;</a>
-                <a href="javascript:;" onclick="javascript:window.location.reload(true);" title="刷新" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">&#x1002;</a>
-                <a href="/menu/create" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">添加</a>
-                <!--返回 刷新 添加-->
-
               <!--内容--> 
-                 <form class="layui-form" action="">  
-                      <table class="layui-table">
+                <fieldset class="layui-elem-field">
+                  <legend>{{session('adminMsg')->name}}</legend>
+                  <div class="layui-field-box">
+                    
+                    <table class="layui-table" lay-skin="nob">
                         <colgroup>
-                          <col width="50">
-                          <col width="150">
-                          <col width="150">
+                          <col width="80">
                           <col width="200">
-                          <col>
+                          <col width="80">
+                          <col width="200">
+                          <col width="40">
+                          <col width="200">
                         </colgroup>
-                        <thead>
-                          <tr>
-                            
-                            <th>用户名</th>
-                            <th>真实姓名</th>
-                            <th>密码</th>
-                            <th>头像</th>
-                            <th>性别</th>
-                            <th>手机号</th>
-                            <th>邮箱</th>
-                            <th>状态</th>
-                            <th>注册时间</th>
-                            <th>备注</th>
-                          </tr> 
-                        </thead>
+                        <?php
+                        $datatimes = DB::table('fd_admin_log')->where('uid',session('adminMsg')->id)->orderBy('id','desc')->limit(2)->get();
+                        ?>
                         <tbody>
                           <tr>
-                            <td>afsd</td>
-                            <td>张三</td>
+                            <td>本次登录</td>
+                            <td>{{date('Y-m-d H:i:s',$datatimes[0]->logintime)}}</td>
+                            @if(!empty($datatimes[1]))
+                            <td>上次登录</td>
+                            <td>{{date('Y-m-d H:i:s',$datatimes[1]->logintime)}}&nbsp;&nbsp;&nbsp;&nbsp;{{$datatimes[1]->ip}}</td>
+                            @endif
                             <td></td>
                             <td></td>
-                            <td></td>
-                            <td></td> 
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                          </tr>
+                        </tbody>
+
+                      </table>
+
+                  </div>
+                </fieldset>
+                 
+                
+                <fieldset class="layui-elem-field">
+                  <legend>统计</legend>
+                  <div class="layui-field-box">
+                    
+                    <table class="layui-table" width="300" lay-skin="nob">
+                        <colgroup>
+                          <col width="60">
+                          <col width="350">
+                        </colgroup>
+                        <?php
+                        //会员
+                        $huiyuans = DB::table('fd_users')->count();
+                        //商品
+                        $goods = DB::table('fd_goods')->count();
+                        //订单
+                        $orders = DB::table('fd_order')->count();
+                        //测评
+                        $evaluats = DB::table('fd_evaluat')->count();
+                        //已卖出商品个数
+                        $details = DB::table('fd_detail')->select(DB::raw('SUM(num) as sum_num'))->get();
+                        //评论
+                        $comments = DB::table('fd_comments')->count();
+                        ?>
+                        <tbody>
+                          <tr>
+                            <td>注册会员数</td>
+                            <td>{{$huiyuans}}</td>
+                          </tr>
+                          <tr>
+                            <td>商品数量</td>
+                            <td>{{$goods}}</td>
+                          </tr>
+                          <tr>
+                            <td>订单数量</td>
+                            <td>{{$orders}}</td>
+                          </tr>
+                          <tr>
+                            <td>已卖出商品总数</td>
+                            <td>{{$details[0]->sum_num}}</td>
+                          </tr>
+                          <tr>
+                            <td>评论数量</td>
+                            <td>{{$comments}}</td>
+                          </tr>
+                           <tr>
+                            <td>测评文章数量</td>
+                            <td>{{$evaluats}}</td>
+                          </tr>
+                        </tbody>
+
+                      </table>
+
+                  </div>
+                </fieldset>
+
+
+                <fieldset class="layui-elem-field">
+                  <legend>系统</legend>
+                  <div class="layui-field-box">
+                    
+                    
+                    <table class="layui-table" lay-skin="nob">
+                        <colgroup>
+                          <col width="40">
+                          <col width="200">
+                          <col width="40">
+                          <col width="200">
+                        </colgroup>
+                        
+                        <tbody>
+                          <tr>
+                            <td>服务器版本</td>
+                            <td>{{php_sapi_name()}}</td>
+                            <td>操作系统</td>
+                            <td>{{PHP_OS}}</td>
+                          </tr>
+                          <tr>
+                            <td>PHP版本号</td>
+                            <td>{{PHP_VERSION}}</td>
+                            <td>MySql版本</td>
                             <td>
-                            <a href="javascript:;" class="layui-btn layui-btn-xs">修改</a>
-                            <a href="javascript:;" class="layui-btn layui-btn-xs layui-bg-red">删除</a>
+                              <?php 
+                                $res = DB::select('select VERSION()'); 
+                                $js = json_decode(json_encode($res[0]),true);
+                                echo $js['VERSION()'];
+                              ?>  
+                              </td>
+                          </tr>
+                          
+                          <tr>
+                            <td>Zend版本</td>
+                            <td>{{Zend_Version()}}</td>
+                            <td>最多上传限制</td>
+                            <td>
+                              <?PHP
+                                echo get_cfg_var ("upload_max_filesize")?get_cfg_var ("upload_max_filesize"):"不允许上传附件";
+                              ?>
                             </td>
                           </tr>
                         </tbody>
                       </table>
-                      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
-                      <tr>
-                        <td>
-                          <div id="demo2" style="margin:0 auto;"></div>
-                        </td>
-                        </tr>
-                    </table>
 
-                  </form>   
+
+                  </div>
+                </fieldset>
+                 
               <!--内容-->
 
 

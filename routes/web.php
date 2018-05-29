@@ -39,13 +39,17 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>'admin'],func
 	Route::get('menu/createup','MenuController@createup');//多图上传测试
 	Route::resource('menu','MenuController');
 
+	//修改状态
+	Route::post('role/status','RoleController@status');
 	//角色管理
 	Route::resource('role','RoleController');
 
 	
 	//修改密码
-	Route::get('admin/pass','AdminController@adminPass');
+	Route::get('admin/pass/{id}','AdminController@adminPass');
 	Route::post('admin/passup','AdminController@passup');
+	//修改状态
+	Route::post('admin/status','AdminController@status');
 	//管理员管理
 	Route::resource('admin','AdminController');
 
