@@ -9,17 +9,39 @@ use App\Model\Home\Address;
 class AddressController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * 个人中心地址页
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        // return view('home.shopping.address');
+        //收货信息
+        $address = Address::where('uid', session('homeMsg')->id)->orderby('status','asc')->get();
+        return view('home.user.address',['title'=>'收货地址','address'=>$address]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 修改地址页
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function edit($id)
+    {
+        $address = Address::where('id',$id)->first();
+        return view('home.layout.updateAddress',['address'=>$address]);
+    }
+
+    /**
+     * 修改地址
+     * @return [type] [description]
+     */
+    public function update($data)
+    {
+
+    }
+
+    /**
+     * 购物车添加地址页
      *
      * @return \Illuminate\Http\Response
      */
@@ -29,7 +51,7 @@ class AddressController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 购物车添加地址
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -41,48 +63,11 @@ class AddressController extends Controller
         // return $res;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+
+    public function delAjax($id)
     {
-        //
+        $res = Address::destroy($id);
+        return response()->json($res);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

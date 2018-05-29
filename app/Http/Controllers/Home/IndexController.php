@@ -13,7 +13,6 @@ class IndexController extends Controller
 
     public function cateslist()
     {
-        
     	return view('layout.home');
     }
 

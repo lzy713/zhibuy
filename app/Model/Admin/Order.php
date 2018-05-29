@@ -5,6 +5,7 @@ namespace App\Model\Admin;
 use Illuminate\Database\Eloquent\Model;
 use App\Model\Home\Address;
 use App\Model\Home\Cart;
+use Illuminate\Http\Request;
 
 class Order extends Model
 {
@@ -19,8 +20,8 @@ class Order extends Model
 
     /**
      * 定义订单表与用户表的多对一关系
-     * uid  当前模型的外键
-     * id 被关联的模型的建(一般是主键)
+     * uid  当前模型Order的外键
+     * id   被关联的模型Users的内键
      * @return [type] [description]
      */
     public function user()
@@ -29,7 +30,9 @@ class Order extends Model
     }
 
     /**
-     * 订单表与订单详情表一对多                        
+     * 订单表与订单详情表一对多
+     * onumber 是Detail的外键
+     * number  是Order 的内键                        
      * @return [type] [description]
      */
     public function detail()
@@ -77,36 +80,33 @@ class Order extends Model
         //主表
         $data = [];
         //收货人信息
-        $address = Address::where('uid',1)->where('status','1')->first();
+        $address = Address::where('uid', session('homeMsg')->id)->where('status','1')->first();
         $data['consignee'] = $address->name;
         $data['address']   = $address->province.' '.$address->city.' '.$address->area.' '.$address->street;
         $data['phone']     = $address->phone;
 
         $data['createtime'] = time();
         $data['number']     = date('YmdHis',time()).rand(1000,9999);
-        $data['uid']        = 1;
+        $data['uid']        = session('homeMsg')->id;
 
         //详情表
         $info = [];
         //商品信息
         $data['tprice'] = 0;
-        $Cart = Cart::where('uid',1)->where('status','1')->get();
+        $Cart = Cart::where('uid',session('homeMsg')->id)->where('status','1')->get();
         foreach ($Cart as $k => $v) {
             $data['tprice'] += $v->prices; 
-            $info['num'] = $v->num;
-            $info['gid'] = $v->gid;
-            $info['onumber'] = $data['number'];
-            $info['price'] = ($v->prices)/($v->num);
-            (new Detail)->addDetail($info,$data['number']);
-            $info = [];
+            $info[$k]['num'] = $v->num;
+            $info[$k]['gid'] = $v->gid;
+            $info[$k]['price'] = ($v->prices)/($v->num);
         }
 
-        
         // dd($data['number']);
         $res = $this->create($data);
-
+        $id = $res->id;
+        $res->find($id)->detail()->createMany($info);
         //删除购物车的数据
-        Cart::where('uid',$data['uid'])->delete();
+        Cart::where('uid', session('homeMsg')->id)->delete();
 
         return $data['number']; 
     }
@@ -144,6 +144,23 @@ class Order extends Model
     public function updateOrder($id, $data)
     {
         return $this->where('id',$id)->update($data);
+    }
+
+
+    /**
+     * 前台我的订单
+     * @return [type] [description]
+     */
+    public static function homeOrder($number)
+    {
+        
+        if (!empty($number)) {
+            $res = self::with('detail.goods')->where('number',$number)->paginate(1);
+        } else {
+            $res = self::with('detail.goods')->paginate(1);
+        }
+
+        return $res;
     }
 
 }

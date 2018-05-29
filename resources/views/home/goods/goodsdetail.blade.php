@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<title>小米6立即购买-小米商城</title>
 		<link rel="stylesheet" type="text/css" href="/home/css/style.css">
+		<script src="/js/jquery.min.js"></script>
 	</head>
 	<body>
 	<!-- start header -->
@@ -37,9 +38,9 @@
 					<div class="gouwuche fr"><a href="">购物车</a></div>
 					<div class="fr">
 						<ul>
-							<li><a href="./login.html" target="_blank">登录</a></li>
+							<li><a href="" target="_blank">登录</a></li>
 							<li>|</li>
-							<li><a href="./register.html" target="_blank" >注册</a></li>
+							<li><a href="" target="_blank" >注册</a></li>
 							<li>|</li>
 							<li><a href="">消息通知</a></li>
 						</ul>
@@ -100,7 +101,7 @@
 				<li>|</li>
 				<li><a href="">F码通道</a></li>
 				<li>|</li>
-				<li><a href="">用户评价</a></li>
+				<li><a href="/comments/{{$res->gid}}">用户评价</a></li>
 				<div class="clear"></div>
 			</nav>
 			<div class="clear"></div>
@@ -110,7 +111,10 @@
 	<div class="jieshao mt20 w">
 		<div class="left fl"><img src="{{$res->img}}"></div>
 		<div class="right fr">
-			<div class="h3 ml20 mt20">{{$res->gname}}</div>
+			<div class="h3 ml20 mt20 xiadan">{{$res->gname}} 
+				<input class="jrgwc shoucang" type="button" gid="{{$res->gid}}" style="float: right; margin-right: 15px;width: 100px;height: 35px"
+				@if($flag) value="已收藏" disabled @else value="收藏" @endif>
+			</div>
 			<div class="jianjie mr40 ml20 mt10">{{$res->gdesc}}</div>
 			<div class="jiage ml20 mt10">{{$res->gprice}}元</div>
 			<div class="ft20 ml20 mt20">选择版本</div>
@@ -149,7 +153,7 @@
 			</div>
 			<div class="xiadan ml20 mt20">
 					<input class="jrgwc"  type="button" name="jrgwc" value="立即选购" />
-					<input class="jrgwc" type="button" name="jrgwc" value="加入购物车" />
+					<input class="jrgwc addCart" type="button" id="{{$res->gid}}" name="jrgwc" value="加入购物车" />
 				
 			</div>
 		</div>
@@ -158,12 +162,32 @@
 	</form>
 	<!-- footer -->
 	<footer class="mt20 center">
-			
-			<div class="mt20">小米商城|MIUI|米聊|多看书城|小米路由器|视频电话|小米天猫店|小米淘宝直营店|小米网盟|小米移动|隐私政策|Select Region</div>
-			<div>©mi.com 京ICP证110507号 京ICP备10046444号 京公网安备11010802020134号 京网文[2014]0059-0009号</div> 
-			<div>违法和不良信息举报电话：185-0130-1238，本网站所列数据，除特殊说明，所有数据均出自我司实验室测试</div>
+		<div class="mt20">小米商城|MIUI|米聊|多看书城|小米路由器|视频电话|小米天猫店|小米淘宝直营店|小米网盟|小米移动|隐私政策|Select Region</div>
+		<div>©mi.com 京ICP证110507号 京ICP备10046444号 京公网安备11010802020134号 京网文[2014]0059-0009号</div> 
+		<div>违法和不良信息举报电话：185-0130-1238，本网站所列数据，除特殊说明，所有数据均出自我司实验室测试</div>
+	</footer>
 
-		</footer>
+<script>
+	$('.addCart').click(function(){
+		var gid = $(this).attr('id');
+
+		$.get('/addCart/'+gid, {}, function(data){
+			if (data) {
+				location.href='/successCart';
+			}
+		});
+	});
+
+	$('.shoucang').click(function(){
+		var gid = $(this).attr('gid');
+		var btn = $(this);
+		$.get('/shoucang/'+gid, {}, function(data){
+			if (data) {
+				btn.val('已收藏');
+			}
+		});
+	});
+</script>
 
 	</body>
 </html>

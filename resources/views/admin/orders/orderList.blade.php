@@ -18,22 +18,22 @@
             </blockquote>
             
             <form class="layui-form" action="/admin/orders" method="get">
-                    <div class="layui-row layui-col-space10">
-                        <div class="layui-col-md2">
-                          <select name="status" lay-filter="interest-search" lay-search lay-write>
-                          	<option value="">所有订单</option>
-                            <option value="0" @if($status == '0') selected @endif>未发货</option>
-                            <option value="1" @if($status == '1') selected @endif>已发货</option>
-                            <option value="2" @if($status == '2') selected @endif>交易完成</option>
-                            </select>
-                        </div>
-                        <div class="layui-col-md2">
-                          <input type="text" name="number" value="@if($number) {{$number}} @endif" class="layui-input" placeholder="请输入订单号" >
-                        </div>
-                        <div class="layui-col-md1">
-                          <button class="layui-btn layui-btn-normal ss_css_but layui-icon">&#xe615;</button>
-                        </div>
-                    </div>     
+                <div class="layui-row layui-col-space10">
+                    <div class="layui-col-md2">
+                      <select name="status" lay-filter="interest-search" lay-search lay-write>
+                      	<option value="">所有订单</option>
+                        <option value="0" @if($status == '0') selected @endif>未发货</option>
+                        <option value="1" @if($status == '1') selected @endif>已发货</option>
+                        <option value="2" @if($status == '2') selected @endif>交易完成</option>
+                        </select>
+                    </div>
+                    <div class="layui-col-md2">
+                      <input type="text" name="number" value="@if($number) {{$number}} @endif" class="layui-input" placeholder="请输入订单号" >
+                    </div>
+                    <div class="layui-col-md1">
+                      <button class="layui-btn layui-btn-normal ss_css_but layui-icon">&#xe615;</button>
+                    </div>
+                </div>     
             </form>
             <hr class="layui-bg-gray">
             

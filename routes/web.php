@@ -156,6 +156,10 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>'admin'],func
 	Route::get('order/editAjax','OrderAjaxController@editAjax');
 
 
+	//评论列表
+	Route::resource('comments','CommentsController');
+
+
 
 
 
@@ -216,7 +220,9 @@ Route::group(['namespace'=>'Home'],function(){
 
 
 
-
+	//注册页面
+	Route::get('register','RegisterController@register');
+	Route::post('regist','RegisterController@regist');
 
 
 
@@ -276,7 +282,8 @@ Route::get('/goodsdetails/{id}','GoodsController@goodsdetails');
 
 
 
-
+//评论页
+Route::get('comments/{id}','CommentsController@index');
 
 
 
@@ -318,9 +325,7 @@ Route::group(['namespace'=>'Home','middleware'=>'login'],function(){
 
 
 
-	//注册页面
-	Route::get('register','RegisterController@register');
-	Route::post('regist','RegisterController@regist');
+	
 
 	
 	//注册页表单验证
@@ -355,37 +360,68 @@ Route::group(['namespace'=>'Home','middleware'=>'login'],function(){
 
 
 
-
-
-
-
-
-
-
-
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Route::group(['prefix'=>'home'],function(){
+	/**
+	 * 购物车
+	 */
 	Route::resource('shopCart','shopCartController');
 	Route::get('order','shopCartController@order');
 
+	//加入购物车
+	Route::get('addCart/{gid}','shopCartController@addCart');
+	//加入成功页
+	Route::get('successCart','shopCartController@successCart');
+
 	//地址
 	Route::resource('address','AddressController');	
+
+	//我的订单
+	Route::get('myorder','OrderController@orderList');
+	//修改订单状态
+	Route::get('myorder/statusAjax/{id}','OrderController@statusAjax');
+	//订单详情
+	Route::get('myorder/orderDetail/{number}','OrderController@orderDetail');
+	Route::post('myorders','OrderController@orderList');
+
+	//收货地址页
+	Route::get('myaddress','AddressController@index');
+
+	//删除地址
+	Route::get('delAjax/{id}','AddressController@delAjax');
+	//修改地址
+	Route::get('editAjax/{id}','AddressController@editAjax');
+	
+	//我的收藏
+	Route::get('mycollection','CollectionController@index');
+	Route::get('shoucang/{id}','CollectionController@add');
+	Route::get('delete/{id}','CollectionController@delete');
+
+	//提交评论
+	Route::post('addComments','CommentsController@addComments');
+
+	//回复评论
+	Route::post('addUreply','CommentsController@addUreply');
+
+	//评论点赞
+	Route::post('addnum/{id}','CommentsController@addnum');
+
+
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
