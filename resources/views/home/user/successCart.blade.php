@@ -58,12 +58,12 @@
                             <li class="J_xm-recommend-list">
                                 <dl>
                                     <dt>
-                                        <a href="" " target="_blank" onclick="">
+                                        <a href="/goodsdetails/{{$v->gid}}" " target="_blank" onclick="">
                                             <img src="{{$v->img}}" alt="{{$v->gname}}">
 										</a>
                                     </dt>
                                     <dd class="xm-recommend-name">
-                                        <a href="" target="_blank" onclick="">{{$v->gname}}</a>
+                                        <a href="/goodsdetails/{{$v->gid}}" target="_blank" onclick="">{{$v->gname}}</a>
 									</dd>
                                     <dd class="xm-recommend-price">{{$v->gprice}}</dd>
                                     <dd class="xm-recommend-tips ">3585人好评</dd>

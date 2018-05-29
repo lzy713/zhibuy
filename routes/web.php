@@ -216,7 +216,9 @@ Route::group(['namespace'=>'Home'],function(){
 
 
 
-
+	//注册页面
+	Route::get('register','RegisterController@register');
+	Route::post('regist','RegisterController@regist');
 
 
 
@@ -276,7 +278,8 @@ Route::get('/goodsdetails/{id}','GoodsController@goodsdetails');
 
 
 
-
+//评论页
+Route::get('comments/{id}','CommentsController@index');
 
 
 
@@ -318,9 +321,7 @@ Route::group(['namespace'=>'Home','middleware'=>'login'],function(){
 
 
 
-	//注册页面
-	Route::get('register','RegisterController@register');
-	Route::post('regist','RegisterController@regist');
+	
 
 	
 	//注册页表单验证
@@ -377,7 +378,6 @@ Route::group(['namespace'=>'Home','middleware'=>'login'],function(){
 	Route::get('myorder/orderDetail/{number}','OrderController@orderDetail');
 	Route::post('myorders','OrderController@orderList');
 
-
 	//收货地址页
 	Route::get('myaddress','AddressController@index');
 
@@ -386,19 +386,16 @@ Route::group(['namespace'=>'Home','middleware'=>'login'],function(){
 	//修改地址
 	Route::get('editAjax/{id}','AddressController@editAjax');
 	
-
 	//我的收藏
 	Route::get('mycollection','CollectionController@index');
 	Route::get('shoucang/{id}','CollectionController@add');
 	Route::get('delete/{id}','CollectionController@delete');
 
-	//评论页
-	Route::get('comments/{id}','CommentsController@index');
 	//提交评论
 	Route::post('addComments','CommentsController@addComments');
 
 	//回复评论
-	Route::post('addReply','CommentsController@addReply');
+	Route::post('addUreply','CommentsController@addUreply');
 
 	//评论点赞
 	Route::post('addnum/{id}','CommentsController@addnum');

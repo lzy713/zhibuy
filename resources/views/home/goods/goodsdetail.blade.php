@@ -38,9 +38,9 @@
 					<div class="gouwuche fr"><a href="">购物车</a></div>
 					<div class="fr">
 						<ul>
-							<li><a href="./login.html" target="_blank">登录</a></li>
+							<li><a href="" target="_blank">登录</a></li>
 							<li>|</li>
-							<li><a href="./register.html" target="_blank" >注册</a></li>
+							<li><a href="" target="_blank" >注册</a></li>
 							<li>|</li>
 							<li><a href="">消息通知</a></li>
 						</ul>
@@ -113,7 +113,7 @@
 		<div class="right fr">
 			<div class="h3 ml20 mt20 xiadan">{{$res->gname}} 
 				<input class="jrgwc shoucang" type="button" gid="{{$res->gid}}" style="float: right; margin-right: 15px;width: 100px;height: 35px"
-				@if($collection) value="已收藏" disabled @else value="收藏" @endif>
+				@if($flag) value="已收藏" disabled @else value="收藏" @endif>
 			</div>
 			<div class="jianjie mr40 ml20 mt10">{{$res->gdesc}}</div>
 			<div class="jiage ml20 mt10">{{$res->gprice}}元</div>

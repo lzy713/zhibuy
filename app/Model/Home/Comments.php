@@ -23,6 +23,11 @@ class Comments extends Model
     	return $this->hasOne('App\Model\Home\Reply','cid','id');
     }
 
+    public function ureply()
+    {
+        return $this->hasMany('App\Model\Home\Ureply','cid','id');
+    }
+
     public function goods()
     {
         return $this->belongsTo('App\Model\Admin\Goods','gid','gid');

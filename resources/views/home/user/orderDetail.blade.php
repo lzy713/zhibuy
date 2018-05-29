@@ -186,7 +186,7 @@ $.ajaxSetup({
                 content: content,
                 yes:function(index,layero){
                     var text = $('#content').val();
-                    $.post('/addComments', {gid:gid,text:text}, function(data){
+                    $.post('/addComments', {gid:gid,text:text,img:img}, function(data){
                         layer.close(index);
                         layer.alert('评论成功', {
                               skin: 'layui-ext-moon' //样式类名

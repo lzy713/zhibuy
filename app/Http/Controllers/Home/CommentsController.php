@@ -7,16 +7,27 @@ use App\Http\Controllers\Controller;
 use App\Model\Admin\Goods;
 use App\Model\Home\Comments;
 use App\Model\Home\Reply;
+use App\Model\Home\Ureply;
 
 class CommentsController extends Controller
 {
     public function index($id)
     {
     	$goods = Goods::select('gid','gname')->where('gid',$id)->first();
-    	$comments = Comments::with(['users','reply'=>function($query){
-            $query->orderby('createtime','asc');
-        }])->where('gid',$id)->orderby('createtime','desc')->get();
+
+    	$comments = Comments::with(['users','ureply.users',
+            'ureply'=>function($query){
+                $query->orderby('createtime','asc');
+            },
+            'reply'=>function($query){
+                $query->orderby('createtime','asc');
+            }])->
+        where('gid',$id)->
+        orderby('createtime','desc')->
+        get();
+        
     	$res = Comments::with('users')->where('gid',$id)->orderby('createtime','desc')->limit(5)->get();
+
     	return view('home.user.comments',[
     		'title'=>'用户评价',
     		'goods'=>$goods,
@@ -45,13 +56,14 @@ class CommentsController extends Controller
      * 回复评论
      * @param Request $req [description]
      */
-    public function addReply(Request $req)
+    public function addUreply(Request $req)
     {
     	$data = [];
-    	$data['content'] = $req->input('text');
+        $data['content'] = $req->input('text');
+    	$data['uid'] = $req->input('uid');
     	$data['createtime'] = time();
     	$data['cid'] = $req->input('cid');
-    	$res = Reply::create($data);
+    	$res = Ureply::create($data);
 
     	return response()->json($res);
     }

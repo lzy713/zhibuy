@@ -106,7 +106,7 @@
                 ,time:1800
             });
             //父窗口刷新
-            window.parent.location.reload();
+            window.top.location.reload();
           });  
     });
 

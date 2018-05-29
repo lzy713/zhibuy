@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="m-comment-wrap h-comment-wrap">
-            @if(empty($comments))
+            @if($comments->isEmpty())
             <div class="container nocomment J_nocomment">该商品暂无评论</div>
             @else
             <div class="container J_commentWrap">
@@ -76,7 +76,7 @@
                                     </div>
                                     <div class="comment-input">
                                         <input type="text" placeholder="回复楼主" class="J_commentAnswerInput">
-                                        <a href="javascript:void(0);" class="btn  answer-btn J_commentAnswerBtn huifu" commentid="{{$v->id}}">回复</a>
+                                        <a href="javascript:void(0);" class="btn  answer-btn J_commentAnswerBtn huifu" uid="{{$v->users->id}}" uname="{{$v->users->username}}" commentid="{{$v->id}}">回复</a>
                                     </div>
                                     <div class="comment-answer">
                                         @if(!empty($v->reply->content))
@@ -90,6 +90,29 @@
                                             </div>
                                         </div>
                                         @endif
+
+                                        @foreach($v->ureply as $kk=>$vv)
+
+                                        @if(!empty($vv->content))
+                                        <div class="answer-item">
+
+                                            @if($vv->users->img)
+                                            <img class="answer-img" src="{{$vv->users->img}}">
+                                            @else
+                                            <img class="answer-img" src="/home/comments/1.png">
+                                            @endif
+
+                                            <div class="answer-content">
+                                                <h3 class="official-name">{{$vv->users->username}}</h3>
+                                                <p>
+                                                    {{$vv->content}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        @endif
+
+                                        @endforeach
+
                                     </div>
                                 </li>
                                 @endforeach
@@ -161,21 +184,27 @@ $.ajaxSetup({
         ,upload= layui.upload;
           
         $('.huifu').click(function(){
-            var cid = $(this).attr('commentid');
             var text = $(this).prev().val();
-            var btn = $(this);
             if (text == '') return;
 
-            $.post('/addReply', {cid:cid,text:text}, function(data){
+            var cid = $(this).attr('commentid');
+            var uid = $(this).attr('uid');
+            var uname = $(this).attr('uname');
+            var btn = $(this);
 
-                layer.alert('回复成功', {
-                      skin: 'layui-ext-moon' //样式类名
-                      ,closeBtn: 0
-                      ,time:1500
-                      ,offset: '180px'
+            $.post('/addUreply', {cid:cid,text:text,uid:uid}, function(data){
+                if( typeof(data) == 'string'){
+                    location.href = '/login';
+                } else {
+                    layer.alert('回复成功', {
+                        skin: 'layui-ext-moon' //样式类名
+                        ,closeBtn: 0
+                        ,time:1500
+                        ,offset: '180px'
                     });
 
-                btn.parent().next().append('<div class="answer-item"><img class="answer-img" src="/home/comments/logo.png"><div class="answer-content"><h3 class="official-name">官方回复</h3><p>'+data['content']+'</p></div></div>');
+                    btn.parent().next().append('<div class="answer-item"><img class="answer-img" src="/home/comments/logo.png"><div class="answer-content"><h3 class="official-name">'+uname+'</h3><p>'+data['content']+'</p></div></div>');
+                }
 
             });
              

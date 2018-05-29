@@ -102,7 +102,6 @@
 					<!--  style="color:#ff6700;font-weight:bold;" -->
 					<li><a href="/myorder">我的订单</a></li>
 					<li><a href="/mycollection">收藏</a></li>
-					<li><a href="">浏览</a></li>
 					<li><a href="/myaddress">收货地址</a></li>
 				</ul>
 			</div>

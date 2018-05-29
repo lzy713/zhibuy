@@ -73,7 +73,7 @@
                 <div class="section-body clearfix" id="J_addressList">
                     <!-- 当前显示的收货地址 -->
                     @if( !empty($address) )
-                    <div class="address-item J_addressItem">
+                    <div class="address-item J_addressItem" id="address" address="{{$address->id}}">
                         <dl>
                             <dt>
                                 <span class="tag">
@@ -182,7 +182,7 @@
             </div>
             <div class="section-bar clearfix">
                 <div class="fr">
-                    <a href="/shopCart/create" class="btn btn-primary" id="J_checkoutToPay"
+                    <a href="javascript:void(0)" class="btn btn-primary" id="J_checkoutToPay"
                     data-stat-id="7369627d1ecb0ca6">
                         提交订单
                     </a>
@@ -219,13 +219,15 @@
         var form = layui.form
         ,layer = layui.layer;
         $('#J_checkoutToPay').click(function(){
-            if ( {{empty($address)}} ) {
+            
+            if ( typeof($('.address').attr('address')) == 'undefined' ) {
                 layer.msg('请填写收货地址', {
                 icon: 5,
                 offset: '150px',
                 time:1000
                 });
-                return false;
+            } else {
+                location.href = '/shopCart/create';
             }
         });
         

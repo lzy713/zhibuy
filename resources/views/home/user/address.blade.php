@@ -39,7 +39,6 @@
                                                 </dd>
                                             </dl>
                                             <div class="actions">
-                                                <a class="modify J_addressEdit" id="{{$v->id}}">修改</a>
                                                 <a class="modify J_addressDel" id="{{$v->id}}">删除</a>
                                             </div>
                                         </div>
@@ -100,21 +99,6 @@
             var del = $(this);
             var res = confirm('你确定要删除地址吗？');
             if (!res) return;
-            $.get('/delAjax/'+id, {}, function(data){
-
-                if (data == '1') {
-                    layer.msg('删除成功!',{time: 1500, icon:6});
-                    del.parent().parent().remove();
-                }
-
-            });
-        });
-
-
-        //点击修改
-        $('.J_addressEdit').click(function(){
-            var id  = $(this).attr('id');
-            var del = $(this);
             $.get('/delAjax/'+id, {}, function(data){
 
                 if (data == '1') {
