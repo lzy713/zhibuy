@@ -251,6 +251,8 @@ Route::group(['namespace'=>'Home'],function(){
 
 
 Route::get('/','IndexController@cateslist');
+Route::get('/goodsfind','IndexController@goodsfind');
+
 Route::get('/goodslist/{id}','GoodsController@show');
 Route::get('/goodsdetails/{id}','GoodsController@goodsdetails');
 

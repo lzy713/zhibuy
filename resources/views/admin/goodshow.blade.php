@@ -6,11 +6,11 @@
 
 
 
-	<form class="layui-form" action="">
+	<form class="layui-form" action="/admin/goods/show">
      <div class="layui-row layui-col-space10">
                         
          <div class="layui-col-md2">
-           <input type="text" name="xxx " autocomplete="off" class="layui-input" placeholder="请输入关键词" >
+           <input type="text" name="gname" autocomplete="off" class="layui-input" placeholder="请输入关键词" value="{{$gname}}">
 		  </div>
          <div class="layui-col-md1">
            <button class="layui-btn layui-btn-normal ss_css_but layui-icon" lay-submit lay-filter="*">&#xe615;</button>
@@ -18,6 +18,9 @@
      </div>     
     </form>
     <hr class="layui-bg-gray">
+                <a href="javascript:;" title="返回" onclick="javascript:window.history.go(-1)" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">&#xe65c;</a>
+                <a href="javascript:;" onclick="javascript:window.location.reload(true);" title="刷新" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">&#x1002;</a>
+                <a href="/admin/goods/add" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">添加</a>
 
 
 	<form class="layui-form" action="">  
@@ -34,11 +37,11 @@
                 <th>#</th>
                 <th>商品编号</th>
                 <th>商品名称</th>
-                <th>商品父类</th>
+                <th>商品颜色</th>
+                <th>商品版本</th>
                 <th>商品价格</th>
                 <th>商品库存</th>
                 <th>商品图片</th>
-                
                 <th>商品描述</th>
                 <th>商品状态</th>
                 <th>是否推荐</th>
@@ -53,8 +56,9 @@
 	           	@foreach($res as $k=>$v)
 	                <td><input type="checkbox" name="" lay-skin="primary"></td>
 	                <td>{{$v->gid}}</td>
-	                <td>{{$v->gname}}</td>
-	                <td>{{$v->cid}}</td>
+                  <td>{{$v->gname}}</td>
+                  <td>{{$v->yanse}}</td>
+	                <td>{{$v->banben}}</td>
 	                <td>{{$v->gprice}}</td>
                   <td>{{$v->gstock}}</td>
 	                <td><img src="{{$v->img}}" alt=""></td>
