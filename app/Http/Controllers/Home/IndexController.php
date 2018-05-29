@@ -13,13 +13,16 @@ class IndexController extends Controller
 
     public function cateslist()
     {
-        
-        // dd($this->a);
-        $res = Cates::with('goods')->get();
 
-        
-
-    	return view('layout.home',['res'=>$res]);
+    	return view('layout.home');
     }
 
+
+    public function goodsfind(Request $req)
+    {
+        $gname = $req->input('gname');
+        $res = DB::table('fd_goods')->where('gname','like','%'.$gname.'%')->paginate(10);
+        // dd($find); 
+        return view('home.goods.goodslist',['title'=>'商品列表页','res'=>$res,'data'=>'']);
+    }
 }

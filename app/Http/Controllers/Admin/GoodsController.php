@@ -46,7 +46,7 @@ class GoodsController extends Controller
 		}
 		$data = DB::table('fd_goodsimg')->insert($imgs);
 		if($data){
-            return redirect('admin/goods/add');
+            return redirect('admin/goods/show');
         } else {
             return back();
         }
@@ -65,22 +65,25 @@ class GoodsController extends Controller
 
 
     ///显示商品啊 啊啊
-    public function show()
+    public function show(Request $req)
     {	
+        $gname = '';
+        if($gname = $req->input('gname') ){
+             $res = DB::table('fd_goods')->where('gname','like','%'.$gname.'%')->get();
 
-    	
-    	$res = DB::table('fd_goods')->get();
-
-    	//dd($res);
-
-    	$img = DB::table('fd_goodsimg')->get();
+        } else{
+             $res = DB::table('fd_goods')->get();
+        }
+       
+        $img = DB::table('fd_goodsimg')->get();
 
 
 
     	return view('admin.goodshow',[
             'title'=>'查看商品',
             'res'=>$res,
-            'img'=>$img
+            'img'=>$img,
+            'gname'=>$gname
         ]);
     }
 
