@@ -1,4 +1,4 @@
-@extends('layout.user')
+@extends('layout.home')
 @section('title',$title)
 <link rel="stylesheet" type="text/css" href="/home/order/main.min.css">
 <link rel="stylesheet" type="text/css" href="/home/order/base.min.css">
@@ -11,6 +11,9 @@
 </style>
 <!-- self_info -->
 @section('content')
+<div class="grzxbj">
+        <div class="selfinfo center">
+                 @include('layout.user')
 	<div class="rtcont fr">
         <div class="page-main user-main">
             <div class="container">
@@ -53,7 +56,8 @@
         </div>
 	</div>
 	<div class="clear"></div>
-	</div>
+        </div>
+    </div>  
 @endsection
 
 @section('js')

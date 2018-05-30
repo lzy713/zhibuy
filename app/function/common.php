@@ -33,6 +33,7 @@ function getNoticeName($npid)
 				return '顶级分类';
 			}else{
 				$res = DB::table('fd_notice')->where('nid',$npid)->first();
+				
 				return $res->nname;
 			}
 	}

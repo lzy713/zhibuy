@@ -88,8 +88,8 @@
             <!-- tab s -->
             <div class="nav_tabs_panel">
               <div id="nav-tabs" class="nav_tabs">
-                <a class="navtab-link now" href="javascript:void(0);" data-tab="pwd">帐号登录</a><span class="line"></span>
-                <a class="navtab-link" href="javascript:void(0);" data-tab="qr">扫码登录</a>
+                <a class="navtab-link now" href="javascript:void(0);" data-tab="pwd">帐号登录</a>
+               
               </div>
             </div>
             <!-- tab e -->
@@ -103,7 +103,7 @@
                       <div class="lgn_inputbg c_b login-panel pwdLogin">
                         <!--验证用户名-->
                         <label id="region-code" class="labelbox login_user c_b" for="">
-                          <input class="item_account"  type="text" name="username" id="user" placeholder="用户名/手机号码">
+                          <input class="item_account"  type="text" name="username" id="user" placeholder="用户名">
                         </label>
                         <label class="labelbox pwd_panel c_b">
                           <input class="item_account" type="password" placeholder="密码" autocomplete="off" id="pwd" name="password">

@@ -29,6 +29,7 @@
 		      
 		      <th lay-data="{field:'id', width:80, sort: true, fixed: true}">ID</th>
 		      <th lay-data="{field:'username', width:80}">推荐商品名称</th>
+		      <th lay-data="{field:'username', width:80}">推荐商品url</th>
 		      <th lay-data="{field:'username', width:80}">推荐商品价格</th>
 		      <th lay-data="{field:'name', width:80, sort: true}">商品路径</th>
 		      <th lay-data="{field:'sex', width:80}">商品图片</th>
@@ -46,6 +47,7 @@
 	      <tr>
 	      	  <td>{{$v->id}}</td>
 		      <td>{{$v->gname}}</td>
+		      <td>{{$v->gurl}}</td>
 		      <td>{{$v->price}}</td>
 		      <td>{{$v->tname}}</td>
 		     

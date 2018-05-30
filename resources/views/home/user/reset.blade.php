@@ -23,21 +23,22 @@
       <h4 class="title_big30">重置密码</h4>
     </div>
     <form action="/forget" method="post" id="forgetpwd_form">
-    <input type="hidden" name="qs" value="" />
+  
     <!-- 记得在此添加标记语言uLocale -->
     <div class="regbox">
-      <h5 class="n_tit_msg">请输入注册的邮箱地址、手机号码或小米帐号：</h5>      
+      <h5 class="n_tit_msg">请输入注册小米帐号：</h5>      
       <div class="inputbg">
         <!-- 错误添加class为err_label -->
-        <label class="labelbox labelbox-user" for="user">
-          <input type="text" name="id"
-                 id="user" autocomplete="off" 
-                 placeholder="邮箱/手机号码/小米帐号"  rule="(^[\w.\-]+@(?:[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*\.)+[A-Za-z]{2,6}$)|(^1\d{10}$)|(^\d{3,}$)|(^\++\d{2,}$)">
+        <label class="labelbox labelbox-user" style="width: 300px;">
+          <input type="text" name="username" id="user" autocomplete="off"  placeholder="小米帐号"  rule="(^[\w.\-]+@(?:[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*\.)+[A-Za-z]{2,6}$)|(^1\d{10}$)|(^\d{3,}$)|(^\++\d{2,}$)">
          </label>
-         <input type="hidden" name="passToken" 
-                id="passToken" value="" />
-         <input type="hidden" name="passport_ph" 
-                id="passport_ph" value="" />
+         <p style="display: none;" id="dsf">请输入用户名</p>
+         <p style="display: none;" id="dsd">用户名格式不正确</p>
+          @if (session('msgyhm'))
+                <p>
+                    {{ session('msgyhm') }}
+                </p>
+            @endif
       </div>	
       <div class="err_tip error-tip-1">
         <div class="dis_box">
@@ -46,11 +47,26 @@
         </div>
       </div> 
 			<div class="inputbg inputcode dis_box">
-				<label class="labelbox labelbox-captcha" for="">
+				<label class="labelbox labelbox-captcha" style="width: 150px;">
 					<input id="code-captcha" class="code" type="text" name="icode" placeholder="图片验证码">
+         
+       
+          <div style="width:130px; margin-top: -40px;margin-left: 190px;"><img src="/login/code" onclick="this.src = '/login/code/?a=' + Math.random()" style="height: 42px;"></div>
+          </div>
+     
+           <p style="display: none;" id="ico">请输入验证码</p>
+           <p style="display: none;" id="icd">验证码不正确</p>
+            
+            @if (session('msg'))
+                <p>
+                    {{ session('msg') }}
+                </p>
+            @endif
+
+
+
 				</label>
-				<img alt="图片验证码" src="/home/reset/picture/f2611768183f4e7c9534dbb776ba5fcc.gif"  title="看不清换一张" class="chkcode_img icode_image code-image">
-			</div>
+			
 			<div class="err_tip error-tip-2">
 				<div class="dis_box"><em class="icon_error"></em><span id="error-content-2"></span></div>
 			</div>
@@ -84,7 +100,42 @@
 </style>
 <script src="/home/reset/js/jquery-1.8.3.min.js"></script>
 <script src="/home/reset/js/placeholder.js"></script>
+<script >
+    $('#submit_button').click(function(){
+            var res = $('#user').val();
 
+            var red = $('#code-captcha').val();
+            console.log(red);
+
+         
+
+            var reg = /^[\u4e00-\u9fa50-9a-zA-Z_\-]{4,20}$/;
+
+            if(!res){
+                $('#dsf').css('color','red').show();
+
+                return false;
+
+            }else if(!reg.test(res)){
+
+             $('#dsf').css('color','red').hide();
+             $('#dsd').css('color','red').show();
+             return false;
+
+            }
+
+             if(!red){
+              $('#dsd').css('color','red').hide();
+              $('#ico').css('color','red').show();
+
+              return false;
+
+            }
+
+              // return false;
+    })
+
+</script>
 
 
 <style>

@@ -1537,5 +1537,65 @@
 		@section('js')
 		
 		@show
-	</body>
-</html>
+
+
+<div class="footer-box">
+	<div class="footer">
+    	<ul>
+        	<li style="background:url(images/footer_icon01.png) no-repeat 40px center;"><a href="#">1小时快修服务</a></li>
+            <li style="background:url(images/footer_icon02.png) no-repeat 40px center;"><a href="#">7天无理由退货</a></li>
+            <li style="background:url(images/footer_icon03.png) no-repeat 40px center;"><a href="#">15天免费换修</a></li>
+            <li style="background:url(images/footer_icon04.png) no-repeat 40px center;"><a href="#">满150元包邮</a></li>
+            <li style="background:url(images/footer_icon05.png) no-repeat 40px center;"><a href="#">520余家售后网点</a></li>
+            <div class="clearfix"></div>
+        </ul>
+        <div class="line"></div>
+        
+        <dl>
+        	<dd style="font-size:14px; font-family:'微软雅黑'; color:#424242; margin-bottom:28px;">帮助中心</dd>
+            <dd><a href="#">购物指南</a></dd>
+            <dd><a href="#">支付方式</a></dd>
+            <dd><a href="#">配送方式</a></dd>
+        </dl>
+        <dl>
+        	<dd style="font-size:14px; font-family:'微软雅黑'; color:#424242; margin-bottom:28px;">服务支持</dd>
+            <dd><a href="#">售后政策</a></dd>
+            <dd><a href="#">自助服务</a></dd>
+            <dd><a href="#">相关下载</a></dd>
+        </dl>
+        <dl>
+        	<dd style="font-size:14px; font-family:'微软雅黑'; color:#424242; margin-bottom:30px;">线下门店</dd>
+            <dd><a href="#">小米之家</a></dd>
+            <dd><a href="#">服务网点</a></dd>
+            <dd><a href="#">线下专区</a></dd>
+        </dl>
+        <dl>
+        	<dd style="font-size:14px; font-family:'微软雅黑'; color:#424242; margin-bottom:28px;">关于小米</dd>
+            <dd><a href="#">了解小米</a></dd>
+            <dd><a href="#">加入小米</a></dd>
+            <dd><a href="#">联系我们</a></dd>
+        </dl>
+        <dl>
+        	<dd style="font-size:14px; font-family:'微软雅黑'; color:#424242; margin-bottom:28px;">关注我们</dd>
+            <dd><a href="#">新浪微博</a></dd>
+            <dd><a href="#">小米部落</a></dd>
+            <dd><a href="#">官方微信</a></dd>
+        </dl>
+        <dl style="margin-right:123px;">
+        	<dd style="font-size:14px; font-family:'微软雅黑'; color:#424242; margin-bottom:28px;">特色服务</dd>
+            <dd><a href="#">F码通道</a></dd>
+            <dd><a href="#">小米移动</a></dd>
+            <dd><a href="#">防伪查询</a></dd>
+        </dl>
+        <div style="width:1px; height:111px; float:left; background-color:#e0e0e0; margin-top:10px; "></div>
+        <div class="online">
+        	<p style="font-size:20px; color:#ff6700; margin-bottom:10px;">400-100-5678</p>
+            <p style="font-size:12px; font-family:Arial,'宋体'; color:#616161; margin-bottom:7px;">周一至周日 8:00-18:00</p>
+            <p style="font-size:12px; font-family:Arial,'宋体'; color:#616161; margin-bottom:18px;">（仅收市话费）</p>	
+            <div class="service">24小时在线客服</div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+
