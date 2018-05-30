@@ -103,6 +103,7 @@
 			<div class="nav">
 				<?php
 					$res = App\Model\Admin\Cates::with('goods')->get();
+					
 				?>
 				<ul>
 					@foreach($res as $k=>$v)
@@ -114,16 +115,15 @@
 							<div class="left fl">
 								<?php $i=0;?>
 								@foreach($v->goods as $kk=>$vv)
-								
 								<div>
 									<div class="xuangou_left fl">
-										<a href="">
-											<div class="img fl"><img src="/home/image/xm6_80.png" alt=""></div>
+										<a href="goodsdetails/{{$vv->gid}}">
+											<div class="img fl"><img src="{{$vv->img}}" alt="" style="width:40px;height:40px;"></div>
 											<span class="fl">{{$vv->gname}}</span>
 											<div class="clear"></div>
 										</a>
 									</div>
-									<div class="xuangou_right fr"><a href="./xiangqing.html" target="_blank">选购</a></div>
+									<div class="xuangou_right fr"><a href="goodsdetails/{{$vv->gid}}" target="_blank">选购</a></div>
 									<div class="clear"></div>
 								</div>
 
@@ -229,6 +229,7 @@
 
 <!--页脚-->
 
+<br>
 
 <div class="footer-box">
 	<div style=" background: #F5F5F5; width: 100%; height: 20px; margin-bottom: 10px;"></div>

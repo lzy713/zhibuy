@@ -69,16 +69,13 @@
                                 </div>
                             </div>
 
-							<div class="layui-form-item">
+							             <div class="layui-form-item">
                                 <label class="layui-form-label">商品名称</label>
                                 <div class="layui-input-block">
                                   <input type="text" name="gname" lay-verify="required|title" required placeholder="请输入商品名称" autocomplete="off" class="layui-input layui_inp_widht300">
                                 </div>
                             </div>
-
-                            
-                            
-                            
+                                                        
                             <div class="layui-form-item">
                                 <label class="layui-form-label">商品价格</label>
                                 <div class="layui-input-block">
