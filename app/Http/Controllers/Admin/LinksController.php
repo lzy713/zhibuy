@@ -32,7 +32,7 @@ class LinksController extends Controller
     	$data = DB::table('fd_friendlylinks')->insert($res);;
 
     	if($data){
-    		return redirect('admin/links/addlinks');
+    		return redirect('admin/links/show');
     	} else {
     		return back();
     	}

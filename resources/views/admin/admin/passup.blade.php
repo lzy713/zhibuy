@@ -34,24 +34,29 @@
                           <div class="layui-tab-item layui-show">
                             
                             <div class="layui-form-item">
-                                <label class="layui-form-label">用户名</label>
+                                <label class="layui-form-label">原始密码</label>
                                 <div class="layui-input-block">
-                                  <input type="text" name="name" placeholder="请输入用户名" autocomplete="off" class="layui-input layui_inp_widht300">
+                                  <input type="password" name="jpwd" autocomplete="off" class="layui-input layui_inp_widht300">
                                 </div>
                             </div>
 
                             <div class="layui-form-item">
-                                <label class="layui-form-label">邮箱</label>
+                                <label class="layui-form-label">密码</label>
                                 <div class="layui-input-block">
-                                  <input type="text" name="email" placeholder="请输入邮箱" autocomplete="off" class="layui-input layui_inp_widht300">
+                                  <input type="password" name="pwd" autocomplete="off" class="layui-input layui_inp_widht300">
                                 </div>
                             </div>
-                             
-                            
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">确认密码</label>
+                                <div class="layui-input-block">
+                                  <input type="password" name="repwd" autocomplete="off" class="layui-input layui_inp_widht300">
+                                </div>
+                            </div>
 
                             <div class="layui-form-item">
                                 <div class="layui-input-block">
-                                  {{method_field("PUT")}}
+                                  <input type="hidden" name="id" value="{{$id}}">
                                   <button class="layui-btn layui-btn-normal" lay-submit lay-filter="*" id="sub_button">提交</button>
                                   <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                                 </div>
@@ -77,7 +82,7 @@
 //路由地址
 var SCOPE = {
   'save_url' : '/admin/admin/passup',
-  'jump_url' : '/admin/admin',
+  'jump_url' : '/admin/index',
   }
 
 

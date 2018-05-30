@@ -20,7 +20,7 @@
       <li class="layui-nav-item">
         <a href="javascript:;">{{session('adminMsg')->name}}</a>
         <dl class="layui-nav-child">
-          <dd><a href="/admin/admin/pass">修改密码</a></dd>
+          <dd><a href="/admin/admin/pass/{{session('adminMsg')->id}}">修改密码</a></dd>
         </dl>
       </li>
       <li class="layui-nav-item"><a href="/admin/outLogin">退出</a></li>

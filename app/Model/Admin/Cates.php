@@ -15,4 +15,7 @@ class Cates extends Model
      	
      	return $this->hasMany('App\Model\Admin\Goods','cid','cid');
      }
+
+
+     
 }

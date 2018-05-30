@@ -32,8 +32,9 @@
                 </div>
             </form>
             <hr class="layui-bg-gray">
-            <a href="index.html" class="layui-btn normal layui-btn-sm layui-btn-normal layui-icon">&#xe654;</a>
-            <button class="layui-btn layui-btn-sm  layui-bg-red layui-icon">&#xe640;</button>
+                <a href="javascript:;" title="返回" onclick="javascript:window.history.go(-1)" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">&#xe65c;</a>
+                <a href="javascript:;" onclick="javascript:window.location.reload(true);" title="刷新" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">&#x1002;</a>
+                <a href="/admin/links/addlinks" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">添加</a>
           <!--内容--> 
            <form class="layui-form" action="">  
           <table class="layui-table">

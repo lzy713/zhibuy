@@ -43,7 +43,9 @@
                           <tr>
                             <td>{{$v->name}}</td>
                             <td>{{$v->content}}</td>
-                            <td>{{$v->status}}</td>
+                            <td>
+                               <input type="checkbox" name="zzz" lay-skin="switch" lay-filter="switchTest" lay-text="有效|无效" value="{{$v->id}}" @if($v->getOriginal('status')==1) checked @endif >
+                            </td>
                             <td>
                             <a href="/admin/role/{{$v->id}}/edit" class="layui-btn layui-btn-xs">编辑</a>
                             <a href="javascript:;" del='delete' del_id='{{$v->id}}' del_method='DELETE' class="layui-btn layui-btn-xs layui-bg-red">删除</a>
@@ -93,6 +95,31 @@ var SCOPE = {
 //JavaScript代码区域
 layui.use(['element', 'form'], function(){
   var element = layui.element;
+  var form = layui.form;
+
+  form.on('switch(switchTest)', function(data){
+    if(data.elem.checked===true){
+       $.post('/admin/role/status',{id:data.value,status:1},function(data){
+          if(data.status==1){
+            layer.msg(data.message);
+          }
+          else{
+            layer.msg(data.message);
+          }
+       });
+       
+    }
+    else{
+      $.post('/admin/role/status',{id:data.value,status:0},function(data){
+       if(data.status==1){
+            layer.msg(data.message);
+          }
+          else{
+            layer.msg(data.message);
+          }
+       });
+    }
+  }); 
   
 });
 </script>

@@ -32,6 +32,7 @@
                                 <h5 class="n_tit_msg">
                                     为了保护账号安全,需要验证手机有效性
                                 </h5>
+                                @if(!empty($rep))
                                 <div class="inputbg">
                                     <div class="description">
                                         <p>
@@ -39,7 +40,8 @@
                                                 点击发送短信按钮，将会发送一条有验证码的短信至手机
                                             </span>
                                             <span class="ff6 verify-masked">
-                                                135******95
+                                                <input type="hidden" name="phone" value="{{$rep->phone}}">
+                                               {{str_replace(substr($rep->phone,3,5), "*****",$rep->phone)}}
                                             </span>
                                         </p>
                                         <p class="send-ticket-prompt">
@@ -56,15 +58,11 @@
                                 </div>
                             </div>
                             <div class="fixed_bot">
-                                <input class="btn332 btn_reg_1" type="submit" id="submit" value="发送短信">
+                                <input class="btn332 btn_reg_1" type="submit"  value="发送短信">
                             </div>
-                            <div class="fixbottom">
-                                <div class="t_c">
-                                    <a href="javascript:void(0)" class="next_step verify-into-list" title="换用其他验证方式">
-                                        换用其他验证方式
-                                    </a>
-                                </div>
-                            </div>
+                            @endif
+
+
                           {{csrf_field()}}    
                         </form>
                     </div>
@@ -72,24 +70,32 @@
             </div>
         </div>
         </div>
+      
+
         <style>
             .description { padding:10px 0 15px 0; padding-top: 10px; padding-right:
             0px; padding-bottom: 15px; padding-left: 0px; } .regbox{ padding-left:
             30px; } .fixbottom { width: 100%; padding-top: 20px; }
         </style>
-        <script src="/home/reset/js/jquery-1.8.3.min.js">
-        </script>
-        <script src="/home/reset/js/placeholder.js">
-        </script>
+       
+       
         <style>
             .btn-action-go{ display:none;}
         </style>
+
+
+         <script src="/home/register/js/jquery-1.8.3.min.js"></script>
+             
+           
+
     </body>
 
 </html>
-<!-- <script src="/home/resetjs/modal_lite.js"></script>
-<script 
+
+
+<!-- <script 
 src="/home/resetjs/countrycode.js">
-</script> -->
+</script>  -->
+
 <iframe id="postee" name="postee" style="display:none;" src="about:blank">
 </iframe>

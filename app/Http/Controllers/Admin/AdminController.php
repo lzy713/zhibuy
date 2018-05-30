@@ -127,9 +127,49 @@ class AdminController extends Controller
     }
 
 
-    public function adminPass()
+    //修改密码视图
+    public function adminPass($id)
     {
-        return view('admin.admin.passup',['title'=>'修改密码']);
+        return view('admin.admin.passup',['title'=>'修改密码','id'=>$id]);
+    }
+
+    //修改密码
+    public function passup(AdminRequest $request)
+    {
+        $res = $request->all();
+        $pwd = Admin::where('id',$res['id'])->value('pwd');
+        if (!Hash::check($res['jpwd'], $pwd)) {
+            return show(0,'原始密码错误');
+        }
+
+        $pwds = Hash::make($res['pwd']);
+
+        //dd($pwds);
+        try{
+            Admin::where('id',$res['id'])->update(['pwd'=>$pwds]);
+        }catch(\Exception $e){
+            return show(0,'修改失败',$e->getMessage());
+        }
+            return show(1,'修改成功');
+    }
+
+    //修改状态
+    public function status(Request $request)
+    {
+        $res = $request->all();
+        try{
+            Admin::where('id',$res['id'])->update(['status'=>$res['status']]);
+        }catch(\Exception $e){
+            return show(0,'修改失败');
+        }
+        
+        if($res['status']==1){
+            return show(1,'开启');
+        }else{
+            return show(1,'关闭');
+        }
+
+
     }
 
 }

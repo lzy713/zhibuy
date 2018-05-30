@@ -28,7 +28,7 @@
                           <col width="200">
                           <col width="200">
                           <col width="200">
-                          <col width="150">
+                          <col width="200">
                         </colgroup>
                         <thead>
                           <tr>
@@ -46,8 +46,11 @@
                             <td>{{$v->name}}</td>
                             <td>{{$v->role->name}}</td>
                             <td>{{$v->email}}</td>
-                            <td>{{$v->status}}</td>
                             <td>
+                              <input type="checkbox" name="zzz" lay-skin="switch" lay-filter="switchTest" lay-text="有效|无效" value="{{$v->id}}" @if($v->getOriginal('status')==1) checked @endif >
+                            </td>
+                            <td>
+                            <a href="/admin/admin/pass/{{$v->id}}" class="layui-btn layui-btn-xs">修改密码</a>
                             <a href="/admin/admin/{{$v->id}}/edit" class="layui-btn layui-btn-xs">编辑</a>
                             <a href="javascript:;" del='delete' del_id='{{$v->id}}' del_method='DELETE' class="layui-btn layui-btn-xs layui-bg-red">删除</a>
                             </td>
@@ -96,6 +99,31 @@ var SCOPE = {
 //JavaScript代码区域
 layui.use(['element', 'form'], function(){
   var element = layui.element;
+  var form = layui.form;
+
+  form.on('switch(switchTest)', function(data){
+    if(data.elem.checked===true){
+       $.post('/admin/admin/status',{id:data.value,status:1},function(data){
+          if(data.status==1){
+            layer.msg(data.message);
+          }
+          else{
+            layer.msg(data.message);
+          }
+       });
+       
+    }
+    else{
+      $.post('/admin/admin/status',{id:data.value,status:0},function(data){
+       if(data.status==1){
+            layer.msg(data.message);
+          }
+          else{
+            layer.msg(data.message);
+          }
+       });
+    }
+  }); 
   
 });
 </script>

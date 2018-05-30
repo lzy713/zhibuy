@@ -30,7 +30,7 @@
 @section('header')
     <!-- start banner_x -->
 	<div class="banner_x center">
-		<a href="./index.html" target="_blank"><div class="logo fl"></div></a>
+		<a href="/" target="_blank"><div class="logo fl"></div></a>
 		
 		<div class="wdgwc fl ml40">确认订单</div>
 		<div class="dlzc fr">

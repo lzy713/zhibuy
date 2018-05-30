@@ -32,7 +32,7 @@
                 </div>
             </form>
             <hr class="layui-bg-gray">
-            <a href="index.html" class="layui-btn normal layui-btn-sm layui-btn-normal layui-icon">&#xe654;</a>
+            <a href=" /admin/navs/index" class="layui-btn normal layui-btn-sm layui-btn-normal layui-icon">&#xe654;</a>
             <button class="layui-btn layui-btn-sm  layui-bg-red layui-icon">&#xe640;</button>
           <!--内容--> 
            <form class="layui-form" action="">  

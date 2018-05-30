@@ -5,11 +5,11 @@
 @section('content')
 
 
-	<form class="layui-form" action="">
+	<form class="layui-form" action="/admin/cates/show">
                     <div class="layui-row layui-col-space10">
                         
                         <div class="layui-col-md2">
-                          <input type="text" name="xxx " autocomplete="off" class="layui-input" placeholder="请输入关键词" >
+                          <input type="text" name="cname" autocomplete="off" class="layui-input" placeholder="请输入关键词" value="{{$cname}}">
                         </div>
                         <div class="layui-col-md1">
                           <button class="layui-btn layui-btn-normal ss_css_but layui-icon" lay-submit lay-filter="*">&#xe615;</button>
@@ -17,6 +17,9 @@
                     </div>     
     </form>
     <hr class="layui-bg-gray">
+                <a href="javascript:;" title="返回" onclick="javascript:window.history.go(-1)" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">&#xe65c;</a>
+                <a href="javascript:;" onclick="javascript:window.location.reload(true);" title="刷新" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">&#x1002;</a>
+                <a href="/admin/cates/index" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">添加</a>
 
 
 	<form class="layui-form" action="">  

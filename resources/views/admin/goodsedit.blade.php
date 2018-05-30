@@ -88,6 +88,18 @@
                                   <input type="text" name="gprice" lay-verify="required|title" required placeholder="请输入标题" autocomplete="off" class="layui-input layui_inp_widht300" value="{{$into->gprice}}">
                                 </div>
                             </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">商品颜色</label>
+                                <div class="layui-input-block">
+                                  <input type="text" name="yanse" lay-verify="required|title" required placeholder="请输入标题" autocomplete="off" class="layui-input layui_inp_widht300" value="{{$into->yanse}}">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">商品版本</label>
+                                <div class="layui-input-block">
+                                  <input type="text" name="banben" lay-verify="required|title" required placeholder="请输入标题" autocomplete="off" class="layui-input layui_inp_widht300" value="{{$into->banben}}">
+                                </div>
+                            </div>
 
                             <div class="layui-form-item">
                                 <label class="layui-form-label">商品库存</label>

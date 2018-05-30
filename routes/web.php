@@ -39,13 +39,17 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>'admin'],func
 	Route::get('menu/createup','MenuController@createup');//多图上传测试
 	Route::resource('menu','MenuController');
 
+	//修改状态
+	Route::post('role/status','RoleController@status');
 	//角色管理
 	Route::resource('role','RoleController');
 
 	
 	//修改密码
-	Route::get('admin/pass','AdminController@adminPass');
+	Route::get('admin/pass/{id}','AdminController@adminPass');
 	Route::post('admin/passup','AdminController@passup');
+	//修改状态
+	Route::post('admin/status','AdminController@status');
 	//管理员管理
 	Route::resource('admin','AdminController');
 
@@ -182,8 +186,10 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>'admin'],func
 	//公告管理
 	Route::resource('notice','NoticeController');
 
+
 	//推荐管理
 	Route::resource('recommend','RecommendController');
+
 
 	//测评管理
 	Route::resource('evaluation','EvaluationController');
@@ -212,9 +218,6 @@ Route::group(['namespace'=>'Home'],function(){
 	//发送ajax
 	Route::post('login/loguser','LoginController@loguser');
 
-	// Route::post('login/skip','LoginController@skip');
-
-
 
 	//注册页面
 	Route::get('register','RegisterController@register');
@@ -234,6 +237,104 @@ Route::group(['namespace'=>'Home'],function(){
 
 
 
+
+
+
+
+
+
+	//登录页的忘记密码
+	Route::get('login/reset','LoginController@reset');
+
+
+	//忘记密码安全验证
+	Route::post('forget','LoginController@forget');
+	Route::get('pass/forgetPassword','LoginController@forgetPassword');
+
+
+	//忘记密码输入手机短信
+	Route::post('note','LoginController@note');
+
+	//修改新密码页面
+	Route::post('newnote','LoginController@newnote');
+
+
+
+	//密码重新设置
+	
+	Route::any('resetword','LoginController@resetword');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	Route::get('/','IndexController@cateslist');
+	Route::get('/goodsfind','IndexController@goodsfind');
+
+	Route::get('/goodslist/{id}','GoodsController@show');
+	Route::get('/goodsdetails/{id}','GoodsController@goodsdetails');
+
+	
+
+
+
+
+
+
+
+
+
+	//注册页面
+	Route::get('register','RegisterController@register');
+	Route::post('regist','RegisterController@regist');
+
+	
+	//注册页表单验证
+	Route::get('register/checkuser','RegisterController@checkuser');
+
+
+	//手机获取短信验证码
+	Route::get('register/checkphone','RegisterController@checkphone');
+	//短信验证码验证
+	Route::get('register/code','RegisterController@code');
+
+
+	//测评
+
+	Route::get('ceping','CepingController@evalua');
+
+	Route::get('details/{nid}','CepingController@details');
+	
+
+
+
+
+
+
+
+
+
+
+
+//评论页
+Route::get('comments/{id}','CommentsController@index');
 
 
 
@@ -275,85 +376,17 @@ Route::get('/goodsdetails/{id}','GoodsController@goodsdetails');
 
 
 
-
-
-
-//评论页
-Route::get('comments/{id}','CommentsController@index');
-
-
-
-
 });
 
 
 
 Route::group(['namespace'=>'Home','middleware'=>'login'],function(){
 
-
-	
-	
-
 	//个人中心
 	Route::get('login/self_auth','LoginController@self');
-	
-	//退出登录
-	Route::get('login/loginout','LoginController@loginout');
 
-
-
-
-	//登录页的忘记密码
-	Route::get('login/reset','LoginController@reset');
-
-	//忘记密码安全验证
-	Route::post('forget','LoginController@forget');
-	Route::get('pass/forgetPassword','LoginController@forgetPassword');
-
-	//忘记密码输入手机短信
-	Route::post('note','LoginController@note');
-
-	//修改成功
-	// Route::post('note','LoginController@note');
-
-
-
-
-
-
-	
-
-	
-	//注册页表单验证
-	Route::get('register/checkuser','RegisterController@checkuser');
-	Route::get('register/checkMobile','RegisterController@checkphone');
-	Route::get('register/code','RegisterController@code');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	//修改保存个人信息
+	Route::post('login/Save_auth/{id}','LoginController@save');
 
 
 	/**
@@ -367,8 +400,16 @@ Route::group(['namespace'=>'Home','middleware'=>'login'],function(){
 	//加入成功页
 	Route::get('successCart','shopCartController@successCart');
 
+	//修改账号密码页面
+	Route::get('login/safe','LoginController@safe');
+
+	//修改密码
+	Route::get('login/safe_auth','LoginController@changePass');
+
+
 	//地址
 	Route::resource('address','AddressController');	
+
 
 	//我的订单
 	Route::get('myorder','OrderController@orderList');
@@ -390,6 +431,11 @@ Route::group(['namespace'=>'Home','middleware'=>'login'],function(){
 	Route::get('mycollection','CollectionController@index');
 	Route::get('shoucang/{id}','CollectionController@add');
 	Route::get('delete/{id}','CollectionController@delete');
+
+	
+	//退出登录
+	Route::get('login/loginout','LoginController@loginout');
+
 
 	//提交评论
 	Route::post('addComments','CommentsController@addComments');

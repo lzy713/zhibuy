@@ -48,17 +48,22 @@ class CatesController extends Controller
 
 
     	if($data){
-    		return redirect('admin/cates/index');
+    		return redirect('admin/cates/show');
     	} else {
     		return back();
     	}
     }
 
 
-    public function show()
+    public function show(Request $req)
     {
+        $cname = '';
 
-    	$res = DB::table('fd_cates')->select(DB::raw('*,concat(path,cid) as paths'))->orderBy('paths')->get();
+        if($cname = $req->input('cname') ){
+            $res = DB::table('fd_cates')->where('cname','like','%'.$cname.'%')->get();
+        } else {
+            $res = DB::table('fd_cates')->select(DB::raw('*,concat(path,cid) as paths'))->orderBy('paths')->get();
+        }
 
     	foreach ($res as $k => $v) {
     		$foo = explode(',', $v->path);
@@ -68,7 +73,8 @@ class CatesController extends Controller
 
     	return view('admin.show',[
             'title'=>'分类页面',
-            'res'=>$res
+            'res'=>$res,
+            'cname'=>$cname
         ]);
     }
 
@@ -119,9 +125,6 @@ class CatesController extends Controller
 
     public function delete($id)
     {
-
-
-
     	$res = DB::table('fd_cates')->
     	where('path','like','%,'.$id.',%')->
     	delete();
@@ -135,5 +138,7 @@ class CatesController extends Controller
     		return back();
     	}
     }
+
+
 
 }

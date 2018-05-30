@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Admin\Goods;
 use App\Model\Home\Collection;
+use App\Model\Admin\Cates;
 
 class GoodsController extends Controller
 {
@@ -13,10 +14,13 @@ class GoodsController extends Controller
     {
 
     	$res = Goods::where('cid',$id)->paginate(10);
+        $data = Cates::where('cid',$id)->first();
+
+
     	return view('home.goods.goodslist',[
     		'title'=>'商品列表',
-    		'res'=>$res
-
+    		'res'=>$res,
+            'data'=>$data
     	]);
     }
 
@@ -43,6 +47,7 @@ class GoodsController extends Controller
                 }
             }
         }
+
 
     	return view('home.goods.goodsdetail',[
     		'title'=>'详情',

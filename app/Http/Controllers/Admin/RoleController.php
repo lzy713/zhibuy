@@ -122,4 +122,26 @@ class RoleController extends Controller
         }
             return show(1,'删除成功');
     }
+
+
+    //修改状态
+    public function status(Request $request)
+    {
+        $res = $request->all();
+        try{
+            Role::where('id',$res['id'])->update(['status'=>$res['status']]);
+        }catch(\Exception $e){
+            return show(0,'修改失败');
+        }
+        
+        if($res['status']==1){
+            return show(1,'开启');
+        }else{
+            return show(1,'关闭');
+        }
+
+
+    }
+
+    
 }
