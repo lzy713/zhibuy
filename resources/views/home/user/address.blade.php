@@ -63,15 +63,15 @@
 
 	$('#J_newAddress').on('click', function(){
         var index = layer.open({
-            type: 2,
-            shift:1,
-            offset: '150px',
-            title: '添加新地址',
-            fixed: true,
-            shadeClose: true,
-            maxmin: true,
-            area: ['700px', '500px'],
-            content: '/address/create',
+                type: 2,
+                shift:1,
+                offset: '150px',
+                title: '添加新地址',
+                fixed: true,
+                shadeClose: true,
+                maxmin: true,
+                area: ['700px', '500px'],
+                content: '/address/create',
             });
     });
 
