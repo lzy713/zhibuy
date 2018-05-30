@@ -33,7 +33,8 @@ class CollectionController extends Controller
 
     public function delete($id)
     {
-    	$res = Collection::destroy($id);
+    	$res = Collection::where('uid',session('homeMsg')->id)->
+        where('gid',$id)->delete();
 
     	return response()->json($res);
     }

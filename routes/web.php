@@ -430,7 +430,7 @@ Route::group(['namespace'=>'Home','middleware'=>'login'],function(){
 	//我的收藏
 	Route::get('mycollection','CollectionController@index');
 	Route::get('shoucang/{id}','CollectionController@add');
-	Route::get('delete/{id}','CollectionController@delete');
+	Route::get('delshoucang/{id}','CollectionController@delete');
 
 	
 	//退出登录
