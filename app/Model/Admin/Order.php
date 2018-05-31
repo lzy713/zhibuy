@@ -153,6 +153,7 @@ class Order extends Model
      */
     public static function homeOrder($number)
     {
+        
         $data = self::with('detail.goods')->where('uid',session('homeMsg')->id)->paginate(1);;
         if ( $data->isEmpty() ) {
             return $data;
@@ -168,6 +169,7 @@ class Order extends Model
             where('flag',1)->
             paginate(1);
         }
+
 
         return $res;
     }

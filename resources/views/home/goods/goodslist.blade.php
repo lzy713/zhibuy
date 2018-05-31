@@ -40,7 +40,14 @@
 
 			<div class="clear"></div>
 		</div>
-		<div style="text-align: center;">{{$res->links()}}</div>
+		<div style="text-align: center;">
+			@if(isset($gname))
+			{{$res->appends(['gname' => $gname])->links()}}
+			@endif
+			@if(!isset($gname))
+			{{$res->links()}}
+			@endif
+		</div>
 		
 
 @endsection

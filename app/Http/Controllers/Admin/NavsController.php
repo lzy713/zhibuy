@@ -27,7 +27,7 @@ class NavsController extends Controller
     	$data = DB::table('fd_navs')->insert($res);
 
     	if($data){
-    		return redirect('admin/navs/index');
+    		return redirect('admin/navs/show');
     	} else {
     		return back();
     	}

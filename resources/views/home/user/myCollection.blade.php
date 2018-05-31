@@ -98,7 +98,7 @@
 
 		var id = $(this).attr('id');
 		var btn = $(this);
-		console.log(123);
+
 		$.get('delshoucang/'+id, {}, function(data){
 			if (data == 1) {
 				btn.parent().remove();

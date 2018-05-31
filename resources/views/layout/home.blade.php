@@ -77,12 +77,10 @@
 			<div class="search fr">
 				
 				
-				<?php
-					$lbt = App\Model\Admin\Poster::where('cid',3)->orderBy('listorder','desc')->first();
-					?>
+				
 				<form action="/goodsfind" method="get">
 					<div class="text fl">
-						<input type="text" class="shuru" name="gname" value="{{$lbt->title}}">
+						<input type="text" class="shuru" name="gname" value="@if(isset($gname)){{$gname}}@endif">
 
 					</div>
 					<div class="submit fl">
@@ -135,6 +133,10 @@
 								@if($i==6)
 									</div>
 									<div class="ctn fl">
+								@endif
+								@if($i==12)
+									</div>
+									<div class="right fl">
 								@endif
 								@endforeach
 
@@ -293,8 +295,9 @@
 				?>
 				<p>
 				@foreach($links as $k=>$v)
-				<a href="">{{$v->fname}}|</a>
+				<a href="{{$v->furl}}" target="_blank" style="border:0">{{$v->fname}}&nbsp;|</a>
 				@endforeach	
+				<a href="" style="border:0">小米</a>
         </p>
         <p style="margin-left:5px;">©mi.com京ICP证110507号 京ICP备10046444号 京公网安备11010802020134号 京网文[2014]0059-0009号 违法和不良信息举报
         	电话：185-0130-1238</p>

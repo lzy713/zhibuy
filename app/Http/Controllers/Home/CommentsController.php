@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Home;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Admin\Goods;
+use App\Model\Home\Users;
 use App\Model\Home\Comments;
 use App\Model\Home\Reply;
 use App\Model\Home\Ureply;
@@ -28,7 +29,8 @@ class CommentsController extends Controller
         get();
         
     	$res = Comments::with('users')->where('gid',$id)->orderby('createtime','desc')->limit(5)->get();
-        $uname = Users::select('username')->where('id',session('homeMsg')->id)->first();
+        $uname = Users::select('username','img')->where('id',session('homeMsg')->id)->first();
+
     	return view('home.user.comments',[
     		'title'=>'用户评价',
     		'goods'=>$goods,

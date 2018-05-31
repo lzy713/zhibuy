@@ -171,7 +171,7 @@ class RecommendController extends Controller
     public function destroy($id)
     {
         //
-        $red = DB::table('fd_tuijian')->where('nid',$id)->delete();
+        $red = DB::table('fd_tuijian')->where('id',$id)->delete();
 
 
         if($red){

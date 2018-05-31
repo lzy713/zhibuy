@@ -11,17 +11,9 @@
 	<form action="post" method="">
 	<div class="xiangqing">
 		<div class="neirong w">
-			<div class="xiaomi6 fl">小米6</div>
+			<div class="xiaomi6 fl">{{$res->gname}}</div>
 			<nav class="fr">
 				<li><a href="">概述</a></li>
-				<li>|</li>
-				<li><a href="">变焦双摄</a></li>
-				<li>|</li>
-				<li><a href="">设计</a></li>
-				<li>|</li>
-				<li><a href="">参数</a></li>
-				<li>|</li>
-				<li><a href="">F码通道</a></li>
 				<li>|</li>
 				<li><a href="/comments/{{$res->gid}}">用户评价</a></li>
 				<div class="clear"></div>
@@ -82,7 +74,7 @@
 	</div>
 	</form>
 
-	<div style=" width:1226px;margin: 0px auto;">
+	<div style=" width:1226px;margin: 0px auto; overflow: hidden;">
 		<h3>商品详情</h3><hr>
 		<center>{!!$res->content!!}</center>
 	</div>
