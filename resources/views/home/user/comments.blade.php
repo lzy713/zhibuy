@@ -76,7 +76,7 @@
                                     </div>
                                     <div class="comment-input">
                                         <input type="text" placeholder="回复楼主" class="J_commentAnswerInput">
-                                        <a href="javascript:void(0);" class="btn  answer-btn J_commentAnswerBtn huifu" uid="{{$v->users->id}}" uname="{{$v->users->username}}" commentid="{{$v->id}}">回复</a>
+                                        <a href="javascript:void(0);" class="btn  answer-btn J_commentAnswerBtn huifu" uid="{{$v->users->id}}" uname="{{$uname->username}}" commentid="{{$v->id}}">回复</a>
                                     </div>
                                     <div class="comment-answer">
                                         @if(!empty($v->reply->content))
@@ -90,12 +90,11 @@
                                             </div>
                                         </div>
                                         @endif
-
                                         @foreach($v->ureply as $kk=>$vv)
-
+                                        {{dd($vv)}}
                                         @if(!empty($vv->content))
                                         <div class="answer-item">
-
+                                            
                                             @if($vv->users->img)
                                             <img class="answer-img" src="{{$vv->users->img}}">
                                             @else

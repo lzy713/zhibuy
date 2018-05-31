@@ -20,7 +20,7 @@ class OrderController extends Controller
     	$number = $request->input('number');
     
     	$res = Order::homeOrder($number);
-
+        
     	return view('home.user.myorder',['title'=>'我的订单','res'=>$res,'number'=>$number]);
     }
 

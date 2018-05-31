@@ -37,7 +37,7 @@
 			                    <div class="box-bd">
 			                        <div id="J_orderList">
 			                            <ul class="order-list">
-		                                	@if( !empty($res[0]->number) )
+		                                	@if( !$res->isEmpty() )
 			                                <li class="uc-order-item uc-order-item-pay">
 			                                    <div class="order-detail">
 			                                        <div class="order-summary">

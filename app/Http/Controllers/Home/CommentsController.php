@@ -8,6 +8,7 @@ use App\Model\Admin\Goods;
 use App\Model\Home\Comments;
 use App\Model\Home\Reply;
 use App\Model\Home\Ureply;
+use App\Model\Home\Users;
 
 class CommentsController extends Controller
 {
@@ -27,12 +28,13 @@ class CommentsController extends Controller
         get();
         
     	$res = Comments::with('users')->where('gid',$id)->orderby('createtime','desc')->limit(5)->get();
-
+        $uname = Users::select('username')->where('id',session('homeMsg')->id)->first();
     	return view('home.user.comments',[
     		'title'=>'用户评价',
     		'goods'=>$goods,
     		'comments'=>$comments,
-    		'res'=>$res
+    		'res'=>$res,
+            'uname'=>$uname
     	]);
     }
 
@@ -60,7 +62,7 @@ class CommentsController extends Controller
     {
     	$data = [];
         $data['content'] = $req->input('text');
-    	$data['uid'] = $req->input('uid');
+    	$data['uid'] = session('homeMsg')->id;
     	$data['createtime'] = time();
     	$data['cid'] = $req->input('cid');
     	$res = Ureply::create($data);
