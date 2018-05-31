@@ -16,8 +16,9 @@ class LoginController extends Controller
 {
     //
 
-     public function login()
+     public function login(Request $request)
     {
+      session(['pathInfo'=>$_SERVER['HTTP_REFERER']]);
     	return view('home.user.login',['title'=>'前台的登录页面']);	
     }
 
@@ -49,11 +50,11 @@ class LoginController extends Controller
         //存储session 用户名
         session(['homeFlag'=>true,'homeMsg'=>$res]);
 
-
+        //dd(session('pathInfo'));
 		    if ( !empty(session('pathInfo')) ) {
             $path = session('pathInfo');
             session()->forget('pathInfo');
-            return show(1,"$path");
+            return show(1,$path);
         } else {
             return show(1,'登录成功');
         }

@@ -14,12 +14,14 @@
 
 						
 			        
-							@if($res->img)
 							<div class="upload-img-box"  style="margin-top: 20px;margin-left: 110px;">
+							@if($res->img)
+							
 								<input type="hidden" name="img" value="{{$res->img}}" />
 								<img src="{{$res->img}}" width="100" height="100">
-							</div>
+							
 							@endif
+								</div>
 
 
 							<div class="box1" style="margin-top: 20px;width: 300px;">

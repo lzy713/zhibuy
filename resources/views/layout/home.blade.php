@@ -32,7 +32,7 @@
 						<ul>
 
 								@if(session('homeFlag')==false)	
-								<li><a href="/login" target="_blank">登录</a><li>
+								<li><a href="/login">登录</a><li>
 								<li>|</li>
 								<li><a href="/register" target="_blank" >注册</a></li>
 								@else
