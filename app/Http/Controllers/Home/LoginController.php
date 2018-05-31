@@ -22,7 +22,7 @@ class LoginController extends Controller
             return redirect('/login/self_auth');
         }
 
-
+        
         if(!empty($_SERVER['HTTP_REFERER']))
         {
           session(['pathInfo'=>$_SERVER['HTTP_REFERER']]);

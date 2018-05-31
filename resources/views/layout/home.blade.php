@@ -70,8 +70,6 @@
 					@foreach($data as $k=>$v)
 					<li><a href="{{$v->nurl}}" target="_blank"><b>{{$v->ntitle}}</b></a></li>
 					@endforeach
-					<li><a href="" target="_blank"><b>服务</b></a></li>
-					<li><a href="" target="_blank"><b>社区</b></a></li>
 				</ul>
 				
 				
