@@ -77,12 +77,10 @@
 			<div class="search fr">
 				
 				
-				<?php
-					$lbt = App\Model\Admin\Poster::where('cid',3)->orderBy('listorder','desc')->first();
-					?>
+				
 				<form action="/goodsfind" method="get">
 					<div class="text fl">
-						<input type="text" class="shuru" name="gname" value="{{$lbt->title}}">
+						<input type="text" class="shuru" name="gname" value="@if(isset($gname)){{$gname}}@endif">
 
 					</div>
 					<div class="submit fl">

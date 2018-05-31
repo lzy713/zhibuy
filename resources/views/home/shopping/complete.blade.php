@@ -1,8 +1,6 @@
 @extends('layout.home')
 
 @section('title',$title)
-<link rel="shortcut icon" href="https://s01.mifile.cn/favicon.ico" type="image/x-icon">
-<link rel="icon" href="https://s01.mifile.cn/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="/home/cart/css/bases.min.css">
 <link rel="stylesheet" type="text/css" href="/home/cart/css/pay-confirm.min.css">
 
@@ -12,7 +10,8 @@
     <div class="site-header site-mini-header">
         <div class="container">
             <div class="header-logo">
-                <a class="logo " href="" title="智buy官网">
+                <a class="logo " href="/" title="智buy官网">
+                    <img src="/home/images/LOGO.png" width="48" height="48">
                 </a>
             </div>
             <div class="header-title" id="J_miniHeaderTitle">

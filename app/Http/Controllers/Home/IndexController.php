@@ -22,6 +22,6 @@ class IndexController extends Controller
         $gname = $req->input('gname');
         $res = DB::table('fd_goods')->where('gname','like','%'.$gname.'%')->paginate(10);
         // dd($find); 
-        return view('home.goods.goodslist',['title'=>'商品列表页','res'=>$res,'data'=>'']);
+        return view('home.goods.goodslist',['title'=>'商品列表页','res'=>$res,'data'=>'','gname'=>$gname]);
     }
 }

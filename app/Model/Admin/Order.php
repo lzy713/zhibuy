@@ -154,11 +154,22 @@ class Order extends Model
     public static function homeOrder($number)
     {
         
-        if (!empty($number)) {
-            $res = self::with('detail.goods')->where('number',$number)->where('flag','1')->paginate(1);
+        $data = self::with('detail.goods')->where('uid',session('homeMsg')->id)->paginate(1);;
+        if ( $data->isEmpty() ) {
+            return $data;
+        } elseif ( !empty($number) ){
+            $res = self::with('detail.goods')->
+            where('uid',session('homeMsg')->id)->
+            where('flag',1)->
+            where('number',$number)->
+            paginate(1);
         } else {
-            $res = self::with('detail.goods')->where('flag','1')->paginate(1);
+            $res = self::with('detail.goods')->
+            where('uid',session('homeMsg')->id)->
+            where('flag',1)->
+            paginate(1);
         }
+
 
         return $res;
     }

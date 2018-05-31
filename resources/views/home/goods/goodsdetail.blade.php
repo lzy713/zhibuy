@@ -11,7 +11,7 @@
 	<form action="post" method="">
 	<div class="xiangqing">
 		<div class="neirong w">
-			<div class="xiaomi6 fl">小米6</div>
+			<div class="xiaomi6 fl">{{$res->gname}}</div>
 			<nav class="fr">
 				<li><a href="">概述</a></li>
 				<li>|</li>
