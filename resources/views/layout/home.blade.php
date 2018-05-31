@@ -70,6 +70,8 @@
 					@foreach($data as $k=>$v)
 					<li><a href="{{$v->nurl}}" target="_blank"><b>{{$v->ntitle}}</b></a></li>
 					@endforeach
+					<li><a href="" target="_blank"><b>服务</b></a></li>
+					<li><a href="" target="_blank"><b>社区</b></a></li>
 				</ul>
 				
 				
@@ -135,6 +137,10 @@
 								@if($i==6)
 									</div>
 									<div class="ctn fl">
+								@endif
+								@if($i==12)
+									</div>
+									<div class="right fl">
 								@endif
 								@endforeach
 
@@ -293,8 +299,9 @@
 				?>
 				<p>
 				@foreach($links as $k=>$v)
-				<a href="">{{$v->fname}}|</a>
+				<a href="{{$v->furl}}" target="_blank" style="border:0">{{$v->fname}}&nbsp;|</a>
 				@endforeach	
+				<a href="" style="border:0">小米</a>
         </p>
         <p style="margin-left:5px;">©mi.com京ICP证110507号 京ICP备10046444号 京公网安备11010802020134号 京网文[2014]0059-0009号 违法和不良信息举报
         	电话：185-0130-1238</p>

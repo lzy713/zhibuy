@@ -154,7 +154,7 @@ class GoodsController extends Controller
     	$img = DB::table('fd_goodsimg')->where('gid',$id)->delete();
 
     	if($img){
-    		return redirect('admin.goodshow');
+    		return redirect('admin/goods/show');
     	} else {
     		return back();
     	}
