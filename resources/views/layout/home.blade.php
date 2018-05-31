@@ -38,6 +38,9 @@
 								@else
 								<li><a href="/login" target="_blank">{{session('homeMsg')->username}}</a></li>
 								<li>|</li>
+								<li><a href="/login/self_auth" target="_blank"><img style="width
+								:30px;height : 30px;border-radius:15px" src="{{session('homeMsg')->img}}"></a></li>
+								<li>|</li>
 								<li><a href="/login/self_auth">个人中心</a></li>
 								<li>|</li>
 								<li><a href="/login/loginout">退出</a></li>
@@ -259,7 +262,10 @@
 
 		?>
         	@foreach($rez as $k8=>$v8)
-            <dd><a href="">{{$v8->nname}}</a></dd>
+            <dd>
+            	<a href="/introduce/{{$v8->nid}}">{{$v8->nname}}</a>
+
+            </dd>
             @endforeach
             
         </dl>

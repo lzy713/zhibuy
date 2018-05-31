@@ -18,16 +18,16 @@ class UserController extends Controller
     {
         
         //获取数据
-        $arr = $request->input('search');
+        $search = $request->input('search');
         
 
         $res = DB::table('fd_users')->
-        where('username','like','%'.$arr.'%')->
+        where('username','like','%'.$search.'%')->
         orderBy('id','asc')->
         paginate(10);
        
         
-        return  view('admin.user.index',['title'=>'用户的列表页面','res'=>$res,'search'=>$arr]);
+        return  view('admin.user.index',['title'=>'用户的列表页面','res'=>$res,'search'=>$search]);
     }
     /**
      * Show the form for creating a new resource.
