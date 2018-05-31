@@ -1,4 +1,4 @@
-@extends('layout.user')
+@extends('layout.home')
 @section('title',$title)
 <link rel="stylesheet" type="text/css" href="/home/detail/main.css">
 <link rel="stylesheet" type="text/css" href="/home/detail/base.css">
@@ -14,6 +14,9 @@
 </style>
 <!-- self_info -->
 @section('content')
+    <div class="grzxbj">
+        <div class="selfinfo center">
+             @include('layout.user')
 	<div class="rtcont fr">
 		        <div class="page-main user-main">
             <div class="container">
@@ -144,6 +147,7 @@
 	</div>
 	<div class="clear"></div>
 	</div>
+</div>
 @endsection
 
 @section('js')
@@ -186,7 +190,7 @@ $.ajaxSetup({
                 content: content,
                 yes:function(index,layero){
                     var text = $('#content').val();
-                    $.post('/addComments', {gid:gid,text:text,img:img}, function(data){
+                    $.post('/addComments', {gid:gid,text:text}, function(data){
                         layer.close(index);
                         layer.alert('评论成功', {
                               skin: 'layui-ext-moon' //样式类名

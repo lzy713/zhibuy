@@ -203,7 +203,7 @@ $.ajaxSetup({
                         ,offset: '180px'
                     });
 
-                    btn.parent().next().append('<div class="answer-item"><img class="answer-img" src="/home/comments/logo.png"><div class="answer-content"><h3 class="official-name">'+uname+'</h3><p>'+data['content']+'</p></div></div>');
+                    btn.parent().next().append('<div class="answer-item"><img class="answer-img" src="/home/comments/1.png"><div class="answer-content"><h3 class="official-name">'+uname+'</h3><p>'+data['content']+'</p></div></div>');
                 }
 
             });

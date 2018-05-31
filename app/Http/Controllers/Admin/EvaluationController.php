@@ -12,13 +12,18 @@ class EvaluationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
-        $rew = DB::table('fd_evaluat')->paginate(10);
+        $search =  $request->input('search');
+
+        $rew = DB::table('fd_evaluat')->where('nname','like','%'.$search.'%')->paginate(10);
         // dd($rew);
 
-        return  view('admin.evaluat.index',['title'=>'评测列表页面','rew'=>$rew]);
+     
+
+
+        return  view('admin.evaluat.index',['title'=>'评测列表页面','rew'=>$rew,'search'=>$search]);
 
     }
 

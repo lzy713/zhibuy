@@ -9,7 +9,7 @@ use App\Model\Home\Address;
 use App\Model\Admin\Order;
 use App\Model\Admin\Goods;
 
-class ShopCartController extends Controller
+class shopCartController extends Controller
 {
     /**
      * Display a listing of the resource.

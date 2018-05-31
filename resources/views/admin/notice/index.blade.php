@@ -15,6 +15,13 @@
 </div>
 </form>
 
+ <!--返回 刷新 添加-->
+                <hr class="layui-bg-gray">
+                <a href="javascript:;" title="返回" onclick="javascript:window.history.go(-1)" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">&#xe65c;</a>
+                <a href="javascript:;" onclick="javascript:window.location.reload(true);" title="刷新" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">&#x1002;</a>
+                <a href="/admin/notice/create" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">添加</a>
+
+
 
  
 <table class="layui-table" >

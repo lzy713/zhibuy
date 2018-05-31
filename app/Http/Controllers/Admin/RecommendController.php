@@ -17,20 +17,23 @@ class RecommendController extends Controller
     {
 
         //
-
+        $search = $request->input('search');
         // $req = DB::table('fd_tuijian')->orderBy('id')->paginate(10);
 
         $req= DB::table('fd_tuijian')
             ->join('fd_tuitable','fd_tuijian.path','=','fd_tuitable.tid')
+            ->where('gname','like','%'.$search.'%')
             ->orderBy('id')
             ->paginate(10);
 
             // dd($req);
+           // dd($request->all());
+
 
 
         return  view('admin.recommend.index',
 
-            ['title'=>'推荐商品列表','req' => $req]
+            ['title'=>'推荐商品列表','req' => $req,'search' => $search]
 
            
 

@@ -102,12 +102,12 @@
             layer.open({
                 type: 1
                 ,content: '<div style="padding: 40px 100px;">保存成功</div>'
-                ,shade: 0 //不显示遮罩
+                ,shade: 0.2 //不显示遮罩
                 ,time:1800
             });
             //父窗口刷新
-            // window.top.location.reload();
-            window.parent.location.reload();
+            window.top.location.reload();
+            // window.parent.location.reload();
           });  
     });
 
