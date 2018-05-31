@@ -14,11 +14,14 @@
 		
 				<div class="main center">
 				<div class="mingxing fl" style="height: auto;width: 1200px;">
+					{{--
 					<div style="height: 100px;width: 1000px;font-size: 20px;margin-left: 50px;margin-top: 30px;">{{$rek->desc}}</div>
 					
 					<div class="sub_mingxing">
 						<a href=""><img src="{{$rek->imgs}}" alt=""></a>
 					</div>
+
+					--}}
 					<div id="homeMsg"><a href="">{!!$rek->content!!}</a></div>
 					
 				</div>

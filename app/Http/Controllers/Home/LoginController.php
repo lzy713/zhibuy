@@ -18,8 +18,18 @@ class LoginController extends Controller
 
      public function login(Request $request)
     {
-      session(['pathInfo'=>$_SERVER['HTTP_REFERER']]);
-    	return view('home.user.login',['title'=>'前台的登录页面']);	
+       if(session('homeFlag')){
+            return redirect('/login/self_auth');
+        }
+
+
+        if(!empty($_SERVER['HTTP_REFERER']))
+        {
+          session(['pathInfo'=>$_SERVER['HTTP_REFERER']]);
+        }
+        return view('home.user.login',['title'=>'前台的登录页面']);  
+
+
     }
 
     //匹配用户名
@@ -56,7 +66,7 @@ class LoginController extends Controller
             session()->forget('pathInfo');
             return show(1,$path);
         } else {
-            return show(1,'登录成功');
+            return show(1,'/login/self_auth');
         }
 
     }
@@ -167,7 +177,7 @@ class LoginController extends Controller
            $data = DB::table('fd_users')->where('id',session('homeMsg')->id)->update($foo);
            // dd($data);
             if($data){
-                return redirect('/login');
+                return redirect('/login/self_auth');
             }
             
 

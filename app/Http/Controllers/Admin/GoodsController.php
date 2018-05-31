@@ -69,10 +69,10 @@ class GoodsController extends Controller
     {	
         $gname = '';
         if($gname = $req->input('gname') ){
-             $res = DB::table('fd_goods')->where('gname','like','%'.$gname.'%')->get();
+             $res = DB::table('fd_goods')->where('gname','like','%'.$gname.'%')->paginate(6);
 
         } else{
-             $res = DB::table('fd_goods')->get();
+             $res = DB::table('fd_goods')->paginate(6);
         }
        
         $img = DB::table('fd_goodsimg')->get();

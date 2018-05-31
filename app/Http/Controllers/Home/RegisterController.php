@@ -14,6 +14,10 @@ class RegisterController extends Controller
     
      public function register()
     {
+        if(session('homeFlag')){
+            return redirect('/login/self_auth');
+        }
+        
     	return view('home.user.register',['title'=>'小米账号-注册']);	
     }
     
