@@ -97,7 +97,7 @@
 	                <td>
 	                	<!-- <a href="javascript:;" class="layui-btn layui-btn-xs">添加子栏目</a> -->
 	                	<a href="/admin/goods/goodsedit/{{$v->gid}}" title="编辑" class="layui-btn layui-btn-xs layui-icon">&#xe642;</a>
-	                	<a href="/admin/goods/goodsdel/{{$v->gid}}" title="删除" class="layui-btn layui-btn-xs layui-bg-red layui-icon">&#xe640;</a>
+	                	<a href="/admin/goods/goodsdel/{{$v->gid}}" title="删除." class="layui-btn layui-btn-xs layui-bg-red layui-icon">&#xe640;</a>
 	                </td>
               	</tr>
 			   	@endforeach
@@ -114,7 +114,6 @@
         </table>
 
     </form>
-
 
 
 
