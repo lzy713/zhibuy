@@ -19,7 +19,7 @@
 					<div class="sub_mingxing">
 						<a href=""><img src="{{$rek->imgs}}" alt=""></a>
 					</div>
-					<div id="homeMsg"><a href="">{!!$rek->content!!}</a></div>
+						<div id="homeMsg"><a href="">{!!$rek->content!!}</a></div>
 					
 				</div>
 				
