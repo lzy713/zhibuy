@@ -28,7 +28,7 @@
                             </h4>
                         </div>
                     
-                        <form action="/resetword" method="post">
+                        <form action="passwordsucce" method="post">
 						   <div id="regbox">
                               <div class="step3">
 							    <dl style="margin-left: 228px;">
@@ -134,7 +134,9 @@
        				   return false;
 
        			}else if(one != two){
+
        					$('#sdf').css('color','red').show();
+                
        					return false;
 
        			}
