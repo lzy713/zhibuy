@@ -44,6 +44,7 @@
 			                                            <div class="order-status">等待付款</div>
 			                                        </div>
 													@foreach($res as $k=>$v)
+
 			                                        <table class="order-detail-table">
 			                                            <thead>
 			                                                <tr>
@@ -98,6 +99,9 @@
 			                                                        <button class="btn btn-small btn-line-gray" onclick="location.href='/myorder/orderDetail/{{$v->number}}'">
 			                                                            订单详情
 			                                                        </button>
+			                                                        <button class="btn btn-small btn-line-gray delOrder" oid="{{$v->id}}">
+			                                                            删除订单
+			                                                        </button>
 			                                                    </td>
 			                                                </tr>
 			                                            </tbody>
@@ -140,6 +144,20 @@
 		});
 
 	});
+
+	$('.delOrder').click(function(){
+		var info = confirm('确定要删除吗?');
+		if (!info) return;
+		var oid = $(this).attr('oid');
+		var del = $(this);
+
+		$.get('myorder/flagAjax/'+oid, {}, function(data){
+			if (data == 1) {
+				del.parents('table').parent().parent().remove();
+				location.reload();
+			}
+		});
+	})
 
 </script>
 @endsection

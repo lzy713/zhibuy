@@ -420,6 +420,8 @@ Route::group(['namespace'=>'Home','middleware'=>'login'],function(){
 	Route::get('myorder','OrderController@orderList');
 	//修改订单状态
 	Route::get('myorder/statusAjax/{id}','OrderController@statusAjax');
+	//前台删除订单
+	Route::get('myorder/flagAjax/{id}','OrderController@flagAjax');
 	//订单详情
 	Route::get('myorder/orderDetail/{number}','OrderController@orderDetail');
 	Route::post('myorders','OrderController@orderList');
