@@ -95,11 +95,12 @@
 	$('.shanchu').click(function(){
 		var info = confirm('确定要删除吗?');
 		if (!info) return;
+		//alert(123);
 
 		var id = $(this).attr('id');
 		var btn = $(this);
 
-		$.get('delete/'+id, {}, function(data){
+		$.get('delshoucang/'+id, {}, function(data){
 			if (data == 1) {
 				btn.parent().remove();
 			}

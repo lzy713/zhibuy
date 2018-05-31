@@ -76,7 +76,7 @@
                                     </div>
                                     <div class="comment-input">
                                         <input type="text" placeholder="回复楼主" class="J_commentAnswerInput">
-                                        <a href="javascript:void(0);" class="btn  answer-btn J_commentAnswerBtn huifu" uid="{{$v->users->id}}" uname="{{$v->users->username}}" commentid="{{$v->id}}">回复</a>
+                                        <a href="javascript:void(0);" class="btn  answer-btn J_commentAnswerBtn huifu"  uid="{{$v->users->id}}" uname="{{$uname->username}}" img="{{$uname->img}}" commentid="{{$v->id}}">回复</a>
                                     </div>
                                     <div class="comment-answer">
                                         @if(!empty($v->reply->content))
@@ -186,7 +186,11 @@ $.ajaxSetup({
         $('.huifu').click(function(){
             var text = $(this).prev().val();
             if (text == '') return;
-
+            var img = $(this).attr('img');
+            //console.log(img);
+            if (!img) {
+                img = '/home/comments/1.png';
+            }
             var cid = $(this).attr('commentid');
             var uid = $(this).attr('uid');
             var uname = $(this).attr('uname');
@@ -203,7 +207,7 @@ $.ajaxSetup({
                         ,offset: '180px'
                     });
 
-                    btn.parent().next().append('<div class="answer-item"><img class="answer-img" src="/home/comments/1.png"><div class="answer-content"><h3 class="official-name">'+uname+'</h3><p>'+data['content']+'</p></div></div>');
+                    btn.parent().next().append('<div class="answer-item"><img class="answer-img" src="'+img+'"><div class="answer-content"><h3 class="official-name">'+uname+'</h3><p>'+data['content']+'</p></div></div>');
                 }
 
             });

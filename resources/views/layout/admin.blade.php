@@ -50,6 +50,9 @@
         
         //dd($urls);
         ?>
+        
+        @if(session('adminMsg')->is_admin!=1)
+
         @foreach ($adminMenus as $k=>$v)
           @if (in_array($v->id,$mids)==true && empty($v->url) && $v->pid == 0)
           
@@ -70,30 +73,30 @@
               <li class="layui-nav-item"><a href="{{$v->url}}">{{$v->title}}</a></li>
           @endif
         @endforeach
+        @endif
 
 
-
-        {{--
+        @if(session('adminMsg')->is_admin==1)
         @foreach ($adminMenus as $k=>$v)
-          @if ($v->url == "" && $v->pid == 0)
+          @if (empty($v->url) && $v->pid == 0)
           <li class="layui-nav-item">
             <a class="" href="javascript:;">{{$v->title}}</a>
             <dl class="layui-nav-child">
 
               @foreach ($v->type as $kk=>$vv)
-                  @if ($vv->pid == $v->id)
-                    <dd  @if (strpos($routeurl,$vv->url)===0) class="layui-this" @endif><a href="{{$vv->url}}" >{{$vv->title}}</a></dd>
+                  @if ( $vv->pid == $v->id)
+                    <dd  @if (strpos($vv->url,$routeurl)) class="layui-this" @endif><a href="{{$vv->url}}" >{{$vv->title}}</a></dd>
                   @endif
               @endforeach
               
             </dl>
           </li>
           @endif
-          @if ($v->url != "" && $v->pid == 0)
+          @if (!empty($v->url) && $v->pid == 0)
               <li class="layui-nav-item"><a href="{{$v->url}}">{{$v->title}}</a></li>
           @endif
         @endforeach
-        --}}
+        @endif
 
       </ul>
     </div>
