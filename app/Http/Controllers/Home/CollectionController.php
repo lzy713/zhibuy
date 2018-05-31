@@ -27,10 +27,14 @@ class CollectionController extends Controller
     	$data['gid'] = $id;
     	$data['createtime'] = time();
     	$res = Collection::create($data);
-    	return $res;
+    	return response()->json($res);
     }
 
-
+    /**
+     * 删除收藏
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
     public function delete($id)
     {
     	$res = Collection::where('uid',session('homeMsg')->id)->
@@ -38,4 +42,5 @@ class CollectionController extends Controller
 
     	return response()->json($res);
     }
+
 }

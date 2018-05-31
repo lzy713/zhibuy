@@ -115,9 +115,12 @@
 			});
 		} else {
 			$.get('/shoucang/'+gid, {}, function(data){
-				if (data) {
-					btn.val('取消收藏');
-				}
+				if( typeof(data) == 'string'){
+                    location.href = '/login';
+                } else {
+                	btn.val('取消收藏');
+                }
+
 			});
 		}
 
