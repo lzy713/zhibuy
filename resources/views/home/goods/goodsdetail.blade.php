@@ -30,7 +30,7 @@
 		</div>	
 	</div>
 	
-	<div class="jieshao mt20 w">
+	<div class="jieshao mt20 w" style="height: 620px;">
 		<div class="left fl"><img src="{{$res->img}}"></div>
 		<div class="right fr">
 			<div class="h3 ml20 mt20 xiadan">{{$res->gname}} 
@@ -77,9 +77,17 @@
 				
 			</div>
 		</div>
+
 		<div class="clear"></div>
 	</div>
 	</form>
+
+	<div style=" width:1226px;margin: 0px auto;">
+		<h3>商品详情</h3><hr>
+		<center>{!!$res->content!!}</center>
+	</div>
+
+
 @endsection
 
 @section('js')
