@@ -280,7 +280,7 @@
               } 
 
               if(result.status == 1){
-                window.location.href ='/';
+                window.location.href = result.message;
               } 
               // return true;
 

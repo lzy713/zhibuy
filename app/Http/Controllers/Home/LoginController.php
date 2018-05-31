@@ -40,15 +40,22 @@ class LoginController extends Controller
     	}
 
 
-  //   	if (!Hash::check($name['pwd'], $res->password)) {
+    	if (!Hash::check($name['pwd'], $res->password)) {
 
-		//     return show(0,'密码错误');
-		// }
+		    return show(0,'密码错误');
+		 }
 
         //存储session 用户名
         session(['homeFlag'=>true,'homeMsg'=>$res]);
 
-		 return show(1,'登录成功');
+
+		    if ( !empty(session('pathInfo')) ) {
+            $path = session('pathInfo');
+            session()->forget('pathInfo');
+            return show(1,"$path");
+        } else {
+            return show(1,'登录成功');
+        }
 
     }
 

@@ -23,7 +23,7 @@ class LoginMiddleware
                 return $next($request);
 
                 } else {
-
+                    session(['pathInfo'=>$request->getRequestUri()]);
                 return redirect('/login');
 
                 }
