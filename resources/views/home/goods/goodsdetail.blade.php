@@ -35,7 +35,7 @@
 		<div class="right fr">
 			<div class="h3 ml20 mt20 xiadan">{{$res->gname}} 
 				<input class="jrgwc shoucang" type="button" gid="{{$res->gid}}" style="float: right; margin-right: 15px;width: 100px;height: 35px"
-				@if($flag) value="已收藏" disabled @else value="收藏" @endif>
+				@if($flag) value="取消收藏" @else value="收藏" @endif>
 			</div>
 			<div class="jianjie mr40 ml20 mt10">{{$res->gdesc}}</div>
 			<div class="jiage ml20 mt10">库存：{{$res->gstock}}</div>
@@ -106,11 +106,22 @@
 	$('.shoucang').click(function(){
 		var gid = $(this).attr('gid');
 		var btn = $(this);
-		$.get('/shoucang/'+gid, {}, function(data){
-			if (data) {
-				btn.val('已收藏');
-			}
-		});
+		var val = $(this).val();
+		if (val == '取消收藏') {
+			$.get('/delshoucang/'+gid, {'_method':'DELETE'}, function(data){
+				if (data) {
+					btn.val('收藏');
+				}
+			});
+		} else {
+			$.get('/shoucang/'+gid, {}, function(data){
+				if (data) {
+					btn.val('取消收藏');
+				}
+			});
+		}
+
+		
 	});
 </script>
 

@@ -2,6 +2,8 @@
 @section('title',$title)
 <link rel="stylesheet" type="text/css" href="/home/css/style.css">
 <link rel="stylesheet" type="text/css" href="/layui/css/layui.css">
+<link rel="stylesheet" type="text/css" href="/home/cart/css/cart.min.css">
+<link rel="stylesheet" type="text/css" href="/home/cart/css/base.min.css">
 <script src="/layui/layui.js"></script>
 <style>
 #buts{margin:43px auto auto 85px;}
@@ -10,21 +12,7 @@
 #caozuo{margin-left:138px;}
 #tupian{margin-left:0;}
 #mingcheng{margin-left:100px;}
-.cart-empty{
-	height: 98px;
-    padding: 80px 0 120px;
-    color: #333;
-}
-.cart-empty .message{
-	height: 98px;
-    padding-left: 341px;
-    background: url(/uploads/no-login-icon.png) 250px 22px no-repeat;
-}
 
-.cart-empty .message .txt {font-size: 14px;}
-.cart-empty .message li {line-height: 38px;}
-ol, ul {list-style: outside none none;}
-.ftx-05, .ftx05 {color: #005ea7;}
 </style>
 
 @section('header')
@@ -118,21 +106,17 @@ ol, ul {list-style: outside none none;}
 		</div>	
 	</div>
 	@else
-	<div class="cart-empty">
-	    <div class="message">
-	        <ul>
-	            <li class="txt">
-	                购物车空空的哦~，去看看心仪的商品吧~
-	            </li>
-	            <li class="mt10">
-	                <a href="/" class="ftx-05">
-	                    去购物&gt;
-	                </a>
-	            </li>
-	            
-	        </ul>
-	    </div>
-	</div>
+	<div class="page-main">
+        <div class="container">
+            <div class="cart-loading loading hide" id="J_cartLoading">
+                <div class="loader"></div>
+            </div>
+            <div class="cart-empty" id="J_cartEmpty">
+                <h2>您的购物车还是空的！</h2>
+                <a href="/" class="btn btn-primary btn-shoping J_goShoping" onclick="">马上去购物</a>
+			</div>
+		</div>
+    </div>
 	@endif
 @endsection
 
@@ -293,21 +277,17 @@ ol, ul {list-style: outside none none;}
 					$('#zong').text(zong-xiaoji);
 				}
 			} else {
-				$('.gwcxqbj').html(`<div class="cart-empty">
-					    <div class="message">
-					        <ul>
-					            <li class="txt">
-					                购物车空空的哦~，去看看心仪的商品吧~
-					            </li>
-					            <li class="mt10">
-					                <a href="/" class="ftx-05">
-					                    去购物&gt;
-					                </a>
-					            </li>
-					            
-					        </ul>
-					    </div>
-					</div>`);
+				$('.gwcxqbj').html(`<div class="page-main">
+								        <div class="container">
+								            <div class="cart-loading loading hide" id="J_cartLoading">
+								                <div class="loader"></div>
+								            </div>
+								            <div class="cart-empty" id="J_cartEmpty">
+								                <h2>您的购物车还是空的！</h2>
+								                <a href="/" class="btn btn-primary btn-shoping J_goShoping" onclick="">马上去购物</a>
+											</div>
+										</div>
+	    							</div>`);
 			}
 		});
 

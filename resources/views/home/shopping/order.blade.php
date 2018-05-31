@@ -219,14 +219,15 @@
         var form = layui.form
         ,layer = layui.layer;
         $('#J_checkoutToPay').click(function(){
-            
-            if ( typeof($('.address').attr('address')) == 'undefined' ) {
+
+            if ( typeof($('#address').attr('address')) == 'undefined' ) {
                 layer.msg('请填写收货地址', {
                 icon: 5,
                 offset: '150px',
                 time:1000
                 });
             } else {
+
                 location.href = '/shopCart/create';
             }
         });
