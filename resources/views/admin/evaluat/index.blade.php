@@ -1,19 +1,24 @@
 @extends('layout.admin')
 
-
 @section('title',$title)
 
-
 @section('content')
-<form action="" method="get">
+<form action="/admin/evaluation" method="get">
 <div class="demoTable">
   搜索评测名称：
   <div class="layui-inline">
-    <input class="layui-input" name="search" id="demoReload" value="">
+    <input class="layui-input" name="search" id="demoReload" value="@if(!empty($search)) {{$search}} @endif">
   </div>
   <button class="layui-btn" data-type="reload">搜索</button>
 </div>
 </form>
+
+ <!--返回 刷新 添加-->
+                <hr class="layui-bg-gray">
+                <a href="javascript:;" title="返回" onclick="javascript:window.history.go(-1)" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">&#xe65c;</a>
+                <a href="javascript:;" onclick="javascript:window.location.reload(true);" title="刷新" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">&#x1002;</a>
+                <a href="/admin/evaluation/create" class="layui-btn layui-btn-sm layui-btn-normal layui-icon">添加</a>
+
 
 
  

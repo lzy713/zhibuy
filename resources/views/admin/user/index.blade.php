@@ -9,7 +9,7 @@
 <div class="demoTable">
   搜索公告名称：
   <div class="layui-inline">
-    <input class="layui-input" name="search" id="demoReload" value="{{$search}}">
+    <input class="layui-input" name="search" id="demoReload" value="@if(!empty($search)) {{$search}} @endif">
   </div>
   <button class="layui-btn" data-type="reload">搜索</button>
 </div>

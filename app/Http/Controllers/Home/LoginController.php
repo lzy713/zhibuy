@@ -16,8 +16,9 @@ class LoginController extends Controller
 {
     //
 
-     public function login()
+     public function login(Request $request)
     {
+      session(['pathInfo'=>$_SERVER['HTTP_REFERER']]);
     	return view('home.user.login',['title'=>'前台的登录页面']);	
     }
 
@@ -43,12 +44,20 @@ class LoginController extends Controller
     	if (!Hash::check($name['pwd'], $res->password)) {
 
 		    return show(0,'密码错误');
-		}
+		  }
+
 
         //存储session 用户名
         session(['homeFlag'=>true,'homeMsg'=>$res]);
 
-		 return show(1,'登录成功');
+        //dd(session('pathInfo'));
+		    if ( !empty(session('pathInfo')) ) {
+            $path = session('pathInfo');
+            session()->forget('pathInfo');
+            return show(1,$path);
+        } else {
+            return show(1,'登录成功');
+        }
 
     }
 
@@ -101,13 +110,17 @@ class LoginController extends Controller
     public  function  save(Request $request,$id)
     {
         $ret = $request->except('_token');
+        //dd($ret);
 
 
        try{
             DB::table('fd_users')->where('id',$id)->update($ret);
+
         }catch(\Exception $e){
+
           return  redirect('/login/self_auth')->with('success','修改成功');
        }
+
           return  redirect('/login/self_auth')->with('success','修改成功');
 
 
@@ -120,11 +133,13 @@ class LoginController extends Controller
 
     }
 
+
+
+
+    //个人中心的账号安全
      public function changePass(Request $request)
     {
-        //表单验证
-
-
+       
         //获取旧密码
         $pass = $request->input('ypass');
 
@@ -139,17 +154,18 @@ class LoginController extends Controller
         //哈希
         if(!Hash::check($pass,$res->password)){
 
-            return back()->with('msg','输入的旧密码错误');
+            return back()->with('msg','输入的旧密码错误'); 
+            
         }
-
           //$foo 是字符串时 数据库内的字段password 以数组方式update存入 $foo
           $foo['password'] = Hash::make($request->input('xpass'));
-          // dd($foo);
+          // dd($request->input('xpass'));
           // dd($foo);
 
 
 
            $data = DB::table('fd_users')->where('id',session('homeMsg')->id)->update($foo);
+           // dd($data);
             if($data){
                 return redirect('/login');
             }
@@ -252,6 +268,7 @@ class LoginController extends Controller
       if($rew != $ree){
 
             return back();
+
     }else{
             return view('home.user.newnote',['title'=>'新的密码验证页']);
        
@@ -261,18 +278,9 @@ class LoginController extends Controller
 
     public function resetword(Request $request)
     {
-        /*$this->validate($request, [
-            'newpwd' => 'required|regex:/^\w{4,16}$/',
-            'dsword' => 'same:newpwd', 
-              
-        ],[
-            'newpwd.required'=>"密码不能为空",
-            'newpwd.regex'=>"密码格式为4-16位字符",
-            'dsword.same'=>"两次密码不一致",
-        ]);*/
+       
 
-
-        //dd($request->all());
+        // dd($request->all());
 
         // $pnm = session('pname');
        $rec =Hash::make($request->input('newpwd'));
@@ -282,19 +290,30 @@ class LoginController extends Controller
 
        // dd($rqc);
 
+       // dd(session('homeMsg'));
 
-
-
-      $rev = DB::table('fd_users')->where('id',session('pname'))->update($rqc);
+      $rev = DB::table('fd_users')->where('id',session('homeMsg')->id)->update($rqc);
 
       // dd($rev);
 
-        return redirect('/login');
+
+      if(!$rev){
+
+          return back();
+
+      }else{
+
+         return redirect('/passwordsucce');
+      }
      
-      
+   
+      }
 
 
-    }
+      public  function succe()
+      {
+        return view('home.user.succe');
+      }
   
 
 

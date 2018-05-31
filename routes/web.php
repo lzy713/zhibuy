@@ -259,20 +259,14 @@ Route::group(['namespace'=>'Home'],function(){
 	Route::post('newnote','LoginController@newnote');
 
 
-
 	//密码重新设置
+	Route::post('resetword','LoginController@resetword');
+
+
+	//密码修改成功
+	Route::post('passwordsucce','LoginController@succe');
+
 	
-	Route::any('resetword','LoginController@resetword');
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -323,7 +317,8 @@ Route::group(['namespace'=>'Home'],function(){
 	Route::get('details/{nid}','CepingController@details');
 	
 
-
+   	//公告介绍页面
+	Route::get('introduce/{id}','CepingController@detail');
 
 
 
@@ -386,7 +381,13 @@ Route::group(['namespace'=>'Home','middleware'=>'login'],function(){
 	Route::get('login/self_auth','LoginController@self');
 
 	//修改保存个人信息
-	Route::post('login/Save_auth/{id}','LoginController@save');
+	Route::post('login/have_auth/{id}','LoginController@save');
+
+
+
+
+
+
 
 
 	/**
@@ -400,7 +401,11 @@ Route::group(['namespace'=>'Home','middleware'=>'login'],function(){
 	//加入成功页
 	Route::get('successCart','shopCartController@successCart');
 
-	//修改账号密码页面
+
+
+
+
+	//个人中心修改账号密码页面
 	Route::get('login/safe','LoginController@safe');
 
 	//修改密码
@@ -431,6 +436,9 @@ Route::group(['namespace'=>'Home','middleware'=>'login'],function(){
 	Route::get('mycollection','CollectionController@index');
 	Route::get('shoucang/{id}','CollectionController@add');
 	Route::get('delshoucang/{id}','CollectionController@delete');
+
+
+
 
 	
 	//退出登录

@@ -19,13 +19,11 @@ class loginMiddleware
         // return $next($request);//request变量 记录所有的请求参数
 
         if(session('homeFlag')){
-
             return $next($request);
-
-        } else {
-            
+        }
+        else 
+        {
             return redirect('/login');
-
         }
 
 

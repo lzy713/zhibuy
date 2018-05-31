@@ -8,18 +8,33 @@
 				 @include('layout.user')
 
 				<div class="rtcont fr">
-					<form class="layui-form" action="/login/self_auth" method="post" enctype="multipart/form-data" id="sub_form">
-						<div class="box1" style="margin-top: 40px;width: 300px;">
-							<label class="layui-form-label">我的头像</label>
 
-			                <div class="controls need-img">
+
+				<form class="layui-form" action="/login/have_auth/{{$res->id}}" method="post" enctype="multipart/form-data" >
+
+						
+			        
+							<div class="upload-img-box"  style="margin-top: 20px;margin-left: 110px;">
+							@if($res->img)
+							
+								<input type="hidden" name="img" value="{{$res->img}}" />
+								<img src="{{$res->img}}" width="100" height="100">
+							
+							@endif
+								</div>
+
+
+							<div class="box1" style="margin-top: 20px;width: 300px;">
+								<label class="layui-form-label">我的头像</label>
+				        	</div>
+
+			                <div class="controls need-img" style="margin-left: 100px;margin-top: 10px;">
 			                	<button type="button" class="layui-btn" id="upload_img_icon">
 								  <i class="layui-icon">&#xe67c;</i>上传图片
 								</button>
-			               
-
 			                </div>
-			        	</div> 
+
+
 			  				<div class="layui-form-item" style="margin-top: 10px;width: 400px;">
 							    <label class="layui-form-label">*昵称</label>
 							    <div class="layui-input-block">
@@ -49,11 +64,11 @@
 							    </div>
 							  </div>
 								
-								{{csrf_field()}}
+								
 							  <div class="layui-form-item">
 							    <div class="layui-input-block">
-							      <button id="baocun" class="layui-btn" type="submit" >保存</button>
-							     
+							      <button id="baocun" class="layui-btn">保存</button>
+							     {{csrf_field()}}
 							    </div>
 							  </div>
 
@@ -69,8 +84,8 @@
 	@section('js')
 				
 				<script>
-						// $(element).slideUp()
-						 
+						
+					 			 
 						//ajax提交token
 						 var _token = '{{csrf_token()}}';
 						$.ajaxSetup({
@@ -119,12 +134,9 @@
 
 						});
 
-
-						
-				
-
 					</script>
 					@endsection
+
 
 
 	</body>
