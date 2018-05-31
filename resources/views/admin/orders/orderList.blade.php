@@ -81,9 +81,9 @@
 						@if($v->status == 0)
 						<button class="layui-btn layui-btn-radius layui-btn-sm statusAjax" num="{{$v->id}}" lay-submit lay-filter="*">点击发货</button>
 						@elseif($v->status == 1)
-						<button class="layui-btn layui-btn-radius layui-btn-disabled layui-btn-sm">已发货</button>
+						<button class="layui-btn layui-btn-radius layui-btn-disabled layui-btn-sm" disabled>已发货</button>
 						@elseif($v->status == 2)
-						<button class="layui-btn layui-btn-radius layui-btn-disabled layui-btn-sm">交易完成</button>
+						<button class="layui-btn layui-btn-radius layui-btn-disabled layui-btn-sm" disabled>交易完成</button>
 						@endif
 	                </td>
 	                <td>
@@ -117,6 +117,7 @@
 		$.get('/admin/order/statusAjax',{id:id},function($data){
 			if ($data == '1') {
 				btn.attr('class','layui-btn layui-btn-radius layui-btn-disabled layui-btn-sm');
+				btn.attr('disabled','disabled');
 				btn.text('已发货');
 			}
 		});

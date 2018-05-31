@@ -155,9 +155,9 @@ class Order extends Model
     {
         
         if (!empty($number)) {
-            $res = self::with('detail.goods')->where('number',$number)->paginate(1);
+            $res = self::with('detail.goods')->where('number',$number)->where('flag','1')->paginate(1);
         } else {
-            $res = self::with('detail.goods')->paginate(1);
+            $res = self::with('detail.goods')->where('flag','1')->paginate(1);
         }
 
         return $res;

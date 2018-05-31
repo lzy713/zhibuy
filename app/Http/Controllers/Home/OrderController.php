@@ -57,4 +57,11 @@ class OrderController extends Controller
             'goods'=>$goods
         ]);
     }
+
+
+    public function flagAjax($id)
+    {
+        $res = Order::where('id',$id)->update(['flag'=>'0']);
+        return response()->json($res);
+    }
 }
